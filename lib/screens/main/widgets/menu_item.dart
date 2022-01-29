@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 
@@ -47,12 +46,10 @@ class MenuItem extends StatelessWidget {
                   ? Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
-                        color: AppTheme.white,
                       )
                   : Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
-                        color: AppTheme.c516E95,
                       ),
             )
           ],

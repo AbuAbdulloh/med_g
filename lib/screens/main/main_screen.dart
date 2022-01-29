@@ -31,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
     return AnnotatedRegion(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.light,
+        // statusBarBrightness: Brightness.light,
       ),
       child: Scaffold(
         backgroundColor: AppTheme.cF3F8FF,
@@ -50,10 +50,9 @@ class _MainScreenState extends State<MainScreen> {
               children: [
                 Text(
                   'Hi, Lucy Martin',
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: AppTheme.c1D3A62,
                       ),
                 ),
                 WScaleAnimation(
@@ -63,16 +62,17 @@ class _MainScreenState extends State<MainScreen> {
                     height: 42,
                     padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                        color: AppTheme.white.withOpacity(0.35),
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppTheme.c1479FF.withOpacity(0.35),
-                            blurRadius: 35,
-                            spreadRadius: 0,
-                            offset: const Offset(0, 15),
-                          )
-                        ]),
+                      color: AppTheme.white.withOpacity(0.35),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppTheme.c1479FF.withOpacity(0.35),
+                          blurRadius: 35,
+                          spreadRadius: 0,
+                          offset: const Offset(0, 15),
+                        )
+                      ],
+                    ),
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       decoration: const BoxDecoration(
@@ -84,7 +84,7 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -102,7 +102,6 @@ class _MainScreenState extends State<MainScreen> {
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: 36,
                         fontWeight: FontWeight.w600,
-                        color: AppTheme.c1D3A62,
                       ),
                 ),
               ),
@@ -131,7 +130,6 @@ class _MainScreenState extends State<MainScreen> {
                                 Theme.of(context).textTheme.headline2!.copyWith(
                                       fontSize: 33,
                                       fontWeight: FontWeight.w600,
-                                      color: AppTheme.white,
                                     ),
                           ),
                           const SizedBox(height: 3),
@@ -141,7 +139,6 @@ class _MainScreenState extends State<MainScreen> {
                                 Theme.of(context).textTheme.headline2!.copyWith(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
-                                      color: AppTheme.white,
                                     ),
                           ),
                         ],
@@ -189,7 +186,6 @@ class _MainScreenState extends State<MainScreen> {
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
-                        color: AppTheme.c1D3A62,
                       ),
                 ),
               ),

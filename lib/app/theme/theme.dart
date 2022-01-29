@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 abstract class AppTheme {
   static ThemeData lightTheme() => ThemeData(
-        fontFamily: 'Source Sans Pro',
+        fontFamily: 'Barlow',
         scaffoldBackgroundColor: background,
         canvasColor: background2,
         textTheme: const TextTheme(
@@ -64,6 +64,7 @@ abstract class AppTheme {
   static const cF6F6F6 = Color(0xffF6F6F6);
   static const cC0D4F4 = Color(0xffC0D4F4);
   static const dark = Color(0xff000000);
+  static const redAccent = Color(0xFFE8425E);
   static const cD7D8DD = Color(0xffD7D8DD);
   static const c363853 = Color(0xff363853);
   static const c9E9EA5 = Color(0xff9E9EA5);
@@ -113,62 +114,63 @@ abstract class AppTheme {
   static const cF3F8FF = Color(0XFFF3F8FF);
   static const cB4C7DE = Color(0XFFB4C7DE);
   static const c82A3CA = Color(0xFF82A3CA);
+  static const c4AC989 = Color(0XFF4AC989);
   static const headline1 = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w500,
-    color: regularTextDarkBlack,
-    fontFamily: 'Source Sans Pro',
+    color: c1D3A62,
+    fontFamily: 'Barlow',
   );
   static const headline2 = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w500,
-    color: regularTextDarkGrey,
-    fontFamily: 'Source Sans Pro',
+    color: white,
+    fontFamily: 'Barlow',
   );
   static const headline3 = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w500,
     color: regularTextDarkBlue,
-    fontFamily: 'Source Sans Pro',
+    fontFamily: 'Barlow',
   );
   static const headline4 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: primary,
-    fontFamily: 'Source Sans Pro',
+    fontFamily: 'Barlow',
   );
 
   static const headline5 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: Color(0xff6B6C6F),
-    fontFamily: 'Source Sans Pro',
+    fontFamily: 'Barlow',
   );
 
   static const headline6 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     color: red,
-    fontFamily: 'Source Sans Pro',
+    fontFamily: 'Barlow',
   );
 
   static const bodyText1 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
-    color: regularTextGrey,
-    fontFamily: 'Source Sans Pro',
+    color: c516E95,
+    fontFamily: 'Barlow',
   );
   static const bodyText2 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: primaryAccent,
-    fontFamily: 'Source Sans Pro',
+    fontFamily: 'Barlow',
   );
   static const bottonText = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: regularTextDarkBlack,
-    fontFamily: 'Source Sans Pro',
+    fontFamily: 'Barlow',
   );
 
   // static const headline1 = TextStyle(

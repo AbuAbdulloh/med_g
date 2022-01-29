@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/screens/home/home.dart';
 
 void main() {
@@ -13,9 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MEDG',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: AppTheme.lightTheme(),
       home: const HomeScreen(),
     );
   }

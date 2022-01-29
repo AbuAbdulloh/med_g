@@ -39,7 +39,7 @@ class _TabNavigatorState extends State<TabNavigator>
         };
       case NavItemEnum.cart:
         return {
-          TabNavigatorRoutes.root: (context) => const ProfileScreen(),
+          TabNavigatorRoutes.root: (context) => const SizedBox.shrink(),
         };
       case NavItemEnum.profile:
         return {

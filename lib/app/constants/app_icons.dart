@@ -13,4 +13,13 @@ class AppIcons {
   static const health = 'assets/icons/health.svg';
   static const baby = 'assets/icons/baby.svg';
   static const surgery = 'assets/icons/surgery.svg';
+  static const arrowBackIos = 'assets/icons/arrow_back_ios.svg';
+  static const camera = 'assets/icons/camera.svg';
+  static const arrowForwardIos = 'assets/icons/arrow_forward_ios.svg';
+  static const edit = 'assets/icons/pen.svg';
+  static const notifications = 'assets/icons/notification.svg';
+  static const support = 'assets/icons/support.svg';
+  static const privacy = 'assets/icons/privacy.svg';
+  static const logout = 'assets/icons/logout.svg';
+  static const notificationsRotated = 'assets/icons/notifications_rotated.svg';
 }
