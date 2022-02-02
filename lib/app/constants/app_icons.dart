@@ -22,4 +22,12 @@ class AppIcons {
   static const privacy = 'assets/icons/privacy.svg';
   static const logout = 'assets/icons/logout.svg';
   static const notificationsRotated = 'assets/icons/notifications_rotated.svg';
+  static const star = 'assets/icons/star.svg';
+  static const clock = 'assets/icons/clock.svg';
+  static const filter = 'assets/icons/filter.svg';
+  static const search = 'assets/icons/search.svg';
+  static const closeGreen = 'assets/icons/close_green.svg';
+  static const eyeOff = 'assets/icons/eye_off.svg';
+  static const eyeOn = 'assets/icons/eye_on.svg';
+  static const heartRed = 'assets/icons/heart_red.svg';
 }

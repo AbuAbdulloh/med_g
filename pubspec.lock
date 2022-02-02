@@ -57,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
+  cross_file:
+    dependency: transitive
+    description:
+      name: cross_file
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -111,6 +118,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_calendar_carousel:
+    dependency: "direct main"
+    description:
+      name: flutter_calendar_carousel
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -123,6 +137,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.5"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -189,6 +210,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.2.0"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.4"
   http_parser:
     dependency: transitive
     description:
@@ -196,6 +224,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  image_picker:
+    dependency: "direct main"
+    description:
+      name: image_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.4+5"
+  image_picker_for_web:
+    dependency: transitive
+    description:
+      name: image_picker_for_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.5"
+  image_picker_platform_interface:
+    dependency: transitive
+    description:
+      name: image_picker_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.4.3"
   intl:
     dependency: transitive
     description:
@@ -210,6 +259,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  keyboard_dismisser:
+    dependency: "direct main"
+    description:
+      name: keyboard_dismisser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   lints:
     dependency: transitive
     description:
@@ -273,6 +329,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.11.1"
   petitparser:
     dependency: transitive
     description:

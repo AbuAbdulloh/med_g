@@ -1,10 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/screens/main/widgets/menu_item.dart';
+import 'package:med_g/screens/reviews/reviews_screen.dart';
+import 'package:med_g/widgets/w_notifications_button.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -31,10 +32,9 @@ class _MainScreenState extends State<MainScreen> {
     return AnnotatedRegion(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        // statusBarBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: AppTheme.cF3F8FF,
+        backgroundColor: AppTheme.background,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(
             56 + mediaQuery.padding.top,
@@ -49,42 +49,13 @@ class _MainScreenState extends State<MainScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Hi, Lucy Martin',
+                  'Привет, Lucy Martin',
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
                 ),
-                WScaleAnimation(
-                  onTap: (value) {},
-                  child: Container(
-                    width: 42,
-                    height: 42,
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: AppTheme.white.withOpacity(0.35),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppTheme.c1479FF.withOpacity(0.35),
-                          blurRadius: 35,
-                          spreadRadius: 0,
-                          offset: const Offset(0, 15),
-                        )
-                      ],
-                    ),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      decoration: const BoxDecoration(
-                        color: AppTheme.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: SvgPicture.asset(
-                        AppIcons.bellRed,
-                      ),
-                    ),
-                  ),
-                ),
+                const WNotificationsButton(),
               ],
             ),
           ),
@@ -98,9 +69,9 @@ class _MainScreenState extends State<MainScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 16, bottom: 14),
                 child: Text(
-                  'Find Your Medical Solution!',
+                  'Приветствуем тебя на твоей страничке здоровья!!!',
                   style: Theme.of(context).textTheme.headline1!.copyWith(
-                        fontSize: 36,
+                        fontSize: 24,
                         fontWeight: FontWeight.w600,
                       ),
                 ),
@@ -182,7 +153,7 @@ class _MainScreenState extends State<MainScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 14, top: 28, bottom: 12),
                 child: Text(
-                  'Services',
+                  'Функции',
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
@@ -196,15 +167,17 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     Expanded(
                       child: MenuItem(
-                        title: 'Cardiologist',
+                        title: 'Советы',
                         icon: AppIcons.heart,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(ReviewsScreen.route());
+                        },
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: MenuItem(
-                        title: 'Gastrologist',
+                        title: 'Психология',
                         icon: AppIcons.liver,
                         isActive: true,
                         onTap: () {},
@@ -213,7 +186,7 @@ class _MainScreenState extends State<MainScreen> {
                     const SizedBox(width: 16),
                     Expanded(
                       child: MenuItem(
-                        title: 'Neurologist',
+                        title: 'Дневник',
                         icon: AppIcons.brain,
                         onTap: () {},
                       ),
@@ -228,7 +201,7 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     Expanded(
                       child: MenuItem(
-                        title: 'Psychologist',
+                        title: 'Спорт',
                         icon: AppIcons.health,
                         onTap: () {},
                       ),
@@ -236,7 +209,7 @@ class _MainScreenState extends State<MainScreen> {
                     const SizedBox(width: 16),
                     Expanded(
                       child: MenuItem(
-                        title: 'Pediatrician',
+                        title: 'Анатомия',
                         icon: AppIcons.baby,
                         onTap: () {},
                       ),
@@ -244,7 +217,7 @@ class _MainScreenState extends State<MainScreen> {
                     const SizedBox(width: 16),
                     Expanded(
                       child: MenuItem(
-                        title: 'Surgeons',
+                        title: 'Поддержка',
                         icon: AppIcons.surgery,
                         onTap: () {},
                       ),

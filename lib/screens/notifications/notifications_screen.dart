@@ -16,11 +16,12 @@ class NotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: AppTheme.cF3F8FF,
+      backgroundColor: AppTheme.background,
       appBar: PreferredSize(
         child: WAppBar(
           mediaQuery: mediaQuery,
           title: 'Notification',
+          hasNotificationsButton: false,
         ),
         preferredSize: Size.fromHeight(mediaQuery.padding.top + 77),
       ),
@@ -105,13 +106,11 @@ class NotificationItem extends StatelessWidget {
                       Expanded(
                         child: Text(
                           'From Dr. Merry',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -125,11 +124,10 @@ class NotificationItem extends StatelessWidget {
                   const SizedBox(height: 7),
                   Text(
                     'Many desktop publishing packages and web page editors now use Lorem',
-                    style:
-                        Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
                   )
                 ],
               ),

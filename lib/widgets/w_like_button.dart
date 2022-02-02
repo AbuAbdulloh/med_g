@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
-import 'package:med_g/screens/notifications/notifications_screen.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 
-class WNotificationsButton extends StatelessWidget {
-  const WNotificationsButton({
+class WLikeButton extends StatelessWidget {
+  const WLikeButton({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return WScaleAnimation(
-      onTap: (_) {
-        Navigator.of(context).push(NotificationsScreen.route());
-      },
+      onTap: (_) {},
       child: Container(
         width: 42,
         height: 42,
@@ -39,7 +36,7 @@ class WNotificationsButton extends StatelessWidget {
             shape: BoxShape.circle,
           ),
           child: SvgPicture.asset(
-            AppIcons.bellRed,
+            AppIcons.heartRed,
           ),
         ),
       ),

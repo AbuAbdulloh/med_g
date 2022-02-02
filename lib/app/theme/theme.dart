@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 abstract class AppTheme {
@@ -6,7 +5,7 @@ abstract class AppTheme {
         fontFamily: 'Barlow',
         scaffoldBackgroundColor: background,
         canvasColor: background2,
-        textTheme: const TextTheme(
+        textTheme: TextTheme(
           headline1: headline1,
           headline2: headline2,
           headline3: headline3,
@@ -48,16 +47,15 @@ abstract class AppTheme {
   static const regularTextDarkBlue = Color(0xff525F73);
   static const regularTextDarkGrey = Color(0xff9E9EA5);
   static const regularTextGrey = Color(0xffD5D5D5);
-  static const background = Color(0xffffffff);
+  static const background = Color(0xFFF3F8FF);
   static const background2 = Color(0xffF4F5F7); //Color(0xffF2F3F5);
   static const c65B136 = Color(0xff65B136);
   static const c51C192 = Color(0xff51C192);
   static const onPrimary = Color(0xffFFCB15);
-  static const c1D3A62 = Color(0XFF1D3A62);
+  static const main = Color(0XFF1D3A62);
   static const cEBEBEB = Color(0xffEBEBEB);
   static const cFFF9DD = Color(0xffFFF9DD);
   static const red = Color(0xffF9524E);
-  static const green = Color(0xff51C192);
   static const c516E95 = Color(0XFF516E95);
   static const cFFEEEE = Color(0xffFFEEEE);
   static const cF2F3F5 = Color(0xffF2F3F5);
@@ -111,14 +109,15 @@ abstract class AppTheme {
   static const c2261AA = Color(0xff2261AA);
   static const cFCFDFF = Color(0XFFFCFDFF);
   static const c1479FF = Color(0XFF1479FF);
-  static const cF3F8FF = Color(0XFFF3F8FF);
   static const cB4C7DE = Color(0XFFB4C7DE);
   static const c82A3CA = Color(0xFF82A3CA);
   static const c4AC989 = Color(0XFF4AC989);
+  static const c4485FC = Color(0XFF4485FC);
+  static const green = Color(0XFF26D7AC);
   static const headline1 = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w500,
-    color: c1D3A62,
+    color: main,
     fontFamily: 'Barlow',
   );
   static const headline2 = TextStyle(
@@ -160,10 +159,10 @@ abstract class AppTheme {
     color: c516E95,
     fontFamily: 'Barlow',
   );
-  static const bodyText2 = TextStyle(
-    fontSize: 16,
+  static var bodyText2 = TextStyle(
+    fontSize: 14,
     fontWeight: FontWeight.w500,
-    color: primaryAccent,
+    color: c516E95.withOpacity(0.5),
     fontFamily: 'Barlow',
   );
   static const bottonText = TextStyle(
@@ -172,28 +171,4 @@ abstract class AppTheme {
     color: regularTextDarkBlack,
     fontFamily: 'Barlow',
   );
-
-  // static const headline1 = TextStyle(
-  //   fontSize: 24,
-  //   fontWeight: FontWeight.w700,
-  //   color: mainDark,
-  //   fontFamily: 'Rubik',
-  // );
-  // static const headline2 = TextStyle(
-  //   fontWeight: FontWeight.w600,
-  //   color: mainDark,
-  //   fontFamily: 'Rubik',
-  // );
-  //
-  // static const bodyText1 = TextStyle(
-  //   fontWeight: FontWeight.w500,
-  //   color: mainDark,
-  //   fontFamily: 'Rubik',
-  // );
-  //
-  // static const subtitle1 = TextStyle(
-  //   fontWeight: FontWeight.w400,
-  //   color: mainDark,
-  //   fontFamily: 'Rubik',
-  // );
 }

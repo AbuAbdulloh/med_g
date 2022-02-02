@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             return isFirstRouteInCurrentTab;
           },
           child: Scaffold(
-            backgroundColor: AppTheme.cF3F8FF,
+            backgroundColor: AppTheme.background,
             resizeToAvoidBottomInset: true,
             bottomNavigationBar: Container(
               height: 77,

@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
-import 'package:med_g/widgets/w_button.dart';
-import 'package:med_g/widgets/w_scale_animation.dart';
+import 'package:med_g/widgets/w_notifications_button.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({
@@ -44,58 +42,9 @@ class ProfileAppBar extends StatelessWidget {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppTheme.black.withOpacity(0.1),
-                        blurRadius: 1,
-                        spreadRadius: 1,
-                        offset: const Offset(1, 1),
-                      ),
-                    ],
-                  ),
-                  child: WButton(
-                    padding: EdgeInsets.zero,
-                    color: AppTheme.white,
-                    onTap: () {},
-                    width: 31,
-                    height: 31,
-                    child: SvgPicture.asset(AppIcons.arrowBackIos),
-                  ),
-                ),
-                WScaleAnimation(
-                  onTap: (value) {},
-                  child: Container(
-                    width: 42,
-                    height: 42,
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: AppTheme.white.withOpacity(0.35),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppTheme.c1479FF.withOpacity(0.35),
-                          blurRadius: 35,
-                          spreadRadius: 0,
-                          offset: const Offset(0, 15),
-                        )
-                      ],
-                    ),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      decoration: const BoxDecoration(
-                        color: AppTheme.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: SvgPicture.asset(
-                        AppIcons.bellRed,
-                      ),
-                    ),
-                  ),
-                ),
+              children: const [
+                SizedBox(width: 24, height: 24),
+                WNotificationsButton()
               ],
             ),
           ),

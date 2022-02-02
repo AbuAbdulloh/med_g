@@ -5,8 +5,10 @@ import 'package:med_g/widgets/w_notifications_button.dart';
 
 class WAppBar extends StatelessWidget {
   final String title;
+  final bool hasNotificationsButton;
   const WAppBar({
     required this.title,
+    this.hasNotificationsButton = true,
     Key? key,
     required this.mediaQuery,
   }) : super(key: key);
@@ -37,6 +39,13 @@ class WAppBar extends StatelessWidget {
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(25),
           ),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: AppTheme.black.withOpacity(0.3),
+          //     blurRadius: 5,
+          //     offset: const Offset(0, 1),
+          //   ),
+          // ],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,7 +58,11 @@ class WAppBar extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
             ),
-            const WNotificationsButton(),
+            if (hasNotificationsButton) ...{
+              const WNotificationsButton(),
+            } else ...{
+              const SizedBox(width: 24, height: 24),
+            }
           ],
         ),
       ),

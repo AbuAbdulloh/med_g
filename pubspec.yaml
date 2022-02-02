@@ -21,6 +21,9 @@ dependencies:
   flutter_svg: ^1.0.3
   carousel_slider: ^4.0.0
   smooth_page_indicator: ^1.0.0+2
+  image_picker: ^0.8.4+5
+  keyboard_dismisser: ^2.0.0
+  flutter_calendar_carousel: ^2.1.0
 
 dev_dependencies:
   flutter_test:

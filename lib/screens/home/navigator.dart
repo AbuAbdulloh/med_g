@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:med_g/models/navbar/nav_item_enum.dart';
+import 'package:med_g/screens/calendar/calendar_screen.dart';
 import 'package:med_g/screens/chat/chat_screen.dart';
 import 'package:med_g/screens/doctor/doctor_screen.dart';
 import 'package:med_g/screens/main/main_screen.dart';
@@ -39,7 +40,7 @@ class _TabNavigatorState extends State<TabNavigator>
         };
       case NavItemEnum.cart:
         return {
-          TabNavigatorRoutes.root: (context) => const SizedBox.shrink(),
+          TabNavigatorRoutes.root: (context) => const CalendarScreen(),
         };
       case NavItemEnum.profile:
         return {

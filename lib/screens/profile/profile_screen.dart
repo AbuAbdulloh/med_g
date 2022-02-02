@@ -4,6 +4,7 @@ import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/screens/account_settings/account_settings_screen.dart';
 import 'package:med_g/screens/notifications/notifications_screen.dart';
+import 'package:med_g/screens/privacy/privacy_screen.dart';
 import 'package:med_g/screens/profile/widgets/profile_app_bar.dart';
 import 'package:med_g/screens/support/support_screen.dart';
 import 'package:med_g/widgets/w_button.dart';
@@ -50,7 +51,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ProfileItemModel(
         title: 'Privacy Policy',
         icon: AppIcons.privacy,
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(PrivacyScreen.route());
+        },
       ),
       ProfileItemModel(
         title: 'Logout',
@@ -64,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: AppTheme.cF3F8FF,
+      backgroundColor: AppTheme.background,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(mediaQuery.padding.top + 264),
         child: ProfileAppBar(mediaQuery: mediaQuery),
@@ -114,7 +117,7 @@ class ProfileItem extends StatelessWidget {
             width: 36,
             height: 36,
             decoration: BoxDecoration(
-              color: isActive ? AppTheme.c1D3A62 : AppTheme.white,
+              color: isActive ? AppTheme.main : AppTheme.white,
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(
