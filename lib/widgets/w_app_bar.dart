@@ -21,7 +21,7 @@ class WAppBar extends StatelessWidget {
       height: mediaQuery.padding.top + 77,
       width: double.maxFinite,
       decoration: const BoxDecoration(
-        color: AppTheme.c1479FF,
+        color: AppTheme.primaryText,
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(25),
         ),

@@ -24,6 +24,7 @@ dependencies:
   image_picker: ^0.8.4+5
   keyboard_dismisser: ^2.0.0
   flutter_calendar_carousel: ^2.1.0
+  pin_code_fields: ^7.3.0
 
 dev_dependencies:
   flutter_test:

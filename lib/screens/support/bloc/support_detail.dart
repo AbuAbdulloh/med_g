@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:med_g/app/theme/theme.dart';
-import 'package:med_g/screens/account_settings/widgets/account_settings_container.dart';
 import 'package:med_g/screens/support/bloc/support_detail_item.dart';
 import 'package:med_g/widgets/w_app_bar.dart';
 

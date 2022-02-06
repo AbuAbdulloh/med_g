@@ -26,7 +26,7 @@ class MenuItem extends StatelessWidget {
         width: 105,
         height: 100,
         decoration: BoxDecoration(
-            color: isActive ? AppTheme.c1479FF : AppTheme.white,
+            color: isActive ? AppTheme.primaryText : AppTheme.white,
             borderRadius: BorderRadius.circular(30),
             boxShadow: const [
               BoxShadow(

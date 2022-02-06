@@ -4,7 +4,6 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/screens/reviews/widgets/review_item.dart';
-import 'package:med_g/screens/support/bloc/support_detail_item.dart';
 import 'package:med_g/widgets/w_app_bar.dart';
 import 'package:med_g/widgets/w_button.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';

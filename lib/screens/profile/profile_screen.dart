@@ -106,7 +106,7 @@ class ProfileItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WButton(
-      color: isActive ? AppTheme.c1479FF : AppTheme.white,
+      color: isActive ? AppTheme.primaryText : AppTheme.white,
       onTap: onTap,
       height: 65,
       child: Row(

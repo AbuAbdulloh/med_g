@@ -18,7 +18,7 @@ class ProfileAppBar extends StatelessWidget {
       height: mediaQuery.padding.top + 264,
       width: double.maxFinite,
       decoration: const BoxDecoration(
-        color: AppTheme.c1479FF,
+        color: AppTheme.primaryText,
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(25),
         ),

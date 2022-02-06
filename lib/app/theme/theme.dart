@@ -108,12 +108,14 @@ abstract class AppTheme {
   static const cF0CB23 = Color(0xffFFCB15);
   static const c2261AA = Color(0xff2261AA);
   static const cFCFDFF = Color(0XFFFCFDFF);
-  static const c1479FF = Color(0XFF1479FF);
+  static const primaryText = Color(0XFF1479FF);
   static const cB4C7DE = Color(0XFFB4C7DE);
   static const c82A3CA = Color(0xFF82A3CA);
   static const c4AC989 = Color(0XFF4AC989);
   static const c4485FC = Color(0XFF4485FC);
   static const green = Color(0XFF26D7AC);
+  static const blue = Color(0XFF585CE5);
+  static const primaryRed = Color(0XFFE8425E);
   static const headline1 = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w500,
@@ -129,7 +131,7 @@ abstract class AppTheme {
   static const headline3 = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w500,
-    color: regularTextDarkBlue,
+    color: primaryText,
     fontFamily: 'Barlow',
   );
   static const headline4 = TextStyle(
@@ -142,7 +144,7 @@ abstract class AppTheme {
   static const headline5 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w500,
-    color: Color(0xff6B6C6F),
+    color: primaryRed,
     fontFamily: 'Barlow',
   );
 

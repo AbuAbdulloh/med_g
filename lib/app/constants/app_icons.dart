@@ -30,4 +30,11 @@ class AppIcons {
   static const eyeOff = 'assets/icons/eye_off.svg';
   static const eyeOn = 'assets/icons/eye_on.svg';
   static const heartRed = 'assets/icons/heart_red.svg';
+  static const logoBig = 'assets/icons/logo_big.svg';
+  static const logo = 'assets/icons/logo.svg';
+  static const waveShape = 'assets/icons/wave_shape.svg';
+  static const onboard_1 = 'assets/icons/onboard_1.svg';
+  static const onboard_2 = 'assets/icons/onboard_2.svg';
+  static const onboard_3 = 'assets/icons/onboard_3.svg';
+  static const arrowFilled = 'assets/icons/arrow_filled.svg';
 }

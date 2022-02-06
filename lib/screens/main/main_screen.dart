@@ -89,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
                         vertical: 14,
                       ),
                       decoration: BoxDecoration(
-                        color: AppTheme.c1479FF,
+                        color: AppTheme.primaryText,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Column(
@@ -141,7 +141,7 @@ class _MainScreenState extends State<MainScreen> {
                   activeIndex: currentIndex,
                   count: 5,
                   effect: const ExpandingDotsEffect(
-                    activeDotColor: AppTheme.c1479FF,
+                    activeDotColor: AppTheme.primaryText,
                     dotColor: AppTheme.cB4C7DE,
                     radius: 6,
                     dotWidth: 6,

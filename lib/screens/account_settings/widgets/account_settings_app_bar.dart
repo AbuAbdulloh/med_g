@@ -20,7 +20,7 @@ class AccountSettingsAppBar extends StatelessWidget {
       height: mediaQuery.padding.top + 264,
       width: double.maxFinite,
       decoration: const BoxDecoration(
-        color: AppTheme.c1479FF,
+        color: AppTheme.primaryText,
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(25),
         ),
@@ -83,7 +83,7 @@ class AccountSettingsAppBar extends StatelessWidget {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: AppTheme.c1479FF.withOpacity(0.35),
+                          color: AppTheme.primaryText.withOpacity(0.35),
                           blurRadius: 35,
                           spreadRadius: 0,
                           offset: const Offset(0, 15),

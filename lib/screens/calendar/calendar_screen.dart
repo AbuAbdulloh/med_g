@@ -40,7 +40,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 color: AppTheme.black.withOpacity(0.2),
                 blurRadius: 3,
                 offset: const Offset(1, 2),
-              )
+              ),
             ],
           ),
           child: CalendarCarousel(

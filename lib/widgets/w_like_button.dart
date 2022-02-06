@@ -22,7 +22,7 @@ class WLikeButton extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: AppTheme.c1479FF.withOpacity(0.35),
+              color: AppTheme.primaryText.withOpacity(0.35),
               blurRadius: 35,
               spreadRadius: 0,
               offset: const Offset(0, 15),

@@ -14,7 +14,7 @@ class PrivacyItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        borderRadius: BorderRadius.all(Radius.circular(8)),
         color: AppTheme.background,
         boxShadow: [
           // BoxShadow(

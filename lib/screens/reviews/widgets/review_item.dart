@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/screens/review_details/review_details.dart';
-import 'package:med_g/screens/review_details/widgets/review_details_item.dart';
 import 'package:med_g/widgets/w_like_button.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 

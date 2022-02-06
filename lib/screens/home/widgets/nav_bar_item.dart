@@ -27,7 +27,7 @@ class TabItemWidget extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isActive ? AppTheme.c1479FF : null,
+                color: isActive ? AppTheme.primaryText : null,
               ),
               child: SvgPicture.asset(
                 item.iconOn,
