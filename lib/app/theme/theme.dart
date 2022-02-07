@@ -115,7 +115,7 @@ abstract class AppTheme {
   static const c4485FC = Color(0XFF4485FC);
   static const green = Color(0XFF26D7AC);
   static const blue = Color(0XFF585CE5);
-  static const primaryRed = Color(0XFFE8425E);
+  static const primaryRed = Color(0xFFE64360);
   static const headline1 = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w500,
