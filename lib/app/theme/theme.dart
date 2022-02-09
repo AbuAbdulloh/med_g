@@ -103,6 +103,7 @@ abstract class AppTheme {
   static const cE1E6F0 = Color(0xffE1E6F0);
   static const cC6C6C6 = Color(0xffC6C6C6);
   static const cE5E5E5 = Color(0xffE5E5E5);
+  static const borderGrey = Color(0XFFDAE4F0);
   static const c424343 = Color(0xff424343);
   static const white = Color(0xffFFFFFF);
   static const cF0CB23 = Color(0xffFFCB15);

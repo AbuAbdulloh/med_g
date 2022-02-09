@@ -297,7 +297,7 @@ class _WTextFieldState extends State<WTextField> {
                                 widget.onObscure!();
                               }
                             } else {
-                              widget.onEyeTap!;
+                              widget.onEyeTap ?? (){};
                             }
                           },
                           child: Padding(

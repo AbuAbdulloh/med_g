@@ -19,16 +19,16 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // Timer(
-    //   const Duration(seconds: 3),
-    //   () {
-    //     Navigator.pushAndRemoveUntil(
-    //       context,
-    //       OnboardingScreen.route(),
-    //       (route) => false,
-    //     );
-    //   },
-    // );
+    Timer(
+      const Duration(seconds: 3),
+      () {
+        Navigator.pushAndRemoveUntil(
+          context,
+          OnboardingScreen.route(),
+          (route) => false,
+        );
+      },
+    );
     super.initState();
   }
 

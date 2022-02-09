@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/screens/home/home.dart';
+import 'package:med_g/screens/login/login_screen.dart';
+import 'package:med_g/screens/login/signup_screen.dart';
 import 'package:med_g/screens/onboarding/pages/first_page.dart';
 import 'package:med_g/screens/onboarding/pages/second_page.dart';
 import 'package:med_g/screens/onboarding/pages/third_page.dart';
@@ -60,7 +62,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   pageController.jumpToPage(2);
                 } else {
                   Navigator.of(context).pushAndRemoveUntil<void>(
-                      HomeScreen.route(), (route) => false);
+                      LoginScreen.route(), (route) => false);
                 }
                 setState(() {
                   currentIndex = pageController.page!.toInt();
