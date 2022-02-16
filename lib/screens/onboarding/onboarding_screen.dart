@@ -5,6 +5,7 @@ import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/screens/home/home.dart';
 import 'package:med_g/screens/login/login_screen.dart';
 import 'package:med_g/screens/login/signup_screen.dart';
+import 'package:med_g/screens/login/widgets/director_screen.dart';
 import 'package:med_g/screens/onboarding/pages/first_page.dart';
 import 'package:med_g/screens/onboarding/pages/second_page.dart';
 import 'package:med_g/screens/onboarding/pages/third_page.dart';
@@ -62,7 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   pageController.jumpToPage(2);
                 } else {
                   Navigator.of(context).pushAndRemoveUntil<void>(
-                      LoginScreen.route(), (route) => false);
+                      DirectorScreen.route(), (route) => false);
                 }
                 setState(() {
                   currentIndex = pageController.page!.toInt();

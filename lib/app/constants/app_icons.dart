@@ -38,4 +38,5 @@ class AppIcons {
   static const onboard_3 = 'assets/icons/onboard_3.svg';
   static const arrowFilled = 'assets/icons/arrow_filled.svg';
   static const logoColored = 'assets/icons/logo_colorful.svg';
+  static const vectors = 'assets/icons/vectors.svg';
 }

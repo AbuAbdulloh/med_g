@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
+import 'package:med_g/models/submission_status/submission_status.dart';
+import 'package:med_g/screens/home/home.dart';
+import 'package:med_g/screens/login/bloc/bloc/login_bloc.dart';
 import 'package:med_g/screens/login/signup_screen.dart';
 import 'package:med_g/screens/login/widgets/text_field_with_label.dart';
 import 'package:med_g/widgets/w_button.dart';
+import 'package:med_g/widgets/w_error_snack_bar.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
-import 'package:med_g/widgets/w_textfield.dart';
-import 'package:med_g/widgets/w_transparent_app_bar.dart';
 
 class LoginScreen extends StatefulWidget {
   static Route route() =>
@@ -23,12 +26,14 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController phoneController;
   late TextEditingController passwordController;
-
+  late LoginBloc bloc;
+  bool isObscure = false;
   @override
   void initState() {
     super.initState();
     phoneController = TextEditingController();
     passwordController = TextEditingController();
+    bloc = LoginBloc();
   }
 
   @override
@@ -41,12 +46,17 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    final theme = Theme.of(context).textTheme;
     return KeyboardDismisser(
-      child: Scaffold(
-        appBar: WTransparentAppBar(mediaQuery: mediaQuery),
-        body: Column(
-          children: [
-            Expanded(
+      child: BlocProvider.value(
+        value: bloc,
+        child: Scaffold(
+          body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: SizedBox(
+              height: mediaQuery.viewInsets.bottom == 0
+                  ? mediaQuery.size.height
+                  : null,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
@@ -58,15 +68,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: TextFieldWithLabel(
                         prefix: Container(
-                          alignment: Alignment.center,
+                          alignment: Alignment.centerRight,
                           width: 40,
                           child: Text(
-                            '+998',
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                            ' +998 ',
+                            style: theme.headline1!.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                         textInputFormatter: [
@@ -77,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                         controller: phoneController,
                         title: 'Phone number:',
-                        hintText: '00 000-00-00',
+                        hintText: '(00) 000-00-00',
                         keyboardType: TextInputType.phone,
                         textInputAction: TextInputAction.next,
                         onChanged: (value) {},
@@ -92,28 +101,84 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Text(
                           'Password',
-                          style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                          style: theme.bodyText1!.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                         const SizedBox(height: 8),
-                        WTextField(
+                        TextField(
+                          obscureText: isObscure,
                           controller: passwordController,
-                          onChanged: (value) {},
-                          fillColor: AppTheme.white,
-                          borderRadius: 8,
-                          hintText: 'Enter password...',
-                          // isObscureText: isObscure,
-                          keyBoardType: TextInputType.text,
                           textInputAction: TextInputAction.done,
-                          suffix: Container(
-                            width: 40,
-                            child: SvgPicture.asset(AppIcons.eyeOff),
+                          onEditingComplete: () {
+                            FocusScope.of(context).unfocus();
+                            bloc.add(UserLoggedIn(
+                              phone: phoneController.text,
+                              password: passwordController.text.trim(),
+                              onSucces: () {
+                                Navigator.of(context).pushAndRemoveUntil(
+                                  HomeScreen.route(),
+                                  (route) => false,
+                                );
+                              },
+                              onError: (message) {
+                                showErrorSnackBar(context, message);
+                              },
+                            ));
+                          },
+                          onChanged: (_) {},
+                          keyboardType: TextInputType.visiblePassword,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: AppTheme.background,
+                              ),
+                            ),
+                            hintText: 'Enter your password...',
+                            hintStyle: theme.bodyText1!.copyWith(
+                              fontSize: 16,
+                            ),
+                            filled: true,
+                            fillColor: AppTheme.white,
+                            contentPadding: const EdgeInsets.all(8),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: AppTheme.background,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: AppTheme.background,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: AppTheme.primary,
+                              ),
+                            ),
+                            suffixIcon: WScaleAnimation(
+                              onTap: (_) {
+                                setState(() {
+                                  isObscure = !isObscure;
+                                });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(12),
+                                child: SvgPicture.asset(isObscure
+                                    ? AppIcons.eyeOff
+                                    : AppIcons.eyeOn),
+                              ),
+                            ),
                           ),
-                          onEditCompleted: () {},
-                          // obscureText: isObscure,
                         ),
                       ],
                     ),
@@ -125,47 +190,71 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(width: 15),
                           Text(
                             'Forgot Password?',
-                            style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                            style: theme.bodyText1!.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
                       onTap: (_) {},
                     ),
-                    const SizedBox(height: 50),
-                    WButton(
-                      onTap: () {},
-                      text: 'Sign In',
-                      textStyle:
-                          Theme.of(context).textTheme.headline2!.copyWith(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                              ),
+                    const SizedBox(height: 34),
+                    BlocBuilder<LoginBloc, LoginState>(
+                      builder: (context, state) => WButton(
+                        loading: state.status ==
+                            SubmissionStatus.submissionInProgress,
+                        disabled: state.status ==
+                            SubmissionStatus.submissionInProgress,
+                        margin: const EdgeInsets.symmetric(vertical: 16),
+                        onTap: () {
+                          context.read<LoginBloc>().add(UserLoggedIn(
+                                phone: phoneController.text,
+                                password: passwordController.text.trim(),
+                                onSucces: () {
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    HomeScreen.route(),
+                                    (route) => false,
+                                  );
+                                },
+                                onError: (message) {
+                                  showErrorSnackBar(context, message);
+                                },
+                              ));
+                        },
+                        text: 'Sign In',
+                        textStyle: theme.headline2!.copyWith(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    if (mediaQuery.viewInsets.bottom == 0) ...{const Spacer()},
+                    Column(
+                      children: [
+                        Text(
+                          'Do not have account yet?',
+                          style: theme.headline1!.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        WButton(
+                          margin: const EdgeInsets.only(top: 16, bottom: 16),
+                          color: AppTheme.white,
+                          onTap: () {
+                            Navigator.of(context).push(SignupScreen.route());
+                          },
+                          text: 'Sign Up',
+                          textStyle: theme.headline1!.copyWith(),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
             ),
-            Text(
-              'Do not have account yet?',
-              style: Theme.of(context).textTheme.headline1!.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-            ),
-            WButton(
-              margin: const EdgeInsets.all(16),
-              color: AppTheme.borderGrey,
-              onTap: () {
-                Navigator.of(context).push(SignupScreen.route());
-              },
-              text: 'Sign Up',
-              textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(),
-            )
-          ],
+          ),
         ),
       ),
     );

@@ -32,5 +32,46 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         event.onError('$e');
       }
     });
+    on<UserVerified>((event, emit) async {
+      emit(state.copyWith(status: SubmissionStatus.submissionInProgress));
+      try {
+        await repository.confirmUser(
+          code: int.parse(
+            event.pinCode,
+            onError: (source) => 0,
+          ),
+          signId: state.registerResponse.data!.signIn,
+          userId: state.registerResponse.data!.userId,
+        );
+        emit(state.copyWith(
+          status: SubmissionStatus.submissionSucces,
+        ));
+        event.onSucces();
+      } catch (e) {
+        emit(state.copyWith(status: SubmissionStatus.submissionFailure));
+        event.onError('$e');
+      }
+    });
+    on<UserLoggedIn>((event, emit) async {
+      emit(state.copyWith(status: SubmissionStatus.submissionInProgress));
+      try {
+        await repository.loginUser(
+          {
+            'phone': '998' + event.phone
+                .replaceAll('-', '')
+                .replaceAll('(', '')
+                .replaceAll(')', '')
+                .replaceAll(' ', '')
+                .trim(),
+            'password': event.password,
+          },
+        );
+        emit(state.copyWith(status: SubmissionStatus.submissionSucces));
+        event.onSucces();
+      } on Exception catch (e) {
+        emit(state.copyWith(status: SubmissionStatus.submissionFailure));
+        event.onError('$e');
+      }
+    });
   }
 }

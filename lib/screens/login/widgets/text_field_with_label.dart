@@ -34,6 +34,7 @@ class TextFieldWithLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -53,6 +54,10 @@ class TextFieldWithLabel extends StatelessWidget {
           textInputFormatters: textInputFormatter,
           borderRadius: 8,
           hintText: hintText,
+          hintTextStyle: theme.bodyText1!.copyWith(
+            fontSize: 16,
+            height: 1.35,
+          ),
           isObscureText: isObscure,
           keyBoardType: keyboardType,
           textInputAction: textInputAction ?? TextInputAction.done,
@@ -60,6 +65,8 @@ class TextFieldWithLabel extends StatelessWidget {
           onEditCompleted: onEditDone,
           obscureText: isObscure,
           prefix: prefix,
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         ),
       ],
     );

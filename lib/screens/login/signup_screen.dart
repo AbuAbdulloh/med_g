@@ -6,13 +6,13 @@ import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/models/register/register.dart';
 import 'package:med_g/models/submission_status/submission_status.dart';
-import 'package:med_g/screens/home/home.dart';
 import 'package:med_g/screens/login/bloc/bloc/login_bloc.dart';
 import 'package:med_g/screens/login/login_screen.dart';
 import 'package:med_g/screens/login/widgets/text_field_with_label.dart';
+import 'package:med_g/screens/verification/verification_screen.dart';
 import 'package:med_g/widgets/w_button.dart';
+import 'package:med_g/widgets/w_error_snack_bar.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
-import 'package:med_g/widgets/w_textfield.dart';
 import 'package:med_g/widgets/w_transparent_app_bar.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -53,183 +53,233 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    final theme = Theme.of(context).textTheme;
     return BlocProvider.value(
       value: loginBloc,
       child: Scaffold(
         backgroundColor: AppTheme.background,
-        appBar: WTransparentAppBar(mediaQuery: mediaQuery),
-        body: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 25),
-                    Align(
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.only(left: 16, right: 16),
+          physics: const BouncingScrollPhysics(),
+          child: SizedBox(
+            height: mediaQuery.viewInsets.bottom == 0
+                ? mediaQuery.size.height
+                : null,
+            child: Column(
+              children: [
+                const SizedBox(height: 55),
+                Align(
+                  child: Text(
+                    'Create New Account',
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Align(
+                  child: Text(
+                    'Enter Your details to create account',
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ),
+                const SizedBox(height: 50),
+                TextFieldWithLabel(
+                  controller: nameController,
+                  title: 'Name:',
+                  hintText: 'Enter your name...',
+                  keyboardType: TextInputType.name,
+                  textInputAction: TextInputAction.next,
+                  onChanged: (value) {},
+                  onEditDone: () {
+                    FocusScope.of(context).nextFocus();
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: TextFieldWithLabel(
+                    prefix: Container(
+                      alignment: Alignment.centerRight,
+                      width: 40,
                       child: Text(
-                        'Create New Account',
+                        '+998 ',
                         style: Theme.of(context).textTheme.headline1!.copyWith(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Align(
-                      child: Text(
-                        'Enter Your details to create account',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
                       ),
                     ),
-                    const SizedBox(height: 50),
-                    TextFieldWithLabel(
-                      controller: nameController,
-                      title: 'Name:',
-                      hintText: 'Enter your name...',
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      onChanged: (value) {},
-                      onEditDone: () {
-                        FocusScope.of(context).nextFocus();
+                    textInputFormatter: [
+                      MaskTextInputFormatter(
+                          mask: '(##) ###-##-##',
+                          filter: {"#": RegExp(r'[0-9]')},
+                          type: MaskAutoCompletionType.lazy),
+                    ],
+                    controller: phoneController,
+                    title: 'Phone number:',
+                    hintText: '(00) 000-00-00',
+                    keyboardType: TextInputType.phone,
+                    textInputAction: TextInputAction.next,
+                    onChanged: (value) {},
+                    onEditDone: () {
+                      FocusScope.of(context).nextFocus();
+                    },
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Password',
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      obscureText: isObscure,
+                      controller: passwordController,
+                      textInputAction: TextInputAction.done,
+                      onEditingComplete: () {
+                        FocusScope.of(context).unfocus();
+                        loginBloc.add(
+                          UserSignedUp(
+                              register: Register(
+                                firstName: nameController.text.trim(),
+                                password: passwordController.text.trim(),
+                                phone:
+                                    '998${phoneController.text.replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll(' ', '').trim()}',
+                              ),
+                              onSucces: () {
+                                Navigator.of(context)
+                                    .push(VerificationScreen.route(
+                                  bloc: loginBloc,
+                                ));
+                              },
+                              onError: (message) {
+                                showErrorSnackBar(context, message);
+                              }),
+                        );
                       },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: TextFieldWithLabel(
-                        prefix: Container(
-                          alignment: Alignment.center,
-                          width: 40,
-                          child: Text(
-                            '+998',
-                            style:
-                                Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                      onChanged: (_) {},
+                      keyboardType: TextInputType.visiblePassword,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: AppTheme.background,
                           ),
                         ),
-                        textInputFormatter: [
-                          MaskTextInputFormatter(
-                              mask: '(##) ###-##-##',
-                              filter: {"#": RegExp(r'[0-9]')},
-                              type: MaskAutoCompletionType.lazy),
-                        ],
-                        controller: phoneController,
-                        title: 'Phone number:',
-                        hintText: '00 000-00-00',
-                        keyboardType: TextInputType.phone,
-                        textInputAction: TextInputAction.next,
-                        onChanged: (value) {},
-                        onEditDone: () {
-                          FocusScope.of(context).nextFocus();
-                        },
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Password',
-                          style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                        hintText: 'Enter your password...',
+                        hintStyle: theme.bodyText1!.copyWith(
+                          fontSize: 16,
                         ),
-                        const SizedBox(height: 8),
-                        WTextField(
-                          controller: passwordController,
-                          onChanged: (value) {},
-                          fillColor: AppTheme.white,
-                          borderRadius: 8,
-                          hintText: 'Create password...',
-                          isObscureText: isObscure,
-                          keyBoardType: TextInputType.none,
-                          textInputAction: TextInputAction.done,
-                          suffix: SizedBox(
-                            width: 40,
-                            child: SvgPicture.asset(AppIcons.eyeOff),
+                        filled: true,
+                        fillColor: AppTheme.white,
+                        contentPadding: const EdgeInsets.all(8),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: AppTheme.background,
                           ),
-                          onEditCompleted: () {},
-                          obscureText: isObscure,
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 50),
-                    BlocBuilder<LoginBloc, LoginState>(
-                      builder: (context, state) => WButton(
-                        loading: state.status ==
-                            SubmissionStatus.submissionInProgress,
-                        disabled: state.status ==
-                            SubmissionStatus.submissionInProgress,
-                        onTap: () {
-                          context.read<LoginBloc>().add(
-                                UserSignedUp(
-                                    register: Register(
-                                      firstName: nameController.text.trim(),
-                                      password: passwordController.text.trim(),
-                                      phone: phoneController.text.trim(),
-                                    ),
-                                    onSucces: () {
-                                      Navigator.of(context)
-                                          .push(HomeScreen.route());
-                                    },
-                                    onError: (message) {
-                                      print(message);
-                                    }),
-                              );
-                        },
-                        text: 'Sign Up',
-                        textStyle:
-                            Theme.of(context).textTheme.headline2!.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: AppTheme.background,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: AppTheme.primary,
+                          ),
+                        ),
+                        suffixIcon: WScaleAnimation(
+                          onTap: (_) {
+                            setState(() {
+                              isObscure = !isObscure;
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(12),
+                            child: SvgPicture.asset(
+                                isObscure ? AppIcons.eyeOff : AppIcons.eyeOn),
+                          ),
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-              child: Column(
-                children: [
-                  WScaleAnimation(
-                    child: Text(
-                      'Already have Account?',
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                    onTap: (_) {},
-                  ),
-                  WButton(
-                    margin: const EdgeInsets.only(top: 8),
-                    color: const Color(0XFFDAE4F0),
-                    child: Text(
-                      'Sign In',
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
+                const SizedBox(height: 50),
+                BlocBuilder<LoginBloc, LoginState>(
+                  builder: (context, state) => WButton(
+                    loading:
+                        state.status == SubmissionStatus.submissionInProgress,
+                    disabled:
+                        state.status == SubmissionStatus.submissionInProgress,
                     onTap: () {
-                      Navigator.of(context).push(LoginScreen.route());
+                      context.read<LoginBloc>().add(
+                            UserSignedUp(
+                                register: Register(
+                                  firstName: nameController.text.trim(),
+                                  password: passwordController.text.trim(),
+                                  phone:
+                                      '998${phoneController.text.replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll(' ', '').trim()}',
+                                ),
+                                onSucces: () {
+                                  Navigator.of(context)
+                                      .push(VerificationScreen.route(
+                                    bloc: loginBloc,
+                                  ));
+                                },
+                                onError: (message) {
+                                  showErrorSnackBar(context, message);
+                                }),
+                          );
                     },
-                  )
-                ],
-              ),
+                    text: 'Sign Up',
+                    textStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ),
+                if (mediaQuery.viewInsets.bottom == 0) ...{const Spacer()},
+                Text(
+                  'Already have Account?',
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                WButton(
+                  margin: const EdgeInsets.only(top: 16, bottom: 16),
+                  color: const Color(0XFFDAE4F0),
+                  child: Text(
+                    'Sign In',
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(LoginScreen.route());
+                  },
+                )
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

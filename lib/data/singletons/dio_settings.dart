@@ -3,7 +3,7 @@ import 'package:med_g/data/singletons/storage.dart';
 
 class DioSettings {
   BaseOptions _dioBaseOptions = BaseOptions(
-    baseUrl: 'http://api.med.uz/api/v1/',
+    baseUrl: 'http://api.medg.uz/api/v1',
     connectTimeout: 35000,
     receiveTimeout: 33000,
     followRedirects: false,
@@ -15,7 +15,7 @@ class DioSettings {
 
   void setBaseOptions({String? lang}) {
     _dioBaseOptions = BaseOptions(
-      baseUrl: 'http://api.med.uz/api/v1/',
+      baseUrl: 'http://api.medg.uz/api/v1',
       connectTimeout: 35000,
       receiveTimeout: 33000,
       headers: <String, dynamic>{'Accept-Language': lang},

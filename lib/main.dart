@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:med_g/app/theme/theme.dart';
+import 'package:med_g/data/singletons/service_locator.dart';
 import 'package:med_g/screens/splash/splash_screen.dart';
 
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 
