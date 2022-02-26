@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "709394070960",
+    "project_id": "med-g-7c855",
+    "storage_bucket": "med-g-7c855.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:709394070960:android:26b87df84333465bc86a75",
+        "android_client_info": {
+          "package_name": "com.example.med_g"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "709394070960-knv9p1vmvvjimnv0um4l5um4vdiuj5ic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXjOfL5UYzaD8en1AhQPIX_MnaVMp7KrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "709394070960-knv9p1vmvvjimnv0um4l5um4vdiuj5ic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
