@@ -245,6 +245,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                 },
                                 onError: (message) {
                                   showErrorSnackBar(context, message);
+                                  Navigator.of(context)
+                                      .push(VerificationScreen.route(
+                                    bloc: loginBloc,
+                                  ));
                                 }),
                           );
                     },
@@ -265,7 +269,14 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 WButton(
                   margin: const EdgeInsets.only(top: 16, bottom: 16),
-                  color: const Color(0XFFDAE4F0),
+                  color: AppTheme.white,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(0, 4),
+                      blurRadius: 4,
+                      color: AppTheme.black.withOpacity(0.25),
+                    )
+                  ],
                   child: Text(
                     'Sign In',
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(

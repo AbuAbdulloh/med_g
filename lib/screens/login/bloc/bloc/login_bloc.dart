@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:med_g/models/register/register.dart';
 import 'package:med_g/models/register_response/register_response.dart';
 import 'package:med_g/models/submission_status/submission_status.dart';
+import 'package:med_g/repository/authentication.dart';
 import 'package:med_g/repository/register.dart';
 
 part 'login_event.dart';
@@ -10,6 +11,7 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final repository = RegisterRepository();
+  final authenticationRepository = AuthenticationRepository();
   LoginBloc()
       : super(
           LoginState(
@@ -24,6 +26,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final registerResponse = await repository.registerUser(event.register);
         emit(state.copyWith(
           status: SubmissionStatus.submissionSucces,
+          register: event.register,
           registerResponse: registerResponse,
         ));
         event.onSucces();
@@ -55,16 +58,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<UserLoggedIn>((event, emit) async {
       emit(state.copyWith(status: SubmissionStatus.submissionInProgress));
       try {
-        await repository.loginUser(
-          {
-            'phone': '998' + event.phone
-                .replaceAll('-', '')
-                .replaceAll('(', '')
-                .replaceAll(')', '')
-                .replaceAll(' ', '')
-                .trim(),
-            'password': event.password,
-          },
+        await authenticationRepository.logIn(
+          password: event.password,
+          phoneNumber: '998' +
+              event.phone
+                  .replaceAll('-', '')
+                  .replaceAll('(', '')
+                  .replaceAll(')', '')
+                  .replaceAll(' ', '')
+                  .trim(),
         );
         emit(state.copyWith(status: SubmissionStatus.submissionSucces));
         event.onSucces();

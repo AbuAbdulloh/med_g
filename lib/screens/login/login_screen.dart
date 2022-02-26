@@ -5,6 +5,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
+import 'package:med_g/bloc/bloc/authentication_bloc.dart';
+import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/models/submission_status/submission_status.dart';
 import 'package:med_g/screens/home/home.dart';
 import 'package:med_g/screens/login/bloc/bloc/login_bloc.dart';
@@ -117,10 +119,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               phone: phoneController.text,
                               password: passwordController.text.trim(),
                               onSucces: () {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                  HomeScreen.route(),
-                                  (route) => false,
-                                );
+                                context.read<AuthenticationBloc>().add(
+                                    const AuthenticationStatusChanged(
+                                        AuthenticationStatus.authenticated));
                               },
                               onError: (message) {
                                 showErrorSnackBar(context, message);
@@ -241,12 +242,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         WButton(
                           margin: const EdgeInsets.only(top: 16, bottom: 16),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(0, 4),
+                              blurRadius: 4,
+                              color: AppTheme.black.withOpacity(0.25),
+                            )
+                          ],
                           color: AppTheme.white,
                           onTap: () {
                             Navigator.of(context).push(SignupScreen.route());
                           },
                           text: 'Sign Up',
-                          textStyle: theme.headline1!.copyWith(),
+                          textStyle: theme.bodyText1!.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ],
                     ),

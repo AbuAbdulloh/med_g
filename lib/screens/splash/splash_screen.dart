@@ -1,10 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
-import 'package:med_g/screens/onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static Route route() => MaterialPageRoute(
@@ -19,16 +16,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(
-      const Duration(seconds: 3),
-      () {
-        Navigator.pushAndRemoveUntil(
-          context,
-          OnboardingScreen.route(),
-          (route) => false,
-        );
-      },
-    );
     super.initState();
   }
 

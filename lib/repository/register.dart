@@ -8,6 +8,7 @@ class RegisterRepository {
   final _dio = serviceLocator<DioSettings>().dio;
 
   Future<RegisterResponse> registerUser(Register register) async {
+    print(register);
     try {
       final response = await _dio.post(
         '/register',
@@ -57,27 +58,27 @@ class RegisterRepository {
     }
   }
 
-  Future<void> loginUser(Map<String, dynamic> data) async {
-    print(data);
-    try {
-      final response = await _dio.post(
-        '/login',
-        data: data,
-      );
-      print(response.data);
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        print(response.data);
-        print(response.statusCode);
-      } else {
-        throw CustomException(
-          message: '${response.data['status']}',
-          code: '${response.statusCode}',
-        );
-      }
-    } on CustomException {
-      rethrow;
-    } on Exception catch (e) {
-      throw CustomException(message: '$e', code: '502');
-    }
-  }
+  // Future<void> loginUser(Map<String, dynamic> data) async {
+  //   print(data);
+  //   try {
+  //     final response = await _dio.post(
+  //       '/login',
+  //       data: data,
+  //     );
+  //     print(response.data);
+  //     if (response.statusCode! >= 200 && response.statusCode! < 300) {
+  //       print(response.data);
+  //       print(response.statusCode);
+  //     } else {
+  //       throw CustomException(
+  //         message: '${response.data['status']}',
+  //         code: '${response.statusCode}',
+  //       );
+  //     }
+  //   } on CustomException {
+  //     rethrow;
+  //   } on Exception catch (e) {
+  //     throw CustomException(message: '$e', code: '502');
+  //   }
+  // }
 }

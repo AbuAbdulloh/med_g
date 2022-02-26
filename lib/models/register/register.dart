@@ -17,6 +17,11 @@ class Register {
     required this.phone,
   });
 
-  factory Register.fromJson(Map<String, dynamic> json) => _$RegisterFromJson(json);
+  factory Register.fromJson(Map<String, dynamic> json) =>
+      _$RegisterFromJson(json);
   Map<String, dynamic> toJson() => _$RegisterToJson(this);
+
+  @override
+  String toString() =>
+      'Register(firstName: $firstName, password: $password, phone: $phone)';
 }

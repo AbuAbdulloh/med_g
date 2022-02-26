@@ -19,24 +19,25 @@ class WButton extends StatelessWidget {
   final bool loading;
   final bool disabled;
   final double? borderRadius;
-
-  const WButton(
-      {required this.onTap,
-      this.width,
-      this.borderRadius,
-      this.height,
-      this.text = '',
-      this.color = const Color(0xff0062FF),
-      this.textColor = AppTheme.white,
-      this.textStyle,
-      this.margin,
-      this.padding,
-      this.border,
-      this.loading = false,
-      this.disabled = false,
-      Key? key,
-      this.child})
-      : super(key: key);
+  final List<BoxShadow>? boxShadow;
+  const WButton({
+    required this.onTap,
+    this.width,
+    this.borderRadius,
+    this.height,
+    this.text = '',
+    this.textStyle,
+    this.margin,
+    this.padding,
+    this.border,
+    this.child,
+    this.boxShadow,
+    this.color = const Color(0xff0062FF),
+    this.textColor = AppTheme.white,
+    this.loading = false,
+    this.disabled = false,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
@@ -56,14 +57,15 @@ class WButton extends StatelessWidget {
             color: disabled ? AppTheme.neutral : color,
             borderRadius: BorderRadius.circular(borderRadius ?? 8),
             border: border,
-            boxShadow: [
-              BoxShadow(
-                color: AppTheme.black.withOpacity(0.1),
-                blurRadius: 1,
-                spreadRadius: 1,
-                offset: const Offset(1, 1),
-              ),
-            ],
+            boxShadow: boxShadow ??
+                [
+                  BoxShadow(
+                    color: AppTheme.black.withOpacity(0.1),
+                    blurRadius: 1,
+                    spreadRadius: 1,
+                    offset: const Offset(1, 1),
+                  ),
+                ],
           ),
           child: loading
               ? const Center(

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
+import 'package:med_g/bloc/bloc/authentication_bloc.dart';
+import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/screens/account_settings/account_settings_screen.dart';
+import 'package:med_g/screens/login/login_screen.dart';
 import 'package:med_g/screens/notifications/notifications_screen.dart';
 import 'package:med_g/screens/privacy/privacy_screen.dart';
 import 'package:med_g/screens/profile/widgets/profile_app_bar.dart';
@@ -66,26 +70,72 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    return Scaffold(
-      backgroundColor: AppTheme.background,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(mediaQuery.padding.top + 264),
-        child: ProfileAppBar(mediaQuery: mediaQuery),
-      ),
-      body: ListView.separated(
-        physics: const BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
-        ),
-        padding: const EdgeInsets.fromLTRB(13.5, 20, 13.5, 13.5),
-        itemBuilder: (_, index) => ProfileItem(
-          icon: profileItems[index].icon,
-          title: profileItems[index].title,
-          onTap: profileItems[index].onTap,
-          isActive: profileItems[index].isActive,
-        ),
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
-        itemCount: profileItems.length,
-      ),
+    final theme = Theme.of(context).textTheme;
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      builder: (context, state) {
+        if (state.status == AuthenticationStatus.authenticated) {
+          return Scaffold(
+            backgroundColor: AppTheme.background,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(mediaQuery.padding.top + 264),
+              child: ProfileAppBar(mediaQuery: mediaQuery),
+            ),
+            body: ListView.separated(
+              physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
+              padding: const EdgeInsets.fromLTRB(13.5, 20, 13.5, 13.5),
+              itemBuilder: (_, index) => ProfileItem(
+                icon: profileItems[index].icon,
+                title: profileItems[index].title,
+                onTap: profileItems[index].onTap,
+                isActive: profileItems[index].isActive,
+              ),
+              separatorBuilder: (_, __) => const SizedBox(height: 12),
+              itemCount: profileItems.length,
+            ),
+          );
+        } else {
+          return Scaffold(
+            body: Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(AppIcons.noAccount),
+                      const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          'Для полноценного использования войдите в аккаунт',
+                          style: theme.headline1!.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                WButton(
+                  margin: const EdgeInsets.all(16),
+                  text: 'Войти',
+                  textStyle: theme.headline2!.copyWith(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  onTap: () {
+                    Navigator.of(context, rootNavigator: true)
+                        .push(LoginScreen.route());
+                  },
+                )
+              ],
+            ),
+          );
+        }
+      },
     );
   }
 }
