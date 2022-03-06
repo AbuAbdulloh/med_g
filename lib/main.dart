@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
+
 import 'package:med_g/app/app.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/data/singletons/service_locator.dart';
 import 'package:med_g/repository/authentication.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'generated/codegen_loader.g.dart';
+
+import 'package:med_g/generated/codegen_loader.g.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,15 +22,20 @@ Future<void> main() async {
   OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
     print('Accepted permission: $accepted');
   });
+
+  /// Used to disable pushing notifications
+  // OneSignal.shared.disablePush(true);
   runApp(
     EasyLocalization(
         supportedLocales: const [
-          Locale('en', 'US'),
-          Locale('de', 'DE'),
+          Locale('uz'),
+          Locale('ru'),
+          Locale('en'),
         ],
         path: 'assets/translations',
         assetLoader: const CodegenLoader(),
-        fallbackLocale: const Locale('en', 'US'),
+        fallbackLocale: const Locale('uz'),
+        errorWidget: (error) => Container(),
         child: const MyApp()),
   );
   runApp(const MyApp());
@@ -41,9 +48,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
       title: 'MEDG',
       theme: AppTheme.lightTheme(),
       home: App(
