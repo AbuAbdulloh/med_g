@@ -86,13 +86,8 @@ class AuthenticationBloc
       emit(const AuthenticationState.unknown());
     });
 
-    _authenticationStatusSubscription = _authenticationRepository.status.listen(
-      (status) => add(
-        AuthenticationStatusChanged(
-          status,
-        ),
-      ),
-    );
+    _authenticationStatusSubscription = _authenticationRepository.status
+        .listen((status) => add(AuthenticationStatusChanged(status)));
   }
 
   final AuthenticationRepository _authenticationRepository;

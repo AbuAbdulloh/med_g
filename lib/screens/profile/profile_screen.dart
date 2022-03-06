@@ -80,19 +80,98 @@ class _ProfileScreenState extends State<ProfileScreen> {
               preferredSize: Size.fromHeight(mediaQuery.padding.top + 264),
               child: ProfileAppBar(mediaQuery: mediaQuery),
             ),
-            body: ListView.separated(
-              physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics(),
-              ),
-              padding: const EdgeInsets.fromLTRB(13.5, 20, 13.5, 13.5),
-              itemBuilder: (_, index) => ProfileItem(
-                icon: profileItems[index].icon,
-                title: profileItems[index].title,
-                onTap: profileItems[index].onTap,
-                isActive: profileItems[index].isActive,
-              ),
-              separatorBuilder: (_, __) => const SizedBox(height: 12),
-              itemCount: profileItems.length,
+            body: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 100,
+                        height: 100,
+                        padding: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: AppTheme.black,
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //     color: Colors.brown,
+                          //     blurRadius: 5,
+                          //     spreadRadius: 5,
+                          //   )
+                          // ],
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Lucy Martin',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              '+998901234567',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // Positioned(
+                      //   right: 0,
+                      //   bottom: 0,
+                      //   child: Container(
+                      //     width: 39,
+                      //     height: 39,
+                      //     padding: const EdgeInsets.all(8),
+                      //     decoration: BoxDecoration(
+                      //       shape: BoxShape.circle,
+                      //       color: AppTheme.redAccent,
+                      //       boxShadow: [
+                      //         BoxShadow(
+                      //           color: AppTheme.redAccent.withOpacity(0.7),
+                      //           blurRadius: 5,
+                      //           offset: const Offset(2, 2),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //     child: SvgPicture.asset(AppIcons.camera),
+                      //   ),
+                      // )
+                    ],
+                  ),
+                ),
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  padding: const EdgeInsets.fromLTRB(13.5, 0, 13.5, 13.5),
+                  itemBuilder: (_, index) => ProfileItem(
+                    icon: profileItems[index].icon,
+                    title: profileItems[index].title,
+                    onTap: profileItems[index].onTap,
+                    isActive: profileItems[index].isActive,
+                  ),
+                  separatorBuilder: (_, __) => const SizedBox(height: 12),
+                  itemCount: profileItems.length,
+                ),
+              ],
             ),
           );
         } else {

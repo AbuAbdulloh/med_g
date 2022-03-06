@@ -7,6 +7,7 @@ import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/repository/authentication.dart';
 import 'package:med_g/screens/home/home.dart';
 import 'package:med_g/screens/login/login_screen.dart';
+import 'package:med_g/screens/onboarding/onboarding_screen.dart';
 import 'package:med_g/screens/splash/splash_screen.dart';
 
 class App extends StatefulWidget {
@@ -37,7 +38,7 @@ class _AppState extends State<App> {
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Job Hunt',
+            title: 'MedG',
             theme: AppTheme.lightTheme(),
             onGenerateRoute: (settings) => SplashScreen.route(),
             navigatorKey: _navigatorKey,
@@ -54,23 +55,30 @@ class _AppState extends State<App> {
                     }
                     break;
                   case AuthenticationStatus.unauthenticated:
-                    if (StorageRepository.getString('token', defValue: '') ==
-                        '') {
+                    if (!StorageRepository.getBool('wizard', defValue: false)) {
                       _navigator.pushAndRemoveUntil<void>(
-                        HomeScreen.route(),
+                        OnboardingScreen.route(),
                         (route) => false,
                       );
                     } else {
-                      context.read<AuthenticationBloc>().add(
-                        AuthenticationGetStatus(
-                          () {
-                            _navigator.pushAndRemoveUntil(
-                              LoginScreen.route(),
-                              (route) => false,
-                            );
-                          },
-                        ),
-                      );
+                      if (StorageRepository.getString('token', defValue: '') ==
+                          '') {
+                        _navigator.pushAndRemoveUntil<void>(
+                          HomeScreen.route(),
+                          (route) => false,
+                        );
+                      } else {
+                        context.read<AuthenticationBloc>().add(
+                          AuthenticationGetStatus(
+                            () {
+                              _navigator.pushAndRemoveUntil(
+                                LoginScreen.route(),
+                                (route) => false,
+                              );
+                            },
+                          ),
+                        );
+                      }
                     }
                     break;
                   case AuthenticationStatus.unknown:
@@ -83,10 +91,6 @@ class _AppState extends State<App> {
                     break;
                 }
               },
-              child: MediaQuery(
-                data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-                child: child!,
-              ),
             ),
           ),
         ),

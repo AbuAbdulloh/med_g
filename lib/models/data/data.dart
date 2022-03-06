@@ -6,13 +6,8 @@ part 'data.g.dart';
 class Data {
   @JsonKey(name: 'sign_id', defaultValue: '')
   final String signIn;
-  @JsonKey(name: 'user_id', defaultValue: '')
-  final String userId;
 
-  Data({
-    required this.signIn,
-    required this.userId,
-  });
+  Data({required this.signIn});
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
   Map<String, dynamic> toJson() => _$DataToJson(this);

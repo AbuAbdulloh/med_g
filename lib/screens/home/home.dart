@@ -11,9 +11,7 @@ class HomeScreen extends StatefulWidget {
   static Route route() =>
       MaterialPageRoute<void>(builder: (_) => const HomeScreen());
 
-  const HomeScreen({
-    Key? key,
-  }) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -120,13 +118,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             resizeToAvoidBottomInset: true,
             bottomNavigationBar: Container(
               height: 77,
-              margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 16),
-              padding: const EdgeInsets.fromLTRB(23, 12, 23, 12),
-              decoration: BoxDecoration(
+              // margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 16),
+              padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
+              decoration: const BoxDecoration(
                 // color: Color.fromRGBO(250, 251, 251, 1),
                 color: AppTheme.cFCFDFF,
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: const [
+                // borderRadius: BorderRadius.circular(30),
+                boxShadow: [
                   BoxShadow(
                     color: Color.fromRGBO(6, 14, 34, 0.08),
                     blurRadius: 30,

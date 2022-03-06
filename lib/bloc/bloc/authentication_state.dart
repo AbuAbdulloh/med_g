@@ -4,11 +4,9 @@ class AuthenticationState extends Equatable {
   const AuthenticationState._({
     this.status = AuthenticationStatus.unknown,
     this.user = const AuthenticatedUser(
-      activatedAt: '',
       address: '',
       allergy: '',
       birthDate: '',
-      createdAt: '',
       firstName: '',
       height: 0,
       hobby: '',
@@ -19,7 +17,6 @@ class AuthenticationState extends Equatable {
       phone: '',
       status: 0,
       surname: '',
-      updatedAt: '',
       weight: 0,
     ),
     this.dontRebuild = false,

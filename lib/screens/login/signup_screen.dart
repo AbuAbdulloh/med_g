@@ -245,10 +245,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                 },
                                 onError: (message) {
                                   showErrorSnackBar(context, message);
-                                  Navigator.of(context)
-                                      .push(VerificationScreen.route(
-                                    bloc: loginBloc,
-                                  ));
                                 }),
                           );
                     },

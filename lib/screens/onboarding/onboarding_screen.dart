@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/theme/theme.dart';
+import 'package:med_g/data/singletons/storage.dart';
 import 'package:med_g/screens/home/home.dart';
-import 'package:med_g/screens/login/login_screen.dart';
-import 'package:med_g/screens/login/signup_screen.dart';
-import 'package:med_g/screens/login/widgets/director_screen.dart';
 import 'package:med_g/screens/onboarding/pages/first_page.dart';
 import 'package:med_g/screens/onboarding/pages/second_page.dart';
 import 'package:med_g/screens/onboarding/pages/third_page.dart';
@@ -56,14 +54,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             bottom: 52 - mediaQuery.padding.bottom,
             left: (mediaQuery.size.width / 2) - 25,
             child: WScaleAnimation(
-              onTap: (_) {
+              onTap: (_) async {
                 if (pageController.page!.toInt() == 0) {
                   pageController.jumpToPage(1);
                 } else if (pageController.page!.toInt() == 1) {
                   pageController.jumpToPage(2);
                 } else {
+                  await StorageRepository.putBool(key: 'wizard', value: true);
                   Navigator.of(context).pushAndRemoveUntil<void>(
-                      DirectorScreen.route(), (route) => false);
+                      HomeScreen.route(), (route) => false);
                 }
                 setState(() {
                   currentIndex = pageController.page!.toInt();

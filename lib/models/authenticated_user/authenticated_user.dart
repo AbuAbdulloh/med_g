@@ -5,16 +5,16 @@ part 'authenticated_user.g.dart';
 
 @JsonSerializable()
 class AuthenticatedUser extends Equatable {
-  @JsonKey(name: 'activatedAt', defaultValue: '')
-  final String activatedAt;
+  // @JsonKey(name: 'activatedAt', defaultValue: '')
+  // final String activatedAt;
   @JsonKey(name: 'address', defaultValue: '')
   final String address;
   @JsonKey(name: 'allergy', defaultValue: '')
   final String allergy;
   @JsonKey(name: 'birthDate', defaultValue: '')
   final String birthDate;
-  @JsonKey(name: 'createdAt', defaultValue: '')
-  final String createdAt;
+  // @JsonKey(name: 'createdAt', defaultValue: '')
+  // final String createdAt;
   @JsonKey(name: 'firstName', defaultValue: '')
   final String firstName;
   @JsonKey(name: 'height', defaultValue: 0)
@@ -33,30 +33,30 @@ class AuthenticatedUser extends Equatable {
   final String phone;
   @JsonKey(name: 'status', defaultValue: 0)
   final int status;
-  @JsonKey(name: 'surname', defaultValue: '')
+  @JsonKey(name: 'sur_name', defaultValue: '')
   final String surname;
-  @JsonKey(name: 'updatedAt', defaultValue: '')
-  final String updatedAt;
+  // @JsonKey(name: 'updatedAt', defaultValue: '')
+  // final String updatedAt;
   @JsonKey(name: 'weight', defaultValue: 0)
   final int weight;
 
   const AuthenticatedUser({
-    required this.activatedAt,
     required this.address,
     required this.allergy,
     required this.birthDate,
-    required this.createdAt,
     required this.firstName,
     required this.height,
     required this.hobby,
     required this.id,
     required this.image,
-    required this.password,
     required this.patronymic,
     required this.phone,
     required this.status,
+    // required this.activatedAt,
+    // required this.createdAt,
+    required this.password,
     required this.surname,
-    required this.updatedAt,
+    // required this.updatedAt,
     required this.weight,
   });
 
@@ -65,11 +65,11 @@ class AuthenticatedUser extends Equatable {
   Map<String, dynamic> toJson() => _$AuthenticatedUserToJson(this);
 
   AuthenticatedUser copyWith({
-    String? activatedAt,
     String? address,
+    // String? activatedAt,
     String? allergy,
     String? birthDate,
-    String? createdAt,
+    // String? createdAt,
     String? firstName,
     int? height,
     String? hobby,
@@ -80,15 +80,15 @@ class AuthenticatedUser extends Equatable {
     String? phone,
     int? status,
     String? surname,
-    String? updatedAt,
+    // String? updatedAt,
     int? weight,
   }) =>
       AuthenticatedUser(
-        activatedAt: activatedAt ?? this.activatedAt,
+        // activatedAt: activatedAt ?? this.activatedAt,
         address: address ?? this.address,
         allergy: allergy ?? this.allergy,
         birthDate: birthDate ?? this.birthDate,
-        createdAt: createdAt ?? this.createdAt,
+        // createdAt: createdAt ?? this.createdAt,
         firstName: firstName ?? this.firstName,
         height: height ?? this.height,
         hobby: hobby ?? this.hobby,
@@ -99,17 +99,17 @@ class AuthenticatedUser extends Equatable {
         phone: phone ?? this.phone,
         status: status ?? this.status,
         surname: surname ?? this.surname,
-        updatedAt: updatedAt ?? this.updatedAt,
+        // updatedAt: updatedAt ?? this.updatedAt,
         weight: weight ?? this.weight,
       );
 
   @override
   List<Object> get props => [
-        activatedAt,
+        // activatedAt,
         address,
         allergy,
         birthDate,
-        createdAt,
+        // createdAt,
         firstName,
         height,
         hobby,
@@ -120,10 +120,7 @@ class AuthenticatedUser extends Equatable {
         phone,
         status,
         surname,
-        updatedAt,
+        // updatedAt,
         weight,
       ];
-  @override
-  String toString() =>
-      'AuthenticatedUser(activatedAt: $activatedAt, address: $address, allergy: $allergy, birthDate: $birthDate, createdAt: $createdAt, firstName: $firstName, height: $height, hobby: $hobby, id: $id, image: $image, password: $password, patronymic: $patronymic, phone: $phone, status: $status, surname: $surname, updatedAt: $updatedAt, weight: $weight)';
 }

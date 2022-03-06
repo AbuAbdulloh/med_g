@@ -25,6 +25,7 @@ class _AccountSettingsState extends State<AccountSettings> {
         child: AccountSettingsAppBar(mediaQuery: mediaQuery),
       ),
       body: ListView(
+        shrinkWrap: true,
         physics: const BouncingScrollPhysics(
           parent: AlwaysScrollableScrollPhysics(),
         ),
