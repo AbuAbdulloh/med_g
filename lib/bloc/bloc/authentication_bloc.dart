@@ -26,7 +26,7 @@ class AuthenticationBloc
         final user = await _authenticationRepository.getProfile();
         emit(AuthenticationState.authenticated(
           user,
-          dontRebuild: true,
+          dontRebuild: false,
         ));
       } on Exception {
         emit(const AuthenticationState.unauthenticated());
@@ -53,7 +53,6 @@ class AuthenticationBloc
     });
 
     on<AuthenticationGetStatus>((event, emit) async {
-      print('Came here 1');
       try {
         await _authenticationRepository.getProfile();
         add(

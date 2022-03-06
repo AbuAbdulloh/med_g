@@ -30,12 +30,14 @@ dependencies:
   build_runner: ^2.1.7
   flutter_bloc: ^8.0.1
   equatable: ^2.0.3
+  onesignal_flutter: ^3.2.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^1.0.0
+  lints: ^1.0.1
 
 flutter:
 
@@ -45,6 +47,7 @@ flutter:
     - assets/
     - assets/icons/
     - assets/fonts/
+    - assets/translations/
 
   fonts:
     - family: Barlow
