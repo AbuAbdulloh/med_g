@@ -25,15 +25,23 @@ class _AppState extends State<App> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get _navigator => _navigatorKey.currentState!;
+
+  late AuthenticationBloc authenticationBloc;
+
   @override
-  Widget build(BuildContext context) => RepositoryProvider(
-        create: (context) => widget.authenticationRepository,
+  void initState() {
+    super.initState();
+    authenticationBloc = AuthenticationBloc(
+      authenticationRepository: widget.authenticationRepository,
+    );
+  }
+  @override
+  Widget build(BuildContext context) => RepositoryProvider.value(
+        value: widget.authenticationRepository,
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (context) => AuthenticationBloc(
-                authenticationRepository: widget.authenticationRepository,
-              ),
+            BlocProvider.value(
+              value: authenticationBloc,
             ),
           ],
           child: MaterialApp(
@@ -72,7 +80,7 @@ class _AppState extends State<App> {
                           AuthenticationGetStatus(
                             () {
                               _navigator.pushAndRemoveUntil(
-                                LoginScreen.route(),
+                                HomeScreen.route(),
                                 (route) => false,
                               );
                             },

@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'MEDG',
+      title: 'MedG',
       theme: AppTheme.lightTheme(),
       home: App(
         authenticationRepository: AuthenticationRepository(),

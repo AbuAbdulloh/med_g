@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:med_g/app/theme/theme.dart';
+import 'package:med_g/bloc/bloc/authentication_bloc.dart';
+import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/models/register/register.dart';
 import 'package:med_g/models/submission_status/submission_status.dart';
 import 'package:med_g/screens/home/home.dart';
@@ -17,6 +19,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerificationScreen extends StatefulWidget {
   final LoginBloc bloc;
+
   static Route route({required LoginBloc bloc}) => MaterialPageRoute(
         builder: (_) => VerificationScreen(bloc: bloc),
       );
@@ -33,6 +36,7 @@ class VerificationScreen extends StatefulWidget {
 class _VerificationScreenState extends State<VerificationScreen> {
   late TextEditingController pinCodeController;
   int seconds = 120;
+
   @override
   void initState() {
     super.initState();
@@ -178,10 +182,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
                               UserVerified(
                                   pinCode: pinCodeController.text.trim(),
                                   onSucces: () {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                      HomeScreen.route(),
-                                      (route) => false,
-                                    );
+                                    context.read<AuthenticationBloc>().add(
+                                        const AuthenticationStatusChanged(
+                                            AuthenticationStatus
+                                                .authenticated));
                                   },
                                   onError: (message) {
                                     showErrorSnackBar(context, message);
