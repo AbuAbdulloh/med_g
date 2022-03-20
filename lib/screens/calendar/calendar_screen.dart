@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/bloc/bloc/authentication_bloc.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
@@ -22,16 +23,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
     final theme = Theme.of(context).textTheme;
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (_, state) {
         if (state.status == AuthenticationStatus.authenticated) {
           return Scaffold(
-            appBar: PreferredSize(
-              child: WAppBar(title: 'Calendar', mediaQuery: mediaQuery),
-              preferredSize: Size.fromHeight(mediaQuery.padding.top + 77),
-            ),
             body: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Container(
@@ -44,11 +40,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   vertical: 16,
                 ),
                 decoration: BoxDecoration(
-                  color: AppTheme.white,
+                  color: white,
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
-                      color: AppTheme.black.withOpacity(0.2),
+                      color: black.withOpacity(0.2),
                       blurRadius: 3,
                       offset: const Offset(1, 2),
                     ),

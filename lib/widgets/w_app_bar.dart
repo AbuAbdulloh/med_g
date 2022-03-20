@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/widgets/w_back_button.dart';
 import 'package:med_g/widgets/w_notifications_button.dart';
@@ -21,7 +22,7 @@ class WAppBar extends StatelessWidget {
       height: mediaQuery.padding.top + 77,
       width: double.maxFinite,
       decoration: const BoxDecoration(
-        color: AppTheme.primaryText,
+        color: primary,
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(25),
         ),
@@ -35,7 +36,7 @@ class WAppBar extends StatelessWidget {
         height: mediaQuery.padding.top + 77,
         width: double.maxFinite,
         decoration: const BoxDecoration(
-          color: AppTheme.white,
+          color: white,
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(25),
           ),

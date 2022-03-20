@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/screens/review_details/review_details.dart';
 import 'package:med_g/widgets/w_like_button.dart';
@@ -18,7 +19,7 @@ class ReviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WScaleAnimation(
-      onTap: (_) {
+      onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (_) => ReviewDetails(
@@ -32,7 +33,7 @@ class ReviewItem extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          color: AppTheme.white,
+          color: white,
           boxShadow: [],
         ),
         child: Column(
@@ -42,14 +43,14 @@ class ReviewItem extends StatelessWidget {
             Container(
               width: double.maxFinite,
               decoration: BoxDecoration(
-                color: AppTheme.white,
+                color: white,
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(8),
                 ),
                 boxShadow: [
                   BoxShadow(
                     blurStyle: BlurStyle.normal,
-                    color: AppTheme.black.withOpacity(0.3),
+                    color: black.withOpacity(0.3),
                     blurRadius: 5,
                     offset: const Offset(0, 3),
                   ),
@@ -94,7 +95,7 @@ class ReviewItem extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(18, 28, 18, 12),
               width: double.maxFinite,
               decoration: const BoxDecoration(
-                  // color: AppTheme.white,
+                  // color: white,
                   ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,

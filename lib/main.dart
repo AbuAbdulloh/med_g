@@ -1,12 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-
 import 'package:med_g/app/app.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/data/singletons/service_locator.dart';
 import 'package:med_g/repository/authentication.dart';
-
 import 'package:med_g/generated/codegen_loader.g.dart';
 
 Future<void> main() async {
@@ -50,9 +48,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'MedG',
       theme: AppTheme.lightTheme(),
-      home: App(
-        authenticationRepository: AuthenticationRepository(),
-      ),
+      home: App(authenticationRepository: AuthenticationRepository()),
     );
   }
 }

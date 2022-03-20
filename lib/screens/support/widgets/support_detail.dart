@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
-import 'package:med_g/screens/support/bloc/support_detail_item.dart';
+import 'package:med_g/screens/support/widgets/support_detail_item.dart';
 import 'package:med_g/widgets/w_app_bar.dart';
 
 class SupprotDetail extends StatelessWidget {
@@ -13,7 +14,7 @@ class SupprotDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: AppTheme.background,
+      backgroundColor: background,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(mediaQuery.padding.top + 77),
         child: WAppBar(title: 'Support', mediaQuery: mediaQuery),

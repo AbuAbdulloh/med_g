@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/screens/privacy/widgets/privacy_item.dart';
 import 'package:med_g/widgets/w_app_bar.dart';
@@ -13,7 +14,7 @@ class PrivacyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: AppTheme.background,
+      backgroundColor: background,
       appBar: PreferredSize(
         child: WAppBar(title: 'Privacy Policy', mediaQuery: mediaQuery),
         preferredSize: const Size.fromHeight(77),

@@ -12,18 +12,20 @@ class FirstPage extends StatelessWidget {
         children: [
           Positioned(
             left: 0,
-            bottom: 0,
+            top: 0,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: SvgPicture.asset(
-                AppIcons.waveShape,
+                AppIcons.onboard_1,
                 fit: BoxFit.fill,
               ),
             ),
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset(AppIcons.onboard1),
+              const SizedBox(height: 20),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -48,7 +50,6 @@ class FirstPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SvgPicture.asset(AppIcons.onboard_1),
             ],
           ),
         ],

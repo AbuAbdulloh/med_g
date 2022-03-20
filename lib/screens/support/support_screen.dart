@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
-import 'package:med_g/screens/support/bloc/support_detail.dart';
+import 'package:med_g/screens/support/widgets/support_detail.dart';
 import 'package:med_g/widgets/w_app_bar.dart';
 import 'package:med_g/widgets/w_forward_button.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
@@ -17,7 +18,7 @@ class SupportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: AppTheme.background,
+      backgroundColor: background,
       appBar: PreferredSize(
         child: WAppBar(
           title: 'Support',
@@ -87,7 +88,7 @@ class OwnerInfoCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(
-          color: AppTheme.white,
+          color: white,
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
         child: Row(
@@ -96,7 +97,7 @@ class OwnerInfoCard extends StatelessWidget {
               width: 89,
               height: 89,
               decoration: const BoxDecoration(
-                color: AppTheme.c4485FC,
+                color: dark,
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
               child: Image.asset(icon),
@@ -130,7 +131,7 @@ class OwnerInfoCard extends StatelessWidget {
                         vertical: 0,
                       ),
                       decoration: const BoxDecoration(
-                        color: AppTheme.green,
+                        color: red,
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                       ),
                       child: Row(
@@ -165,7 +166,7 @@ class OwnerInfoCard extends StatelessWidget {
           ],
         ),
       ),
-      onTap: (_) {},
+      onTap: () {},
     );
   }
 }
@@ -182,15 +183,13 @@ class SupportItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WScaleAnimation(
-      onTap: (_) {
-        onTap();
-      },
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(18),
         width: double.maxFinite,
         height: 64,
         decoration: const BoxDecoration(
-          color: AppTheme.white,
+          color: white,
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
         child: Row(

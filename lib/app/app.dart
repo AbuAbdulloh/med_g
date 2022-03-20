@@ -6,7 +6,6 @@ import 'package:med_g/data/singletons/storage.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/repository/authentication.dart';
 import 'package:med_g/screens/home/home.dart';
-import 'package:med_g/screens/login/login_screen.dart';
 import 'package:med_g/screens/onboarding/onboarding_screen.dart';
 import 'package:med_g/screens/splash/splash_screen.dart';
 

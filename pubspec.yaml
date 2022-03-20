@@ -53,6 +53,9 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/icons/onboarding/
+    - assets/icons/global/
+    - assets/images/
     - assets/fonts/
     - assets/translations/
     - assets/launcher_icons/

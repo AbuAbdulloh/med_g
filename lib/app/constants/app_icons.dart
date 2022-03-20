@@ -1,4 +1,12 @@
 class AppIcons {
+  static const logoMain = 'assets/icons/global/logo.svg';
+  static const notifications = 'assets/icons/global/notifications.svg';
+  static const search = 'assets/icons/global/search.svg';
+  static const psixalogiya = 'assets/icons/global/mock_icon.svg';
+  static const bookmarkFilled = 'assets/icons/global/bookmark_filled.svg';
+  static const bookmarkOutlined = 'assets/icons/global/bookmark_outlined.svg';
+
+  // Deletable
   static const home = 'assets/icons/home.svg';
   static const doctor = 'assets/icons/doctor.svg';
   static const chat = 'assets/icons/chat.svg';
@@ -17,7 +25,6 @@ class AppIcons {
   static const camera = 'assets/icons/camera.svg';
   static const arrowForwardIos = 'assets/icons/arrow_forward_ios.svg';
   static const edit = 'assets/icons/pen.svg';
-  static const notifications = 'assets/icons/notification.svg';
   static const support = 'assets/icons/support.svg';
   static const privacy = 'assets/icons/privacy.svg';
   static const logout = 'assets/icons/logout.svg';
@@ -25,7 +32,6 @@ class AppIcons {
   static const star = 'assets/icons/star.svg';
   static const clock = 'assets/icons/clock.svg';
   static const filter = 'assets/icons/filter.svg';
-  static const search = 'assets/icons/search.svg';
   static const closeGreen = 'assets/icons/close_green.svg';
   static const eyeOff = 'assets/icons/eye_off.svg';
   static const eyeOn = 'assets/icons/eye_on.svg';
@@ -33,11 +39,16 @@ class AppIcons {
   static const logoBig = 'assets/icons/logo_big.svg';
   static const logo = 'assets/icons/logo.svg';
   static const waveShape = 'assets/icons/wave_shape.svg';
-  static const onboard_1 = 'assets/icons/onboard_1.svg';
-  static const onboard_2 = 'assets/icons/onboard_2.svg';
-  static const onboard_3 = 'assets/icons/onboard_3.svg';
+  static const onboard_1 = 'assets/icons/onboarding/onboarding_first.svg';
+  static const onboard_2 = 'assets/icons/onboarding/onboarding_second.svg';
+  static const onboard_3 = 'assets/icons/onboarding/onboarding_third.svg';
   static const arrowFilled = 'assets/icons/arrow_filled.svg';
   static const logoColored = 'assets/icons/logo_colorful.svg';
   static const vectors = 'assets/icons/vectors.svg';
   static const noAccount = 'assets/icons/no_account.svg';
+
+  // Images
+  static const onboard1 = 'assets/images/onboarding_first.png';
+  static const onboard2 = 'assets/images/onboarding_second.png';
+  static const onboard3 = 'assets/images/onboarding_third.png';
 }

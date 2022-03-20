@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:med_g/app/constants/app_icons.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/screens/reviews/widgets/review_item.dart';
 import 'package:med_g/widgets/w_app_bar.dart';
@@ -61,7 +62,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                         Container(
                           height: mediaQuery.padding.top + 201,
                           decoration: BoxDecoration(
-                            color: AppTheme.white,
+                            color: white,
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: Column(
@@ -80,7 +81,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                                               BorderRadius.circular(8),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: AppTheme.black
+                                              color: black
                                                   .withOpacity(0.1),
                                               blurRadius: 2,
                                               offset: const Offset(1, 1),
@@ -89,7 +90,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                                         ),
                                         child: WTextField(
                                           borderRadius: 8,
-                                          fillColor: AppTheme.white,
+                                          fillColor: white,
                                           controller: _searchController,
                                           onChanged: (_) {},
                                           prefix: Padding(
@@ -98,7 +99,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                                                 AppIcons.search),
                                           ),
                                           suffix: WScaleAnimation(
-                                            onTap: (_) {
+                                            onTap: () {
                                               _searchController.clear();
                                             },
                                             child: SvgPicture.asset(

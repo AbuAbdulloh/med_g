@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 
@@ -12,17 +13,17 @@ class WLikeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WScaleAnimation(
-      onTap: (_) {},
+      onTap: () {},
       child: Container(
         width: 42,
         height: 42,
         padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: AppTheme.white.withOpacity(0.35),
+          color: white.withOpacity(0.35),
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: AppTheme.primaryText.withOpacity(0.35),
+              color: primary.withOpacity(0.35),
               blurRadius: 35,
               spreadRadius: 0,
               offset: const Offset(0, 15),
@@ -32,7 +33,7 @@ class WLikeButton extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           decoration: const BoxDecoration(
-            color: AppTheme.white,
+            color: white,
             shape: BoxShape.circle,
           ),
           child: SvgPicture.asset(

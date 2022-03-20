@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:med_g/app/constants/app_icons.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/models/navbar/nav_bar.dart';
 import 'package:med_g/models/navbar/nav_item_enum.dart';
@@ -114,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             return isFirstRouteInCurrentTab;
           },
           child: Scaffold(
-            backgroundColor: AppTheme.background,
+            backgroundColor: background,
             resizeToAvoidBottomInset: true,
             bottomNavigationBar: Container(
               height: 77,
@@ -122,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
               decoration: const BoxDecoration(
                 // color: Color.fromRGBO(250, 251, 251, 1),
-                color: AppTheme.cFCFDFF,
+                color: white,
                 // borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(

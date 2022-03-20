@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 
 class PrivacyItem extends StatelessWidget {
@@ -15,7 +16,7 @@ class PrivacyItem extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(8)),
-        color: AppTheme.background,
+        color: background,
         boxShadow: [
           // BoxShadow(
           //   color: AppTheme.black.withOpacity(0.7),
@@ -31,7 +32,7 @@ class PrivacyItem extends StatelessWidget {
           Container(
             width: double.maxFinite,
             decoration: const BoxDecoration(
-              color: AppTheme.white,
+              color: white,
               borderRadius: BorderRadius.vertical(
                 top: Radius.circular(8),
               ),
@@ -69,7 +70,7 @@ class PrivacyItem extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(18, 28, 18, 12),
             width: double.maxFinite,
             decoration: const BoxDecoration(
-              color: AppTheme.white,
+              color: white,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/widgets/w_notifications_button.dart';
 
@@ -35,7 +36,7 @@ class ProfileAppBar extends StatelessWidget {
             height: mediaQuery.padding.top + 77,
             width: double.maxFinite,
             decoration: const BoxDecoration(
-              color: AppTheme.white,
+              color: white,
               borderRadius: BorderRadius.vertical(
                 bottom: Radius.circular(25),
               ),

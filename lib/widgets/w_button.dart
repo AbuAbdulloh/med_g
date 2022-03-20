@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 
@@ -33,7 +34,7 @@ class WButton extends StatelessWidget {
     this.child,
     this.boxShadow,
     this.color = const Color(0xff0062FF),
-    this.textColor = AppTheme.white,
+    this.textColor = white,
     this.loading = false,
     this.disabled = false,
     Key? key,
@@ -41,7 +42,7 @@ class WButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WScaleAnimation(
-        onTap: (value) {
+        onTap: () {
           if (!(loading || disabled)) {
             onTap();
           }
@@ -54,13 +55,13 @@ class WButton extends StatelessWidget {
           padding: padding ?? const EdgeInsets.all(14),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: disabled ? AppTheme.neutral : color,
+            color: disabled ? secondary : color,
             borderRadius: BorderRadius.circular(borderRadius ?? 8),
             border: border,
             boxShadow: boxShadow ??
                 [
                   BoxShadow(
-                    color: AppTheme.black.withOpacity(0.1),
+                    color: black.withOpacity(0.1),
                     blurRadius: 1,
                     spreadRadius: 1,
                     offset: const Offset(1, 1),

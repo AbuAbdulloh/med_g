@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/bloc/bloc/authentication_bloc.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
@@ -75,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder: (context, state) {
         if (state.status == AuthenticationStatus.authenticated) {
           return Scaffold(
-            backgroundColor: AppTheme.background,
+            backgroundColor: background,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(mediaQuery.padding.top + 264),
               child: ProfileAppBar(mediaQuery: mediaQuery),
@@ -93,14 +94,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         height: 100,
                         padding: const EdgeInsets.all(10),
                         decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: AppTheme.black,
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //     color: Colors.brown,
-                          //     blurRadius: 5,
-                          //     spreadRadius: 5,
-                          //   )
-                          // ],
+                          shape: BoxShape.circle,
+                          color: black,
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -133,28 +128,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ],
                         ),
                       ),
-
-                      // Positioned(
-                      //   right: 0,
-                      //   bottom: 0,
-                      //   child: Container(
-                      //     width: 39,
-                      //     height: 39,
-                      //     padding: const EdgeInsets.all(8),
-                      //     decoration: BoxDecoration(
-                      //       shape: BoxShape.circle,
-                      //       color: AppTheme.redAccent,
-                      //       boxShadow: [
-                      //         BoxShadow(
-                      //           color: AppTheme.redAccent.withOpacity(0.7),
-                      //           blurRadius: 5,
-                      //           offset: const Offset(2, 2),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //     child: SvgPicture.asset(AppIcons.camera),
-                      //   ),
-                      // )
                     ],
                   ),
                 ),
@@ -235,7 +208,7 @@ class ProfileItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WButton(
-      color: isActive ? AppTheme.primaryText : AppTheme.white,
+      color: isActive ? primary : white,
       onTap: onTap,
       height: 65,
       child: Row(
@@ -246,11 +219,11 @@ class ProfileItem extends StatelessWidget {
             width: 36,
             height: 36,
             decoration: BoxDecoration(
-              color: isActive ? AppTheme.main : AppTheme.white,
+              color: isActive ? primary: white,
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(
-                  color: AppTheme.black.withOpacity(0.1),
+                  color: black.withOpacity(0.1),
                   blurRadius: 1,
                   spreadRadius: 1,
                   offset: const Offset(1, 1),
@@ -275,7 +248,7 @@ class ProfileItem extends StatelessWidget {
           ),
           SvgPicture.asset(
             AppIcons.arrowForwardIos,
-            color: isActive ? AppTheme.white : null,
+            color: isActive ? white : null,
           )
         ],
       ),

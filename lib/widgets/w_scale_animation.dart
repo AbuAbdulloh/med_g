@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class WScaleAnimation extends StatefulWidget {
   final int id;
   final Widget child;
-  final ValueChanged<int> onTap;
+  final VoidCallback onTap;
   final Duration duration;
   final double scaleValue;
   final bool isDisabled;
@@ -59,7 +59,7 @@ class _WScaleAnimationState extends State<WScaleAnimation>
         behavior: HitTestBehavior.opaque,
         onTap: () {
           if (!widget.isDisabled) {
-            widget.onTap(widget.id);
+            widget.onTap();
           }
         },
         onPanDown: (details) {

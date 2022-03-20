@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 
@@ -26,7 +27,6 @@ class WTextField extends StatefulWidget {
   final int? maxLength;
   final TextInputType? keyBoardType;
   final bool isObscureText;
-  final bool obscureText;
   final Widget? suffix;
   final String? suffixIcon;
   final EdgeInsets? suffixPadding;
@@ -45,7 +45,7 @@ class WTextField extends StatefulWidget {
   final TextAlign textAlign;
   final TextInputAction textInputAction;
   final Function? onObscure;
-  final bool obscure;
+
   final Function? onTapSuffix;
   final Function()? onEditCompleted;
   final int? maxlines;
@@ -74,8 +74,6 @@ class WTextField extends StatefulWidget {
     this.suffix,
     this.suffixIcon,
     this.suffixPadding = const EdgeInsets.all(12),
-    this.obscureText = true,
-    this.obscure = false,
     this.isObscureText = false,
     this.onEyeTap,
     this.margin,
@@ -104,7 +102,7 @@ class _WTextFieldState extends State<WTextField> {
   late FocusNode focusNode;
   bool focused = false;
   bool hasText = false;
-
+  bool isObscure = true;
   @override
   void initState() {
     super.initState();
@@ -161,7 +159,7 @@ class _WTextFieldState extends State<WTextField> {
                     inputFormatters: widget.textInputFormatters,
                     textInputAction: widget.textInputAction,
                     textCapitalization: widget.textCapitalization,
-                    obscureText: widget.obscure,
+                    obscureText: widget.isObscureText ? isObscure : false,
                     keyboardType: widget.keyBoardType,
                     maxLength: widget.maxLength,
                     controller: widget.controller,
@@ -186,7 +184,7 @@ class _WTextFieldState extends State<WTextField> {
                           width: 1,
                           color: widget.hasError
                               ? Theme.of(context).colorScheme.error
-                              : AppTheme.background,
+                              : background,
                         ),
                       ),
                       counterText: widget.hideCounterText != null &&
@@ -212,7 +210,7 @@ class _WTextFieldState extends State<WTextField> {
                               ? Colors.transparent
                               : widget.hasError
                                   ? Theme.of(context).colorScheme.error
-                                  : AppTheme.background,
+                                  : background,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -225,7 +223,7 @@ class _WTextFieldState extends State<WTextField> {
                               ? Colors.transparent
                               : widget.hasError
                                   ? Theme.of(context).colorScheme.error
-                                  : AppTheme.background,
+                                  : background,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -238,9 +236,7 @@ class _WTextFieldState extends State<WTextField> {
                               ? Colors.transparent
                               : widget.hasError
                                   ? Theme.of(context).colorScheme.error
-                                  : widget.borderGreen
-                                      ? AppTheme.main
-                                      : AppTheme.primary,
+                                  : primary,
                         ),
                       ),
                     ),
@@ -250,13 +246,16 @@ class _WTextFieldState extends State<WTextField> {
                   Positioned(
                     top: 12,
                     left: 12,
-                    child: Text(
-                      widget.prefixText,
-                      style: widget.prefixStyle ??
-                          Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(fontSize: 16),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 1),
+                      child: Text(
+                        widget.prefixText,
+                        style: widget.prefixStyle ??
+                            Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontSize: 16),
+                      ),
                     ),
                   )
                 else
@@ -281,7 +280,7 @@ class _WTextFieldState extends State<WTextField> {
                   child: !widget.isObscureText
                       ? widget.suffixIcon != null
                           ? WScaleAnimation(
-                              onTap: (s) {},
+                              onTap: () {},
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 6, 2, 6),
                                 child: SvgPicture.asset(
@@ -291,22 +290,18 @@ class _WTextFieldState extends State<WTextField> {
                             )
                           : const SizedBox()
                       : WScaleAnimation(
-                          onTap: (s) {
-                            if (widget.onEyeTap != null) {
-                              if (widget.onObscure != null) {
-                                widget.onObscure!();
-                              }
-                            } else {
-                              widget.onEyeTap ?? (){};
-                            }
+                          onTap: () {
+                            setState(() {
+                              isObscure = !isObscure;
+                            });
                           },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 6, 2, 6),
-                            child: SvgPicture.asset(
-                              widget.obscure == true
-                                  ? AppIcons.eyeOn
-                                  : AppIcons.eyeOff,
-                            ),
+                            child: AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 650),
+                                child: isObscure == true
+                                    ? SvgPicture.asset(AppIcons.eyeOn)
+                                    : SvgPicture.asset(AppIcons.eyeOff)),
                           ),
                         ),
                 ),

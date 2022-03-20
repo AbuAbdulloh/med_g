@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/models/navbar/nav_bar.dart';
 
@@ -27,12 +28,12 @@ class TabItemWidget extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isActive ? AppTheme.primaryText : null,
+                color: isActive ? primary : null,
               ),
               child: SvgPicture.asset(
                 item.iconOn,
                 fit: BoxFit.contain,
-                color: isActive ? AppTheme.white : AppTheme.c516E95,
+                color: isActive ? white : dark,
               ),
             ),
           ],

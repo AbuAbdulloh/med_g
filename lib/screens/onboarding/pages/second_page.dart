@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 
 class SecondPage extends StatelessWidget {
@@ -13,19 +14,21 @@ class SecondPage extends StatelessWidget {
         children: [
           Positioned(
             left: 0,
-            bottom: 0,
+            top: 0,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: SvgPicture.asset(
-                AppIcons.waveShape,
+                AppIcons.onboard_2,
                 fit: BoxFit.fill,
-                color: AppTheme.main,
+                color: primary,
               ),
             ),
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset(AppIcons.onboard2),
+              const SizedBox(height: 20),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -50,7 +53,6 @@ class SecondPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SvgPicture.asset(AppIcons.onboard_2),
             ],
           ),
         ],

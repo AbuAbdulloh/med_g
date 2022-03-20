@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/bloc/bloc/authentication_bloc.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
@@ -61,7 +62,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
           statusBarColor: Colors.transparent,
         ),
         child: Scaffold(
-          backgroundColor: AppTheme.background,
+          backgroundColor: background,
           appBar: PreferredSize(
             child: Container(
               height: 55,
@@ -84,7 +85,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
           ),
           body: Container(
             padding: const EdgeInsets.all(16),
-            color: AppTheme.background,
+            color: background,
             child: Column(
               children: [
                 Expanded(
@@ -110,18 +111,18 @@ class _VerificationScreenState extends State<VerificationScreen> {
                             fontSize: 20, fontWeight: FontWeight.w500),
                         boxShadows: [
                           BoxShadow(
-                              color: AppTheme.redAccent.withOpacity(0.3),
+                              color: red.withOpacity(0.3),
                               offset: const Offset(0, 5),
                               spreadRadius: 1,
                               blurRadius: 8)
                         ],
                         pinTheme: PinTheme(
                             shape: PinCodeFieldShape.circle,
-                            selectedFillColor: AppTheme.white,
-                            activeFillColor: AppTheme.redAccent,
-                            inactiveFillColor: AppTheme.white,
-                            activeColor: AppTheme.redAccent,
-                            inactiveColor: AppTheme.white),
+                            selectedFillColor: white,
+                            activeFillColor: red,
+                            inactiveFillColor: white,
+                            activeColor: red,
+                            inactiveColor: white),
                         onChanged: (value) {},
                       ),
                       const SizedBox(height: 25),
@@ -136,13 +137,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                 child: CupertinoActivityIndicator());
                           }
                           return WScaleAnimation(
+                            isDisabled: seconds != 0,
                             child: Text(
                               seconds != 0
                                   ? 'Tap to resend a new code: ${formatTime(seconds)}'
                                   : 'Resend a new code',
                               style: theme.headline5!.copyWith(fontSize: 16),
                             ),
-                            onTap: (_) {
+                            onTap: () {
                               if (seconds == 0) {
                                 FocusScope.of(context).unfocus();
                                 widget.bloc.add(

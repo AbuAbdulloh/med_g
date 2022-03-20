@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/widgets/w_button.dart';
 
@@ -16,7 +17,7 @@ class WBackButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: AppTheme.black.withOpacity(0.1),
+            color: black.withOpacity(0.1),
             blurRadius: 1,
             spreadRadius: 1,
             offset: const Offset(1, 1),
@@ -25,7 +26,7 @@ class WBackButton extends StatelessWidget {
       ),
       child: WButton(
         padding: EdgeInsets.zero,
-        color: AppTheme.white,
+        color: white,
         onTap: () {
           Navigator.of(context).pop();
         },

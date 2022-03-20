@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/widgets/w_like_button.dart';
 
@@ -18,7 +19,7 @@ class ReviewDetailsItem extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(8)),
-        color: AppTheme.white,
+        color: white,
         boxShadow: [],
       ),
       child: Column(
@@ -29,14 +30,14 @@ class ReviewDetailsItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             width: double.maxFinite,
             decoration: BoxDecoration(
-              color: AppTheme.white,
+              color: white,
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(8),
               ),
               boxShadow: [
                 BoxShadow(
                   blurStyle: BlurStyle.normal,
-                  color: AppTheme.black.withOpacity(0.3),
+                  color: black.withOpacity(0.3),
                   blurRadius: 5,
                   offset: const Offset(0, 3),
                 ),
@@ -50,12 +51,12 @@ class ReviewDetailsItem extends StatelessWidget {
                   height: 62,
                   padding: const EdgeInsets.all(7),
                   decoration: BoxDecoration(
-                    color: AppTheme.white,
+                    color: white,
                     borderRadius: BorderRadius.circular(8),
                     boxShadow: [
                       BoxShadow(
                         blurStyle: BlurStyle.normal,
-                        color: AppTheme.black.withOpacity(0.3),
+                        color: black.withOpacity(0.3),
                         blurRadius: 5,
                         offset: const Offset(0, 3),
                       ),
@@ -63,7 +64,7 @@ class ReviewDetailsItem extends StatelessWidget {
                   ),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: AppTheme.main,
+                      color: primary,
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
@@ -104,7 +105,7 @@ class ReviewDetailsItem extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(18, 28, 18, 12),
             width: double.maxFinite,
             decoration: const BoxDecoration(
-                // color: AppTheme.white,
+                // color: white,
                 ),
             child: Column(
               mainAxisSize: MainAxisSize.min,

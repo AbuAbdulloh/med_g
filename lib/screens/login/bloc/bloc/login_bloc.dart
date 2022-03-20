@@ -73,13 +73,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         await authenticationRepository.logIn(
           password: event.password,
-          phoneNumber: '998' +
-              event.phone
-                  .replaceAll('-', '')
-                  .replaceAll('(', '')
-                  .replaceAll(')', '')
-                  .replaceAll(' ', '')
-                  .trim(),
+          phoneNumber: '998' + event.phone.replaceAll(' ', '').trim(),
         );
         emit(state.copyWith(status: SubmissionStatus.submissionSucces));
         event.onSucces();

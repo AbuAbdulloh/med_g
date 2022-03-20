@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
-import 'package:med_g/app/theme/theme.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/screens/login/login_screen.dart';
 import 'package:med_g/screens/login/signup_screen.dart';
 import 'package:med_g/widgets/w_button.dart';
@@ -17,7 +17,7 @@ class DirectorScreen extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final theme = Theme.of(context).textTheme;
     return Scaffold(
-      backgroundColor: AppTheme.primaryText,
+      backgroundColor: background,
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -60,7 +60,7 @@ class DirectorScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 WButton(
-                  color: AppTheme.main,
+                  color: primary,
                   margin: const EdgeInsets.only(bottom: 16),
                   text: 'Create an account',
                   textStyle: theme.headline2!.copyWith(
@@ -75,7 +75,7 @@ class DirectorScreen extends StatelessWidget {
                   },
                 ),
                 WButton(
-                  color: AppTheme.white,
+                  color: white,
                   margin: const EdgeInsets.only(bottom: 16),
                   text: 'Sign In',
                   textStyle: theme.headline1!.copyWith(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
+import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/widgets/w_app_bar.dart';
 import 'package:med_g/widgets/w_button.dart';
@@ -16,7 +17,7 @@ class NotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: AppTheme.background,
+      backgroundColor: background,
       appBar: PreferredSize(
         child: WAppBar(
           mediaQuery: mediaQuery,
@@ -82,18 +83,18 @@ class NotificationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WScaleAnimation(
-      onTap: (_) {},
+      onTap: () {},
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 14,
           vertical: 17,
         ),
-        decoration: const BoxDecoration(color: AppTheme.white),
+        decoration: const BoxDecoration(color: white),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             WButton(
-              color: AppTheme.c4AC989,
+              color: primary,
               onTap: () {},
               child: SvgPicture.asset(AppIcons.notificationsRotated),
             ),
