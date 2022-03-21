@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 
 void showErrorSnackBar(BuildContext context, String message) {
@@ -23,7 +22,9 @@ void showErrorSnackBar(BuildContext context, String message) {
     content: Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
-          color: red, borderRadius: BorderRadius.circular(8)),
+        color: red,
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: Row(
         children: [
           Expanded(

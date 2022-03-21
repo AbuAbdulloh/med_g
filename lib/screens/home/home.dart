@@ -37,13 +37,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       id: 0,
       iconOff: AppIcons.home,
       iconOn: AppIcons.home,
-      title: 'Profile',
+      title: 'Asosiy',
     ),
     const NavBar(
       id: 1,
       iconOff: AppIcons.doctor,
       iconOn: AppIcons.doctor,
-      title: 'Doctor',
+      title: 'Maqolalar',
     ),
     const NavBar(
       id: 2,
@@ -55,13 +55,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       id: 3,
       iconOff: AppIcons.appointment,
       iconOn: AppIcons.appointment,
-      title: 'Appointment',
+      title: 'Kalendar',
     ),
     const NavBar(
       id: 4,
       iconOff: AppIcons.profile,
       iconOn: AppIcons.profile,
-      title: 'Profile',
+      title: 'Profil',
     ),
   ];
 
@@ -118,13 +118,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             backgroundColor: background,
             resizeToAvoidBottomInset: true,
             bottomNavigationBar: Container(
-              height: 77,
-              // margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 16),
+              height: 70,
               padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
               decoration: const BoxDecoration(
-                // color: Color.fromRGBO(250, 251, 251, 1),
                 color: white,
-                // borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(
                     color: Color.fromRGBO(6, 14, 34, 0.08),

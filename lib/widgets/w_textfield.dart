@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 
 class WTextField extends StatefulWidget {
@@ -45,7 +44,6 @@ class WTextField extends StatefulWidget {
   final TextAlign textAlign;
   final TextInputAction textInputAction;
   final Function? onObscure;
-
   final Function? onTapSuffix;
   final Function()? onEditCompleted;
   final int? maxlines;
@@ -89,9 +87,9 @@ class WTextField extends StatefulWidget {
     this.height,
     this.onObscure,
     this.onTapSuffix,
-    Key? key,
     this.onEditCompleted,
     this.borderGreen = false,
+    Key? key,
   }) : super(key: key);
 
   @override

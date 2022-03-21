@@ -5,7 +5,8 @@ class AppIcons {
   static const psixalogiya = 'assets/icons/global/mock_icon.svg';
   static const bookmarkFilled = 'assets/icons/global/bookmark_filled.svg';
   static const bookmarkOutlined = 'assets/icons/global/bookmark_outlined.svg';
-
+  static const logoBig = 'assets/icons/global/logo_big.svg';
+  static const arrowLeft = 'assets/icons/global/arrow_left.svg';
   // Deletable
   static const home = 'assets/icons/home.svg';
   static const doctor = 'assets/icons/doctor.svg';
@@ -36,8 +37,6 @@ class AppIcons {
   static const eyeOff = 'assets/icons/eye_off.svg';
   static const eyeOn = 'assets/icons/eye_on.svg';
   static const heartRed = 'assets/icons/heart_red.svg';
-  static const logoBig = 'assets/icons/logo_big.svg';
-  static const logo = 'assets/icons/logo.svg';
   static const waveShape = 'assets/icons/wave_shape.svg';
   static const onboard_1 = 'assets/icons/onboarding/onboarding_first.svg';
   static const onboard_2 = 'assets/icons/onboarding/onboarding_second.svg';

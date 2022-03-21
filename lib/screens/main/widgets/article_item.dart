@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
+import 'package:med_g/screens/article_single/article_single_screen.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 
 class ArticleItem extends StatelessWidget {
@@ -14,7 +14,11 @@ class ArticleItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return WScaleAnimation(
       scaleValue: 0.98,
-      onTap: (){},
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (_) => const ArticleSingleScreen(),
+        ));
+      },
       child: Container(
         width: double.maxFinite,
         height: 200,

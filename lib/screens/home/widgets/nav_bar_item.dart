@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/models/navbar/nav_bar.dart';
 
 class TabItemWidget extends StatelessWidget {
@@ -22,19 +21,23 @@ class TabItemWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: 51,
-              height: 51,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isActive ? primary : null,
-              ),
-              child: SvgPicture.asset(
-                item.iconOn,
-                fit: BoxFit.contain,
-                color: isActive ? white : dark,
-              ),
+            SvgPicture.asset(
+              item.iconOn,
+              fit: BoxFit.contain,
+              color: isActive ? dark : grey,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              item.title,
+              style: isActive
+                  ? Theme.of(context).textTheme.headline1!.copyWith(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      )
+                  : Theme.of(context).textTheme.headline3!.copyWith(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
             ),
           ],
         ),

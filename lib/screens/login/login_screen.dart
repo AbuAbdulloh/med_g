@@ -5,7 +5,6 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/bloc/bloc/authentication_bloc.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/models/submission_status/submission_status.dart';
@@ -52,15 +51,55 @@ class _LoginScreenState extends State<LoginScreen> {
       child: BlocProvider.value(
         value: bloc,
         child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize:
+                Size.fromHeight(100 + MediaQuery.of(context).padding.top),
+            child: Container(
+              width: double.maxFinite,
+              height: double.maxFinite,
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              decoration: BoxDecoration(color: white, boxShadow: [
+                BoxShadow(
+                  color: black.withOpacity(0.16),
+                  blurRadius: 16,
+                )
+              ]),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  WScaleAnimation(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: SvgPicture.asset(AppIcons.arrowLeft),
+                    ),
+                  ),
+                  Align(child: SvgPicture.asset(AppIcons.logoMain)),
+                  const Padding(
+                    padding: EdgeInsets.all(16),
+                    child: SizedBox(width: 24),
+                  ),
+                ],
+              ),
+            ),
+          ),
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 28),
               child: Column(
                 children: [
-                  const SizedBox(height: 55),
-                  SvgPicture.asset(AppIcons.logoColored),
-                  const SizedBox(height: 60),
+                  Text(
+                    'Kirish',
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+                  ),
+                  const SizedBox(height: 34),
                   WTextField(
                       title: 'Telefon raqami',
                       fillColor: white,
@@ -112,16 +151,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(width: 15),
                         Text(
                           'Maxfiylik kalitini unutdingizmi?',
-                          style: theme.bodyText1!.copyWith(
+                          style: theme.headline4!.copyWith(
                             fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ],
                     ),
                     onTap: () {},
                   ),
-                  const SizedBox(height: 34),
+                  const SizedBox(height: 20),
                   BlocBuilder<LoginBloc, LoginState>(
                     builder: (context, state) => WButton(
                       loading:
@@ -144,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                             ));
                       },
-                      text: 'Sign In',
+                      text: 'Kirish',
                       textStyle: theme.headline2!.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -159,19 +198,18 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'Ilovadan ro`yxatdan o`tmaganmisiz?',
-                style: theme.headline1!.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
               WButton(
                 margin: const EdgeInsets.all(16),
+                color: white,
+                border: Border.all(width: 1, color: stroke),
                 onTap: () {
                   Navigator.of(context).push(SignupScreen.route());
                 },
-                text: 'Sign Up',
+                text: 'Ro‘yxatdan o‘tish',
+                textStyle: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
             ],
           ),

@@ -24,32 +24,27 @@ class AuthenticationRepository {
     required String password,
   }) async {
     try {
-      final response = await _dio.post(
-        '/login',
-        data: {
-          'phone': phoneNumber,
-          'password': password,
-        },
-      );
+      final response = await _dio
+          .post('/login', data: {'phone': phoneNumber, 'password': password});
 
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        await StorageRepository.putString(
-            'token', response.data['data']['token']);
-        return AuthenticatedUser.fromJson(response.data['data']['user']);
+        try {
+          await StorageRepository.putString(
+              'token', response.data['data']['token']);
+          return AuthenticatedUser.fromJson(response.data['data']['user']);
+        } catch (e) {
+          throw CustomException(message: '$e', code: '502');
+        }
       } else {
-        final message =
-            '${(response.data as Map<String, dynamic>).values.first}'
-                .replaceAll(RegExp(r'[\[\]]'), '');
+        final message = '${(response.data as Map<String, dynamic>)}'
+            .replaceAll(RegExp(r'[\[\]]'), '');
         throw CustomException(
           message: message,
           code: '${response.statusCode}',
         );
       }
     } on Exception catch (e) {
-      throw CustomException(
-        message: '$e',
-        code: '502',
-      );
+      throw CustomException(message: '$e', code: '502');
     }
   }
 

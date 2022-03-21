@@ -18,45 +18,59 @@ class ChatScreen extends StatelessWidget {
       if (state.status == AuthenticationStatus.authenticated) {
         return const SizedBox.shrink();
       } else {
-        return Scaffold(
-          body: Column(
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(AppIcons.noAccount),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Text(
-                        'Для полноценного использования войдите в аккаунт',
-                        style: theme.headline1!.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              WButton(
-                margin: const EdgeInsets.all(16),
-                text: 'Войти',
-                textStyle: theme.headline2!.copyWith(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                ),
-                onTap: () {
-                  Navigator.of(context, rootNavigator: true)
-                      .push(LoginScreen.route());
-                },
-              )
-            ],
-          ),
-        );
+        return UnauthenticatedUser(theme: theme);
       }
     });
+  }
+}
+
+class UnauthenticatedUser extends StatelessWidget {
+  const UnauthenticatedUser({
+    Key? key,
+    required this.theme,
+  }) : super(key: key);
+
+  final TextTheme theme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(AppIcons.noAccount),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    'Для полноценного использования войдите в аккаунт',
+                    style: theme.headline1!.copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              ],
+            ),
+          ),
+          WButton(
+            margin: const EdgeInsets.all(16),
+            text: 'Войти',
+            textStyle: theme.headline2!.copyWith(
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+            onTap: () {
+              Navigator.of(context, rootNavigator: true)
+                  .push(LoginScreen.route());
+            },
+          )
+        ],
+      ),
+    );
   }
 }

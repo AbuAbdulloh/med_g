@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
@@ -6,7 +5,9 @@ import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 
 class CategoryItem extends StatelessWidget {
+  final VoidCallback onTap;
   const CategoryItem({
+    required this.onTap,
     Key? key,
   }) : super(key: key);
 
@@ -45,7 +46,7 @@ class CategoryItem extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           WScaleAnimation(
-            onTap: () {},
+            onTap: onTap,
             child: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 6),

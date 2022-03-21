@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
+import 'package:med_g/screens/category_single/category_single_screen.dart';
+import 'package:med_g/screens/home/home.dart';
 import 'package:med_g/screens/main/widgets/article_item.dart';
 import 'package:med_g/screens/main/widgets/category_item.dart';
 import 'package:med_g/screens/main/widgets/main_app_bar.dart';
@@ -36,7 +38,6 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return KeyboardDismisser(
       child: Scaffold(
-        backgroundColor: background,
         body: NestedScrollView(
           headerSliverBuilder: (_, __) => [
             MainAppBar(searchController: searchController),
@@ -63,7 +64,14 @@ class _MainScreenState extends State<MainScreen> {
                   padding: const EdgeInsets.only(
                       left: 16, top: 12, bottom: 8, right: 16),
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (_, index) => const CategoryItem(),
+                  itemBuilder: (_, index) => CategoryItem(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) =>
+                            const CategorySingleScreen(title: 'Psixologiya'),
+                      ));
+                    },
+                  ),
                   separatorBuilder: (_, __) => const SizedBox(width: 4),
                   itemCount: 5,
                 ),
@@ -80,7 +88,11 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   const Spacer(),
                   WScaleAnimation(
-                    onTap: () {},
+                    onTap: () {
+                      HomeTabControllerProvider.of(context)
+                          .controller
+                          .animateTo(1);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Text(

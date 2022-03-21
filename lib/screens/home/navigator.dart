@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:med_g/models/navbar/nav_item_enum.dart';
+import 'package:med_g/screens/articles/articles_screen.dart';
 import 'package:med_g/screens/calendar/calendar_screen.dart';
 import 'package:med_g/screens/chat/chat_screen.dart';
-import 'package:med_g/screens/doctor/doctor_screen.dart';
 import 'package:med_g/screens/main/main_screen.dart';
 import 'package:med_g/screens/profile/profile_screen.dart';
 
@@ -32,7 +32,7 @@ class _TabNavigatorState extends State<TabNavigator>
         };
       case NavItemEnum.catalogue:
         return {
-          TabNavigatorRoutes.root: (context) => const DoctorScreen(),
+          TabNavigatorRoutes.root: (context) => const ArtclesScreen(),
         };
       case NavItemEnum.orders:
         return {

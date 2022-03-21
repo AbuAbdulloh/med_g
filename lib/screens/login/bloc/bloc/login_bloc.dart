@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:med_g/data/utils/custom_exception.dart';
 import 'package:med_g/models/authenticated_user/authenticated_user.dart';
 import 'package:med_g/models/register/register.dart';
 import 'package:med_g/models/register_response/register_response.dart';
@@ -25,10 +26,27 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<UserSignedUp>((event, emit) async {
       emit(state.copyWith(status: SubmissionStatus.submissionInProgress));
       try {
-        print('came to sign up');
-        print(event.register);
+        if (event.register.firstName.isEmpty ||
+            event.register.firstName.length < 5) {
+          throw const CustomException(
+            message: 'Ism yaroqli emas!',
+            code: '400',
+          );
+        }
+        if (event.register.phone.isEmpty || event.register.phone.length != 9) {
+          throw const CustomException(
+            message: 'Telefon raqami yaroqli emas!',
+            code: '400',
+          );
+        }
+        if (event.register.password.isEmpty ||
+            event.register.password.length < 8) {
+          throw const CustomException(
+            message: 'Maxfiylik kaliti yaroqli emas!',
+            code: '400',
+          );
+        }
         final registerResponse = await repository.registerUser(event.register);
-        print(registerResponse);
         emit(state.copyWith(
           status: SubmissionStatus.submissionSucces,
           register: event.register,
@@ -36,17 +54,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ));
         event.onSucces();
       } on Exception catch (e) {
-        print('error occured in sign up send code $e');
         emit(state.copyWith(status: SubmissionStatus.submissionFailure));
         event.onError('$e');
       }
     });
     on<UserVerified>((event, emit) async {
-      print('came here to sign up');
       emit(state.copyWith(status: SubmissionStatus.submissionInProgress));
       try {
-        print(event.pinCode);
-
+        if (event.pinCode.isEmpty || event.pinCode.length != 6) {
+          throw const CustomException(
+            message: 'Kiritilgan kod yaroqli emas!',
+            code: '400',
+          );
+        }
         final user = await repository.confirmUser(
           firstName: state.register.firstName,
           password: state.register.password,
@@ -57,7 +77,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           ),
           signId: state.registerResponse.data!.signIn,
         );
-        print(user);
         emit(state.copyWith(
           status: SubmissionStatus.submissionSucces,
           user: user,
@@ -71,6 +90,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<UserLoggedIn>((event, emit) async {
       emit(state.copyWith(status: SubmissionStatus.submissionInProgress));
       try {
+        if (event.phone.isEmpty) {
+          throw const CustomException(
+            message: 'Telefon raqami yaroqli emas!',
+            code: '400',
+          );
+        }
+        if (event.password.isEmpty || event.password.length < 8) {
+          throw const CustomException(
+            message: 'Maxfiylik kaliti yaroqli emas!',
+            code: '400',
+          );
+        }
         await authenticationRepository.logIn(
           password: event.password,
           phoneNumber: '998' + event.phone.replaceAll(' ', '').trim(),

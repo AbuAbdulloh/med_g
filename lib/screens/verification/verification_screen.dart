@@ -2,17 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/bloc/bloc/authentication_bloc.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/models/register/register.dart';
 import 'package:med_g/models/submission_status/submission_status.dart';
-import 'package:med_g/screens/home/home.dart';
 import 'package:med_g/screens/login/bloc/bloc/login_bloc.dart';
-import 'package:med_g/widgets/w_back_button.dart';
 import 'package:med_g/widgets/w_button.dart';
 import 'package:med_g/widgets/w_error_snack_bar.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
@@ -37,7 +36,7 @@ class VerificationScreen extends StatefulWidget {
 class _VerificationScreenState extends State<VerificationScreen> {
   late TextEditingController pinCodeController;
   int seconds = 120;
-
+  late Timer timer;
   @override
   void initState() {
     super.initState();
@@ -48,158 +47,218 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   void dispose() {
     pinCodeController.dispose();
+    timer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
     final theme = Theme.of(context).textTheme;
-    return BlocProvider.value(
-      value: widget.bloc,
-      child: AnnotatedRegion(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-        ),
+    return KeyboardDismisser(
+      child: BlocProvider.value(
+        value: widget.bloc,
         child: Scaffold(
           backgroundColor: background,
           appBar: PreferredSize(
+            preferredSize:
+                Size.fromHeight(100 + MediaQuery.of(context).padding.top),
             child: Container(
-              height: 55,
-              margin: EdgeInsets.only(
-                  top: mediaQuery.padding.top, left: 14, right: 14),
+              width: double.maxFinite,
+              height: double.maxFinite,
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              decoration: BoxDecoration(color: white, boxShadow: [
+                BoxShadow(
+                  color: black.withOpacity(0.16),
+                  blurRadius: 16,
+                )
+              ]),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const WBackButton(),
-                  Text(
-                    'Phone Verification',
-                    style: theme.headline1!
-                        .copyWith(fontSize: 18, fontWeight: FontWeight.w600),
+                  WScaleAnimation(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: SvgPicture.asset(AppIcons.arrowLeft),
+                    ),
                   ),
-                  const SizedBox(height: 24, width: 24)
+                  Align(child: SvgPicture.asset(AppIcons.logoMain)),
+                  const Padding(
+                    padding: EdgeInsets.all(16),
+                    child: SizedBox(width: 24),
+                  ),
                 ],
               ),
             ),
-            preferredSize: Size.fromHeight(mediaQuery.padding.top + 55),
           ),
-          body: Container(
+          body: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
-            color: background,
             child: Column(
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 26.5),
-                      Text(
-                        'Enter your OTP here',
-                        style: theme.bodyText1!.copyWith(fontSize: 16),
-                      ),
-                      const SizedBox(height: 20),
-                      PinCodeTextField(
-                        autoFocus: true,
-                        controller: pinCodeController,
-                        appContext: context,
-                        length: 6,
-                        autoDisposeControllers: false,
-                        keyboardType: TextInputType.number,
-                        enableActiveFill: true,
-                        cursorHeight: 20,
-                        textStyle: theme.headline2!.copyWith(
-                            fontSize: 20, fontWeight: FontWeight.w500),
-                        boxShadows: [
-                          BoxShadow(
-                              color: red.withOpacity(0.3),
-                              offset: const Offset(0, 5),
-                              spreadRadius: 1,
-                              blurRadius: 8)
-                        ],
-                        pinTheme: PinTheme(
-                            shape: PinCodeFieldShape.circle,
-                            selectedFillColor: white,
-                            activeFillColor: red,
-                            inactiveFillColor: white,
-                            activeColor: red,
-                            inactiveColor: white),
-                        onChanged: (value) {},
-                      ),
-                      const SizedBox(height: 25),
-                      Text("Didn't you received any code?",
-                          style: theme.bodyText1!.copyWith(fontSize: 16)),
-                      const SizedBox(height: 8),
-                      BlocBuilder<LoginBloc, LoginState>(
-                        builder: (context, state) {
-                          if (state.status ==
-                              SubmissionStatus.submissionInProgress) {
-                            return const Center(
-                                child: CupertinoActivityIndicator());
-                          }
-                          return WScaleAnimation(
-                            isDisabled: seconds != 0,
-                            child: Text(
-                              seconds != 0
-                                  ? 'Tap to resend a new code: ${formatTime(seconds)}'
-                                  : 'Resend a new code',
-                              style: theme.headline5!.copyWith(fontSize: 16),
-                            ),
-                            onTap: () {
-                              if (seconds == 0) {
-                                FocusScope.of(context).unfocus();
-                                widget.bloc.add(
-                                  UserSignedUp(
-                                      register: Register(
-                                        firstName: state.register.firstName,
-                                        password: state.register.password,
-                                        phone: '998${state.register.phone}',
-                                      ),
-                                      onSucces: () {
-                                        setState(() {
-                                          seconds = 120;
-                                          startCount();
-                                        });
-                                      },
-                                      onError: (message) {
-                                        showErrorSnackBar(context, message);
-                                      }),
-                                );
-                              }
-                            },
-                          );
-                        },
-                      ),
-                    ],
+                const SizedBox(height: 26.5),
+                Text(
+                  'Raqamni tasdiqlash',
+                  style: theme.headline1!.copyWith(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
+                const SizedBox(height: 28),
+                Text(
+                  'Xush kelibsiz!',
+                  style: theme.headline1!.copyWith(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 7),
+                Text(
+                  'Telefon raqamingizga yuborilgan SMS kodni kiritib raqamingizni tasdiqlang',
+                  style: theme.headline3!.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Tasdiqlash kodi',
+                      style: theme.headline1!.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: WScaleAnimation(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          'Telefon raqamni o‘zgartirish',
+                          style: theme.headline4!.copyWith(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                PinCodeTextField(
+                  autoFocus: true,
+                  controller: pinCodeController,
+                  appContext: context,
+                  length: 6,
+                  autoDisposeControllers: false,
+                  keyboardType: TextInputType.number,
+                  enableActiveFill: true,
+                  cursorHeight: 20,
+                  textStyle: theme.headline1!
+                      .copyWith(fontSize: 20, fontWeight: FontWeight.w500),
+                  pinTheme: PinTheme(
+                    selectedFillColor: white,
+                    activeFillColor: white,
+                    inactiveFillColor: white,
+                    activeColor: stroke,
+                    inactiveColor: stroke,
+                    errorBorderColor: red,
+                    borderWidth: 1,
+                    borderRadius: BorderRadius.circular(8),
+                    selectedColor: primary,
+                  ),
+                  onChanged: (value) {},
+                  onCompleted: (value) {
+                    context.read<LoginBloc>().add(
+                          UserVerified(
+                              pinCode: pinCodeController.text.trim(),
+                              onSucces: () {
+                                context.read<AuthenticationBloc>().add(
+                                    const AuthenticationStatusChanged(
+                                        AuthenticationStatus.authenticated));
+                              },
+                              onError: (message) {
+                                showErrorSnackBar(context, message);
+                              }),
+                        );
+                  },
+                ),
+                const SizedBox(height: 12),
                 BlocBuilder<LoginBloc, LoginState>(
                   builder: (context, state) {
-                    return WButton(
-                      loading:
-                          state.status == SubmissionStatus.submissionInProgress,
-                      disabled:
-                          state.status == SubmissionStatus.submissionInProgress,
+                    if (state.status == SubmissionStatus.submissionInProgress) {
+                      return const Center(child: CupertinoActivityIndicator());
+                    }
+                    return WScaleAnimation(
+                      isDisabled: seconds != 0,
+                      child: Text(
+                        seconds != 0
+                            ? 'Kodni qayta yuborish: ${formatTime(seconds)}'
+                            : 'Kodni qayta yuborish',
+                        style: theme.headline4!.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
                       onTap: () {
-                        context.read<LoginBloc>().add(
-                              UserVerified(
-                                  pinCode: pinCodeController.text.trim(),
-                                  onSucces: () {
-                                    context.read<AuthenticationBloc>().add(
-                                        const AuthenticationStatusChanged(
-                                            AuthenticationStatus
-                                                .authenticated));
-                                  },
-                                  onError: (message) {
-                                    showErrorSnackBar(context, message);
-                                  }),
-                            );
+                        if (seconds == 0) {
+                          FocusScope.of(context).unfocus();
+                          widget.bloc.add(
+                            UserSignedUp(
+                                register: Register(
+                                  firstName: state.register.firstName,
+                                  password: state.register.password,
+                                  phone: state.register.phone,
+                                ),
+                                onSucces: () {
+                                  setState(() {
+                                    seconds = 120;
+                                    startCount();
+                                  });
+                                },
+                                onError: (message) {
+                                  showErrorSnackBar(context, message);
+                                }),
+                          );
+                        }
                       },
-                      text: 'Continue',
                     );
                   },
                 ),
               ],
             ),
+          ),
+          bottomNavigationBar: BlocBuilder<LoginBloc, LoginState>(
+            builder: (context, state) {
+              return WButton(
+                height: 42,
+                margin: const EdgeInsets.all(16),
+                padding: EdgeInsets.zero,
+                loading: state.status == SubmissionStatus.submissionInProgress,
+                disabled: state.status == SubmissionStatus.submissionInProgress,
+                onTap: () {
+                  context.read<LoginBloc>().add(
+                        UserVerified(
+                            pinCode: pinCodeController.text.trim(),
+                            onSucces: () {
+                              context.read<AuthenticationBloc>().add(
+                                  const AuthenticationStatusChanged(
+                                      AuthenticationStatus.authenticated));
+                            },
+                            onError: (message) {
+                              showErrorSnackBar(context, message);
+                            }),
+                      );
+                },
+                text: 'Ro’yxatdan o’tish',
+              );
+            },
           ),
         ),
       ),
@@ -208,6 +267,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   void startCount() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
+      this.timer = timer;
       if (seconds != 0) {
         seconds = seconds - 1;
         setState(() {});
