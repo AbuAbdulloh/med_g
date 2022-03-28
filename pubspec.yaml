@@ -1,7 +1,7 @@
 name: med_g
 description: Medical Consulting Mobile Application.
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -36,6 +36,9 @@ dependencies:
   cached_network_image: ^3.2.0
   jiffy: ^5.0.0
   shimmer: ^2.0.0
+  flutter_cupertino_datetime_picker:
+    git:
+      url: https://github.com/AbuAbdulloh/flutter_cupertino_datetime_picker.git
 
 dev_dependencies:
   flutter_test:
@@ -51,7 +54,6 @@ flutter_icons:
   adaptive_icon_background: "assets/launcher_icons/background.png"
 
 flutter:
-
   uses-material-design: true
 
   assets:
@@ -87,18 +89,3 @@ flutter:
         - asset: assets/fonts/Barlow-SemiBoldItalic.ttf
         - asset: assets/fonts/Barlow-Thin.ttf
         - asset: assets/fonts/Barlow-ThinItalic.ttf
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

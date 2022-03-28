@@ -1,7 +1,7 @@
 class AppIcons {
   static const logoMain = 'assets/icons/global/logo.svg';
   static const globe = 'assets/icons/global/globe.svg';
-   static const logoAlone = 'assets/icons/global/logo_alone.svg';
+  static const logoAlone = 'assets/icons/global/logo_alone.svg';
   static const notifications = 'assets/icons/global/notifications.svg';
   static const search = 'assets/icons/global/search.svg';
   static const psixalogiya = 'assets/icons/global/mock_icon.svg';
@@ -10,6 +10,7 @@ class AppIcons {
   static const logoBig = 'assets/icons/global/logo_big.svg';
   static const arrowLeft = 'assets/icons/global/arrow_left.svg';
   static const logout = 'assets/icons/global/logout.svg';
+  static const calendar = 'assets/icons/global/calendar.svg';
   // Deletable
   static const home = 'assets/icons/home.svg';
   static const doctor = 'assets/icons/doctor.svg';

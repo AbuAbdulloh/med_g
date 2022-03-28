@@ -307,6 +307,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  flutter_cupertino_datetime_picker:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "70719ba5b5b471a3e2928dc6c050032023c0a6c2"
+      url: "https://github.com/AbuAbdulloh/flutter_cupertino_datetime_picker.git"
+    source: git
+    version: "3.0.0"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
