@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/bloc/bloc/authentication_bloc.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
+import 'package:med_g/repository/authentication.dart';
 import 'package:med_g/screens/login/login_screen.dart';
 import 'package:med_g/widgets/w_button.dart';
 
@@ -65,8 +66,12 @@ class UnauthenticatedUser extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
             onTap: () {
-              Navigator.of(context, rootNavigator: true)
-                  .push(LoginScreen.route());
+              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+                builder: (_) => LoginScreen(
+                    authenticationRepository:
+                        RepositoryProvider.of<AuthenticationRepository>(
+                            context)),
+              ));
             },
           )
         ],

@@ -1,12 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:med_g/app/constants/app_icons.dart';
+import 'package:med_g/app/constants/app_images.dart';
 import 'package:med_g/app/constants/colors.dart';
+import 'package:med_g/bloc/bloc/authentication_bloc.dart';
+import 'package:med_g/models/article/article.dart';
+import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/screens/article_single/article_single_screen.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ArticleItem extends StatelessWidget {
+  final Article article;
   const ArticleItem({
+    required this.article,
     Key? key,
   }) : super(key: key);
 
@@ -16,7 +26,7 @@ class ArticleItem extends StatelessWidget {
       scaleValue: 0.98,
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) => const ArticleSingleScreen(),
+          builder: (_) => ArticleSingleScreen(article: article),
         ));
       },
       child: Container(
@@ -42,7 +52,7 @@ class ArticleItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Kunlik badantarbiyaning foydalari',
+                        article.title,
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -52,7 +62,7 @@ class ArticleItem extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Dr. Alisher Bahodirovich',
+                        article.author,
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -62,7 +72,7 @@ class ArticleItem extends StatelessWidget {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        'Kardiologiya',
+                        article.category.name,
                         style: Theme.of(context).textTheme.headline3!.copyWith(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -75,10 +85,31 @@ class ArticleItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 Container(
-                  color: black,
+                  clipBehavior: Clip.hardEdge,
                   width: 80,
                   height: 80,
-                )
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: CachedNetworkImage(
+                    width: 80,
+                    height: 80,
+                    imageUrl: article.thumbnail,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => Shimmer.fromColors(
+                      child: Container(
+                        width: 80,
+                        height: 80,
+                        color: white,
+                      ),
+                      baseColor: Colors.grey.shade300,
+                      highlightColor: Colors.grey.shade100,
+                    ),
+                    errorWidget: (context, url, error) => Image.asset(
+                      AppImages.errorPlaceholder,
+                    ),
+                  ),
+                ),
               ],
             ),
             Container(
@@ -88,10 +119,10 @@ class ArticleItem extends StatelessWidget {
               margin: const EdgeInsets.only(top: 6, bottom: 8),
             ),
             Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur consequat ornare arcu, sit amet commodo velit iaculis ut. Donec enim.',
+              article.description,
               style: Theme.of(context).textTheme.headline3!.copyWith(
                     fontSize: 12,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                   ),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
@@ -100,14 +131,16 @@ class ArticleItem extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '12.04.2022y',
+                  '${Jiffy(article.createdAt).format('dd.MM.yyyy')}y',
                   style: Theme.of(context).textTheme.headline3!.copyWith(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
                 ),
                 const Spacer(),
-                SvgPicture.asset(AppIcons.bookmarkFilled)
+                if (context.read<AuthenticationBloc>().state.status ==
+                    AuthenticationStatus.authenticated)
+                  SvgPicture.asset(AppIcons.bookmarkFilled)
               ],
             )
           ],

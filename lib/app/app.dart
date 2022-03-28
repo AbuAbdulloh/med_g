@@ -4,7 +4,9 @@ import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/bloc/bloc/authentication_bloc.dart';
 import 'package:med_g/data/singletons/storage.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
+import 'package:med_g/repository/articles_repository.dart';
 import 'package:med_g/repository/authentication.dart';
+import 'package:med_g/repository/category_repository.dart';
 import 'package:med_g/screens/home/home.dart';
 import 'package:med_g/screens/onboarding/onboarding_screen.dart';
 import 'package:med_g/screens/splash/splash_screen.dart';
@@ -25,6 +27,8 @@ class _AppState extends State<App> {
 
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
+  late ArticleRepository articleRepository;
+  late CategoryRepository categoryRepository;
   late AuthenticationBloc authenticationBloc;
 
   @override
@@ -33,10 +37,29 @@ class _AppState extends State<App> {
     authenticationBloc = AuthenticationBloc(
       authenticationRepository: widget.authenticationRepository,
     );
+    articleRepository = ArticleRepository();
+    categoryRepository = CategoryRepository();
   }
+
   @override
-  Widget build(BuildContext context) => RepositoryProvider.value(
-        value: widget.authenticationRepository,
+  void dispose() {
+    super.dispose();
+    authenticationBloc.close();
+  }
+
+  @override
+  Widget build(BuildContext context) => MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider.value(
+            value: widget.authenticationRepository,
+          ),
+          RepositoryProvider.value(
+            value: articleRepository,
+          ),
+          RepositoryProvider.value(
+            value: categoryRepository,
+          ),
+        ],
         child: MultiBlocProvider(
           providers: [
             BlocProvider.value(

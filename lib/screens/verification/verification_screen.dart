@@ -178,11 +178,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     context.read<LoginBloc>().add(
                           UserVerified(
                               pinCode: pinCodeController.text.trim(),
-                              onSucces: () {
-                                context.read<AuthenticationBloc>().add(
-                                    const AuthenticationStatusChanged(
-                                        AuthenticationStatus.authenticated));
-                              },
+                              onSucces: () {},
                               onError: (message) {
                                 showErrorSnackBar(context, message);
                               }),
@@ -246,11 +242,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   context.read<LoginBloc>().add(
                         UserVerified(
                             pinCode: pinCodeController.text.trim(),
-                            onSucces: () {
-                              context.read<AuthenticationBloc>().add(
-                                  const AuthenticationStatusChanged(
-                                      AuthenticationStatus.authenticated));
-                            },
+                            onSucces: () {},
                             onError: (message) {
                               showErrorSnackBar(context, message);
                             }),

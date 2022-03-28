@@ -7,6 +7,7 @@ import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/bloc/bloc/authentication_bloc.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
+import 'package:med_g/repository/authentication.dart';
 import 'package:med_g/screens/login/login_screen.dart';
 import 'package:med_g/widgets/w_app_bar.dart';
 import 'package:med_g/widgets/w_button.dart';
@@ -119,7 +120,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ),
                   onTap: () {
                     Navigator.of(context, rootNavigator: true)
-                        .push(LoginScreen.route());
+                        .push(MaterialPageRoute(
+                      builder: (_) => LoginScreen(
+                          authenticationRepository:
+                              RepositoryProvider.of<AuthenticationRepository>(
+                                  context)),
+                    ));
                   },
                 )
               ],

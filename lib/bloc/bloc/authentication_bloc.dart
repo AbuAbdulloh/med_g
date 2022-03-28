@@ -23,13 +23,14 @@ class AuthenticationBloc
 
     on<AuthenticationGetRefreshedUserData>((event, emit) async {
       try {
-        final user = await _authenticationRepository.getProfile();
-        emit(AuthenticationState.authenticated(
-          user,
-          dontRebuild: false,
+        await _authenticationRepository.refreshToken();
+        print('came here');
+        add(const AuthenticationStatusChanged(
+          AuthenticationStatus.authenticated,
         ));
       } on Exception {
-        emit(const AuthenticationState.unauthenticated());
+        print('came here to fail');
+        emit(const AuthenticationState.unknown());
       }
     });
 
@@ -59,24 +60,7 @@ class AuthenticationBloc
           const AuthenticationStatusChanged(AuthenticationStatus.authenticated),
         );
       } on Exception {
-        final userWithRefreshedToken =
-            await _authenticationRepository.refreshToken();
-        if (StorageRepository.getString('token').isNotEmpty) {
-          try {
-            await authenticationRepository.getProfile();
-            add(
-              const AuthenticationStatusChanged(
-                  AuthenticationStatus.authenticated),
-            );
-          } on Exception {
-            add(const AuthenticationStatusChanged(
-                AuthenticationStatus.unauthenticated));
-            event.onFail();
-          }
-        } else {
-          add(const AuthenticationStatusChanged(AuthenticationStatus.unknown));
-          event.onFail();
-        }
+        add(AuthenticationGetRefreshedUserData());
       }
     });
     on<AuthenticationUserDeleted>((event, emit) async {

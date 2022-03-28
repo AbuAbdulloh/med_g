@@ -8,7 +8,7 @@ import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/bloc/bloc/authentication_bloc.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/models/submission_status/submission_status.dart';
-import 'package:med_g/screens/home/home.dart';
+import 'package:med_g/repository/authentication.dart';
 import 'package:med_g/screens/login/bloc/bloc/login_bloc.dart';
 import 'package:med_g/screens/login/signup_screen.dart';
 import 'package:med_g/widgets/w_button.dart';
@@ -17,9 +17,12 @@ import 'package:med_g/widgets/w_scale_animation.dart';
 import 'package:med_g/widgets/w_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
-  static Route route() =>
-      MaterialPageRoute(builder: (_) => const LoginScreen());
-  const LoginScreen({Key? key}) : super(key: key);
+  final AuthenticationRepository authenticationRepository;
+
+  const LoginScreen({
+    required this.authenticationRepository,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -34,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     phoneController = TextEditingController();
     passwordController = TextEditingController();
-    bloc = LoginBloc();
+    bloc = LoginBloc(authenticationRepository: widget.authenticationRepository);
   }
 
   @override
@@ -130,13 +133,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       onEditCompleted: () {
                         FocusScope.of(context).unfocus();
                         bloc.add(UserLoggedIn(
-                          phone: phoneController.text,
+                          phone: phoneController.text.replaceAll(' ', ''),
                           password: passwordController.text.trim(),
-                          onSucces: () {
-                            context.read<AuthenticationBloc>().add(
-                                const AuthenticationStatusChanged(
-                                    AuthenticationStatus.authenticated));
-                          },
+                          onSucces: () {},
                           onError: (message) {
                             showErrorSnackBar(context, message);
                           },
@@ -170,13 +169,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       margin: const EdgeInsets.symmetric(vertical: 16),
                       onTap: () {
                         context.read<LoginBloc>().add(UserLoggedIn(
-                              phone: phoneController.text,
+                              phone: phoneController.text.replaceAll(' ', ''),
                               password: passwordController.text.trim(),
                               onSucces: () {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                  HomeScreen.route(),
-                                  (route) => false,
-                                );
+                                context
+                                    .read<AuthenticationBloc>()
+                                    .add(const AuthenticationStatusChanged(
+                                      AuthenticationStatus.authenticated,
+                                    ));
                               },
                               onError: (message) {
                                 showErrorSnackBar(context, message);
@@ -203,7 +203,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: white,
                 border: Border.all(width: 1, color: stroke),
                 onTap: () {
-                  Navigator.of(context).push(SignupScreen.route());
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => SignupScreen(
+                        authenticationRepository:
+                            widget.authenticationRepository,
+                      ),
+                    ),
+                  );
                 },
                 text: 'Ro‘yxatdan o‘tish',
                 textStyle: Theme.of(context).textTheme.headline1!.copyWith(

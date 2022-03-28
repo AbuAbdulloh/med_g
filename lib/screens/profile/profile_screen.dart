@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/bloc/bloc/authentication_bloc.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
-import 'package:med_g/screens/account_settings/account_settings_screen.dart';
+import 'package:med_g/repository/authentication.dart';
 import 'package:med_g/screens/login/login_screen.dart';
-import 'package:med_g/screens/notifications/notifications_screen.dart';
-import 'package:med_g/screens/privacy/privacy_screen.dart';
-import 'package:med_g/screens/profile/widgets/profile_app_bar.dart';
-import 'package:med_g/screens/support/support_screen.dart';
+import 'package:med_g/screens/profile/widgets/profile_item.dart';
+import 'package:med_g/widgets/cached_image.dart';
+import 'package:med_g/widgets/w_app_bar.dart';
 import 'package:med_g/widgets/w_button.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -22,127 +21,192 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  late List<ProfileItemModel> profileItems;
-
-  @override
-  void initState() {
-    super.initState();
-    profileItems = [
-      ProfileItemModel(
-        title: 'Account Settings',
-        icon: AppIcons.edit,
-        onTap: () {
-          Navigator.of(context).push(AccountSettings.route());
-        },
-      ),
-      ProfileItemModel(
-          title: 'Notification',
-          icon: AppIcons.notifications,
-          onTap: () {
-            Navigator.of(context).push(
-              NotificationsScreen.route(),
-            );
-          },
-          isActive: true),
-      ProfileItemModel(
-        title: 'Support',
-        icon: AppIcons.support,
-        onTap: () {
-          Navigator.of(context).push(
-            SupportScreen.route(),
-          );
-        },
-      ),
-      ProfileItemModel(
-        title: 'Privacy Policy',
-        icon: AppIcons.privacy,
-        onTap: () {
-          Navigator.of(context).push(PrivacyScreen.route());
-        },
-      ),
-      ProfileItemModel(
-        title: 'Logout',
-        icon: AppIcons.logout,
-        onTap: () {},
-      ),
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
     final theme = Theme.of(context).textTheme;
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
         if (state.status == AuthenticationStatus.authenticated) {
           return Scaffold(
             backgroundColor: background,
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(mediaQuery.padding.top + 264),
-              child: ProfileAppBar(mediaQuery: mediaQuery),
+            appBar: const WAppBar(
+              title: 'Profil',
             ),
-            body: ListView(
-              physics: const BouncingScrollPhysics(),
+            body: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                ProfileItem(
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  leading: Container(
+                    clipBehavior: Clip.hardEdge,
+                    width: 49,
+                    height: 49,
+                    decoration: const BoxDecoration(shape: BoxShape.circle),
+                    child: CachedImage(
+                      fit: BoxFit.cover,
+                      url: context.read<AuthenticationBloc>().state.user.image,
+                      width: 49,
+                      height: 49,
+                    ),
+                  ),
+                  trailing: SvgPicture.asset(AppIcons.arrowForwardIos),
+                  title: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        padding: const EdgeInsets.all(10),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: black,
-                        ),
+                      Text(
+                        context.read<AuthenticationBloc>().state.user.firstName,
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                            ),
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Lucy Martin',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                      const SizedBox(height: 2),
+                      Text(
+                        '+${MaskTextInputFormatter(mask: '### ## ### ## ##', initialText: context.read<AuthenticationBloc>().state.user.phone, type: MaskAutoCompletionType.eager).getMaskedText()}',
+                        style: Theme.of(context).textTheme.headline3!.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13,
                             ),
-                            const SizedBox(height: 8),
-                            Text(
-                              '+998901234567',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                          ],
+                      ),
+                    ],
+                  ),
+                  onTap: () {},
+                  height: 73,
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ProfileItem(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        leading: SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: SvgPicture.asset(AppIcons.logoAlone),
                         ),
+                        trailing: const SizedBox(),
+                        title: Text(
+                          'MedG haqida',
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13,
+                                  ),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        onTap: () {},
+                        height: 56,
+                      ),
+                      ProfileItem(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        leading: SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: SvgPicture.asset(
+                            AppIcons.support,
+                            color: dark,
+                          ),
+                        ),
+                        trailing: const SizedBox(),
+                        title: Text(
+                          'Qo’llab-quvvatlash',
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13,
+                                  ),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        onTap: () {},
+                        height: 56,
                       ),
                     ],
                   ),
                 ),
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  padding: const EdgeInsets.fromLTRB(13.5, 0, 13.5, 13.5),
-                  itemBuilder: (_, index) => ProfileItem(
-                    icon: profileItems[index].icon,
-                    title: profileItems[index].title,
-                    onTap: profileItems[index].onTap,
-                    isActive: profileItems[index].isActive,
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ProfileItem(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        leading: SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: SvgPicture.asset(AppIcons.globe),
+                        ),
+                        trailing: const SizedBox(),
+                        title: Text(
+                          'Tilni o’zgartirish',
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13,
+                                  ),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        onTap: () {},
+                        height: 56,
+                      ),
+                      ProfileItem(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        leading: SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: SvgPicture.asset(AppIcons.bookmarkFilled),
+                        ),
+                        trailing: const SizedBox(),
+                        title: Text(
+                          'Saqlanganlar',
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13,
+                                  ),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        onTap: () {},
+                        height: 56,
+                      ),
+                    ],
                   ),
-                  separatorBuilder: (_, __) => const SizedBox(height: 12),
-                  itemCount: profileItems.length,
+                ),
+                ProfileItem(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  leading: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: SvgPicture.asset(AppIcons.logout),
+                  ),
+                  trailing: SvgPicture.asset(AppIcons.arrowForwardIos),
+                  title: Text(
+                    'Logout',
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                        ),
+                  ),
+                  onTap: () {},
+                  height: 42,
                 ),
               ],
             ),
@@ -180,7 +244,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   onTap: () {
                     Navigator.of(context, rootNavigator: true)
-                        .push(LoginScreen.route());
+                        .push(MaterialPageRoute(
+                      builder: (_) => LoginScreen(
+                          authenticationRepository:
+                              RepositoryProvider.of<AuthenticationRepository>(
+                                  context)),
+                    ));
                   },
                 )
               ],
@@ -190,82 +259,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
     );
   }
-}
-
-class ProfileItem extends StatelessWidget {
-  final String icon;
-  final String title;
-  final Function() onTap;
-  final bool isActive;
-  const ProfileItem({
-    required this.icon,
-    required this.title,
-    required this.onTap,
-    required this.isActive,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return WButton(
-      color: isActive ? primary : white,
-      onTap: onTap,
-      height: 65,
-      child: Row(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(right: 21),
-            padding: const EdgeInsets.all(10),
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: isActive ? primary: white,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: black.withOpacity(0.1),
-                  blurRadius: 1,
-                  spreadRadius: 1,
-                  offset: const Offset(1, 1),
-                ),
-              ],
-            ),
-            child: SvgPicture.asset(icon),
-          ),
-          Expanded(
-            child: Text(
-              title,
-              style: isActive
-                  ? Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      )
-                  : Theme.of(context).textTheme.headline1!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-            ),
-          ),
-          SvgPicture.asset(
-            AppIcons.arrowForwardIos,
-            color: isActive ? white : null,
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class ProfileItemModel {
-  final String title;
-  final String icon;
-  final Function() onTap;
-  final bool isActive;
-
-  ProfileItemModel({
-    required this.title,
-    required this.icon,
-    required this.onTap,
-    this.isActive = false,
-  });
 }

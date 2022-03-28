@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
+import 'package:med_g/repository/authentication.dart';
 import 'package:med_g/screens/login/login_screen.dart';
 import 'package:med_g/screens/login/signup_screen.dart';
 import 'package:med_g/widgets/w_button.dart';
@@ -69,7 +71,12 @@ class DirectorScreen extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).pushAndRemoveUntil(
-                      SignupScreen.route(),
+                      MaterialPageRoute(
+                        builder: (_) => SignupScreen(
+                            authenticationRepository:
+                                RepositoryProvider.of<AuthenticationRepository>(
+                                    context)),
+                      ),
                       (route) => false,
                     );
                   },
@@ -84,7 +91,12 @@ class DirectorScreen extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).pushAndRemoveUntil(
-                      LoginScreen.route(),
+                      MaterialPageRoute(
+                        builder: (_) => LoginScreen(
+                            authenticationRepository:
+                                RepositoryProvider.of<AuthenticationRepository>(
+                                    context)),
+                      ),
                       (route) => false,
                     );
                   },

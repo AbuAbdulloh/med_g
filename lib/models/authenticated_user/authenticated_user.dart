@@ -5,40 +5,30 @@ part 'authenticated_user.g.dart';
 
 @JsonSerializable()
 class AuthenticatedUser extends Equatable {
-  // @JsonKey(name: 'activatedAt', defaultValue: '')
-  // final String activatedAt;
-  @JsonKey(name: 'address', defaultValue: '')
-  final String address;
-  @JsonKey(name: 'allergy', defaultValue: '')
-  final String allergy;
-  @JsonKey(name: 'birthDate', defaultValue: '')
-  final String birthDate;
-  // @JsonKey(name: 'createdAt', defaultValue: '')
-  // final String createdAt;
-  @JsonKey(name: 'firstName', defaultValue: '')
-  final String firstName;
-  @JsonKey(name: 'height', defaultValue: 0)
-  final int height;
-  @JsonKey(name: 'hobby', defaultValue: '')
-  final String hobby;
   @JsonKey(name: 'id', defaultValue: '')
   final String id;
-  @JsonKey(name: 'image', defaultValue: '')
-  final String image;
-  @JsonKey(name: 'password', defaultValue: '')
-  final String password;
-  @JsonKey(name: 'patronymic', defaultValue: '')
-  final String patronymic;
   @JsonKey(name: 'phone', defaultValue: '')
   final String phone;
-  @JsonKey(name: 'status', defaultValue: 0)
-  final int status;
-  @JsonKey(name: 'sur_name', defaultValue: '')
-  final String surname;
-  // @JsonKey(name: 'updatedAt', defaultValue: '')
-  // final String updatedAt;
+  @JsonKey(name: 'first_name', defaultValue: '')
+  final String firstName;
+  @JsonKey(name: 'patronymic', defaultValue: '')
+  final String patronymic;
+  @JsonKey(name: 'allergy', defaultValue: '')
+  final String allergy;
+  @JsonKey(name: 'hobby', defaultValue: '')
+  final String hobby;
+  @JsonKey(name: 'image', defaultValue: '')
+  final String image;
+  @JsonKey(name: 'address', defaultValue: '')
+  final String address;
+  @JsonKey(name: 'height', defaultValue: 0)
+  final int height;
   @JsonKey(name: 'weight', defaultValue: 0)
   final int weight;
+  @JsonKey(name: 'status', defaultValue: 0)
+  final int status;
+  @JsonKey(name: 'birth_date', defaultValue: '')
+  final String birthDate;
 
   const AuthenticatedUser({
     required this.address,
@@ -52,11 +42,6 @@ class AuthenticatedUser extends Equatable {
     required this.patronymic,
     required this.phone,
     required this.status,
-    // required this.activatedAt,
-    // required this.createdAt,
-    required this.password,
-    required this.surname,
-    // required this.updatedAt,
     required this.weight,
   });
 
@@ -66,10 +51,8 @@ class AuthenticatedUser extends Equatable {
 
   AuthenticatedUser copyWith({
     String? address,
-    // String? activatedAt,
     String? allergy,
     String? birthDate,
-    // String? createdAt,
     String? firstName,
     int? height,
     String? hobby,
@@ -80,47 +63,42 @@ class AuthenticatedUser extends Equatable {
     String? phone,
     int? status,
     String? surname,
-    // String? updatedAt,
     int? weight,
   }) =>
       AuthenticatedUser(
-        // activatedAt: activatedAt ?? this.activatedAt,
         address: address ?? this.address,
         allergy: allergy ?? this.allergy,
         birthDate: birthDate ?? this.birthDate,
-        // createdAt: createdAt ?? this.createdAt,
         firstName: firstName ?? this.firstName,
         height: height ?? this.height,
         hobby: hobby ?? this.hobby,
         id: id ?? this.id,
         image: image ?? this.image,
-        password: password ?? this.password,
         patronymic: patronymic ?? this.patronymic,
         phone: phone ?? this.phone,
         status: status ?? this.status,
-        surname: surname ?? this.surname,
-        // updatedAt: updatedAt ?? this.updatedAt,
         weight: weight ?? this.weight,
       );
 
   @override
   List<Object> get props => [
-        // activatedAt,
         address,
         allergy,
         birthDate,
-        // createdAt,
         firstName,
         height,
         hobby,
         id,
         image,
-        password,
         patronymic,
         phone,
         status,
-        surname,
-        // updatedAt,
         weight,
       ];
+
+
+  @override
+  String toString() {
+    return 'AuthenticatedUser(id: $id, phone: $phone, firstName: $firstName, patronymic: $patronymic, allergy: $allergy, hobby: $hobby, image: $image, address: $address, height: $height, weight: $weight, status: $status, birthDate: $birthDate)';
+  }
 }

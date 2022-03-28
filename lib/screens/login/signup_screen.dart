@@ -7,6 +7,7 @@ import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/models/register/register.dart';
 import 'package:med_g/models/submission_status/submission_status.dart';
+import 'package:med_g/repository/authentication.dart';
 import 'package:med_g/screens/login/bloc/bloc/login_bloc.dart';
 import 'package:med_g/screens/verification/verification_screen.dart';
 import 'package:med_g/widgets/w_button.dart';
@@ -15,10 +16,12 @@ import 'package:med_g/widgets/w_scale_animation.dart';
 import 'package:med_g/widgets/w_textfield.dart';
 
 class SignupScreen extends StatefulWidget {
-  static Route route() => MaterialPageRoute(
-        builder: (_) => const SignupScreen(),
-      );
-  const SignupScreen({Key? key}) : super(key: key);
+  final AuthenticationRepository authenticationRepository;
+
+  const SignupScreen({
+    required this.authenticationRepository,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _SignupScreenState createState() => _SignupScreenState();
@@ -37,7 +40,9 @@ class _SignupScreenState extends State<SignupScreen> {
     phoneController = TextEditingController();
     passwordController = TextEditingController();
 
-    loginBloc = LoginBloc();
+    loginBloc = LoginBloc(
+      authenticationRepository: widget.authenticationRepository,
+    );
   }
 
   @override
@@ -158,7 +163,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                   '998${phoneController.text.replaceAll(' ', '').trim()}',
                             ),
                             onSucces: () {
-                              Navigator.of(context).push(VerificationScreen.route(
+                              Navigator.of(context)
+                                  .push(VerificationScreen.route(
                                 bloc: loginBloc,
                               ));
                             },

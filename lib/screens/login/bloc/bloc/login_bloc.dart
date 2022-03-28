@@ -12,10 +12,10 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final repository = RegisterRepository();
-  final authenticationRepository = AuthenticationRepository();
-  LoginBloc()
-      : super(
+  final AuthenticationRepository _authenticationRepository;
+  LoginBloc({required AuthenticationRepository authenticationRepository})
+      : _authenticationRepository = authenticationRepository,
+        super(
           LoginState(
             status: SubmissionStatus.pure,
             register: Register.fromJson(const {}),
@@ -33,7 +33,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             code: '400',
           );
         }
-        if (event.register.phone.isEmpty || event.register.phone.length != 9) {
+        print(event.register.phone);
+        if (event.register.phone.isEmpty || event.register.phone.length != 12) {
           throw const CustomException(
             message: 'Telefon raqami yaroqli emas!',
             code: '400',
@@ -46,7 +47,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             code: '400',
           );
         }
-        final registerResponse = await repository.registerUser(event.register);
+        final registerResponse =
+            await _authenticationRepository.registerUser(event.register);
         emit(state.copyWith(
           status: SubmissionStatus.submissionSucces,
           register: event.register,
@@ -67,7 +69,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             code: '400',
           );
         }
-        final user = await repository.confirmUser(
+        final user = await _authenticationRepository.confirmUser(
           firstName: state.register.firstName,
           password: state.register.password,
           phone: state.register.phone,
@@ -90,7 +92,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<UserLoggedIn>((event, emit) async {
       emit(state.copyWith(status: SubmissionStatus.submissionInProgress));
       try {
-        if (event.phone.isEmpty) {
+        print(event.phone);
+        if (event.phone.isEmpty || event.phone.length != 9) {
           throw const CustomException(
             message: 'Telefon raqami yaroqli emas!',
             code: '400',

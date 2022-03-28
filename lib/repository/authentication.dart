@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:med_g/data/singletons/dio_settings.dart';
 import 'package:med_g/data/singletons/service_locator.dart';
@@ -7,6 +6,8 @@ import 'package:med_g/data/singletons/storage.dart';
 import 'package:med_g/data/utils/custom_exception.dart';
 import 'package:med_g/models/authenticated_user/authenticated_user.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
+import 'package:med_g/models/register/register.dart';
+import 'package:med_g/models/register_response/register_response.dart';
 
 class AuthenticationRepository {
   final _controller = StreamController<AuthenticationStatus>();
@@ -19,19 +20,29 @@ class AuthenticationRepository {
     yield* _controller.stream;
   }
 
-  Future<AuthenticatedUser> logIn({
+  Future<void> logIn({
     required String phoneNumber,
     required String password,
   }) async {
     try {
       final response = await _dio
           .post('/login', data: {'phone': phoneNumber, 'password': password});
-
+      print(response.data);
+      print(response.statusCode);
+      print(response.realUri);
+      print('In login');
+      print(response.data);
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         try {
           await StorageRepository.putString(
-              'token', response.data['data']['token']);
-          return AuthenticatedUser.fromJson(response.data['data']['user']);
+            'refresh',
+            response.data['data']['token']['refresh'],
+          );
+          await StorageRepository.putString(
+            'token',
+            response.data['data']['token']['access'],
+          );
+          _controller.add(AuthenticationStatus.authenticated);
         } catch (e) {
           throw CustomException(message: '$e', code: '502');
         }
@@ -49,55 +60,138 @@ class AuthenticationRepository {
   }
 
   Future<AuthenticatedUser> getProfile() async {
+    print(StorageRepository.getString('token'));
+    print(StorageRepository.getString('refresh'));
+    print('Authorization: Bearer ${StorageRepository.getString('token')}');
     final _dio = serviceLocator<DioSettings>().dio;
-    await Future.delayed(const Duration(seconds: 3));
-    return AuthenticatedUser.fromJson(const {});
-    // final response = await _dio.get(
-    //   '/login',
-    // options: Options(
-    //   headers: {
-    //     'Authorization': 'Bearer ${StorageRepository.getString("token")}'
-    //   },
-    // ),
-    // );
-
-    // if (response.statusCode! >= 200 && response.statusCode! < 300) {
-    //   return AuthenticatedUser.fromJson(response.data['data']);
-    // } else {
-    //   final message = '${(response.data as Map<String, dynamic>).values.first}'
-    //       .replaceAll(RegExp(r'[\[\]]'), '');
-
-    //   throw CustomException(message: message, code: '100');
-    // }
-  }
-
-  Future<AuthenticatedUser> refreshToken() async {
-    final response = await _dio.post(
-      'auth/token/refresh/',
-      data: {
-        'refresh': StorageRepository.getString('refresh'),
-      },
+    final response = await _dio.get(
+      '/user/profile',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+        },
+      ),
     );
+    print(response.data);
+    print(response.statusCode);
+    print(response.realUri);
+    print(response.requestOptions.headers);
     if (response.statusCode! >= 200 && response.statusCode! < 300) {
-      // TODO: Implement refresh token
-      return AuthenticatedUser.fromJson(const {});
+      return AuthenticatedUser.fromJson(response.data['data']);
     } else {
-      return AuthenticatedUser.fromJson(const {});
+      throw CustomException(message: '${response.data}', code: '100');
     }
   }
 
-  AuthenticatedUser getProfiles() {
-    final userList = (StorageRepository.getList('users', defValue: []))
-        .map(
-          (e) => AuthenticatedUser.fromJson(json.decode(e)),
-        )
-        .toList();
+  Future<void> refreshToken() async {
+    print('refreshing token');
+    try {
+      final response = await _dio.post(
+        '/auth/refresh',
+        data: {
+          'token': StorageRepository.getString('refresh'),
+        },
+      );
+      print(response.requestOptions.data);
+      print(response.data);
+      print(response.statusCode);
+      print(response.realUri);
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        await StorageRepository.putString(
+            'refresh', response.data['data']['token']['refresh']);
+        await StorageRepository.putString(
+            'token', response.data['data']['token']['access']);
+      } else {
+        throw CustomException(
+          message: '${response.data}',
+          code: '${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw CustomException(
+        message: '$e',
+        code: '141',
+      );
+    }
+  }
 
-    return userList.first;
+  Future<RegisterResponse> registerUser(Register register) async {
+    try {
+      final response = await _dio.post(
+        '/send-code',
+        data: {
+          'phone': register.phone,
+        },
+      );
+      print(response.data);
+      print(response.statusCode);
+      print(response.realUri);
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return RegisterResponse.fromJson(response.data);
+      } else {
+        throw CustomException(
+          message: '${response.data['error_note']}',
+          code: '${response.statusCode}',
+        );
+      }
+    } on Exception catch (e) {
+      throw CustomException(
+        message: '$e',
+        code: '502',
+      );
+    }
+  }
+
+  Future<AuthenticatedUser> confirmUser({
+    required int code,
+    required String signId,
+    required String phone,
+    required String firstName,
+    required String password,
+  }) async {
+    try {
+      print(code);
+      print(signId);
+      print(phone);
+      print(firstName);
+      print(password);
+      final response = await _dio.post(
+        '/register',
+        data: {
+          'code': code,
+          'first_name': firstName,
+          'password': password,
+          'phone': phone,
+          'sign_id': signId,
+        },
+      );
+      print(response.data);
+      print(response.statusCode);
+      print(response.realUri);
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        print(response.data);
+        print(response.statusCode);
+        StorageRepository.putString(
+            'token', response.data['data']['token']['access']);
+        StorageRepository.putString(
+            'refresh', response.data['data']['token']['refresh']);
+        _controller.add(AuthenticationStatus.authenticated);
+        return AuthenticatedUser.fromJson(response.data['data']['user']);
+      } else {
+        print(response.data);
+        print(response.statusCode);
+        print(response.realUri);
+        throw CustomException(
+          message: '${response.data['error_note']}',
+          code: '${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<void> logOut() async {
-    // StorageRepository.putList('users', defValue: []);
     await StorageRepository.putString('token', '');
     await StorageRepository.putString('refresh', '');
     _controller.add(AuthenticationStatus.unauthenticated);

@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
+import 'package:med_g/models/category/category.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 
 class CategoryItem extends StatelessWidget {
+  final CategoryResponse category;
   final VoidCallback onTap;
   const CategoryItem({
+    required this.category,
     required this.onTap,
     Key? key,
   }) : super(key: key);
@@ -38,7 +41,7 @@ class CategoryItem extends StatelessWidget {
           ),
           const Spacer(),
           Text(
-            'Psixologiya',
+            category.name,
             style: Theme.of(context).textTheme.headline1!.copyWith(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,

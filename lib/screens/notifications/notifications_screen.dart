@@ -18,14 +18,6 @@ class NotificationsScreen extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: background,
-      appBar: PreferredSize(
-        child: WAppBar(
-          mediaQuery: mediaQuery,
-          title: 'Notification',
-          hasNotificationsButton: false,
-        ),
-        preferredSize: Size.fromHeight(mediaQuery.padding.top + 77),
-      ),
       body: ListView(
         physics: const BouncingScrollPhysics(
           parent: AlwaysScrollableScrollPhysics(),
