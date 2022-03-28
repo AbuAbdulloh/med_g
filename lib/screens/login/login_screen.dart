@@ -171,13 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         context.read<LoginBloc>().add(UserLoggedIn(
                               phone: phoneController.text.replaceAll(' ', ''),
                               password: passwordController.text.trim(),
-                              onSucces: () {
-                                context
-                                    .read<AuthenticationBloc>()
-                                    .add(const AuthenticationStatusChanged(
-                                      AuthenticationStatus.authenticated,
-                                    ));
-                              },
+                              onSucces: () {},
                               onError: (message) {
                                 showErrorSnackBar(context, message);
                               },

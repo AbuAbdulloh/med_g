@@ -7,6 +7,7 @@ import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/bloc/bloc/authentication_bloc.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/repository/authentication.dart';
+import 'package:med_g/screens/account_settings/account_settings_screen.dart';
 import 'package:med_g/screens/login/login_screen.dart';
 import 'package:med_g/screens/profile/widgets/profile_item.dart';
 import 'package:med_g/widgets/cached_image.dart';
@@ -71,7 +72,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ],
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => const AccountSettings(),
+                    ));
+                  },
                   height: 73,
                 ),
                 Padding(

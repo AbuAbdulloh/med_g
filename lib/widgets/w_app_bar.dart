@@ -32,7 +32,7 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           WScaleAnimation(
             onTap: () {
