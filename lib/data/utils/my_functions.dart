@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:med_g/app/constants/colors.dart';
 
 class MyFunctions {
   static Widget _dotIndicator(Color color, int pageIndex, int id) =>
@@ -70,5 +72,82 @@ class MyFunctions {
       ),
     );
     return date;
+  }
+
+  static int calculateWeekday(int weekId) {
+    var number = weekId % 7;
+    if (number == 0) {
+      number = 7;
+    }
+
+    return number;
+  }
+
+  static Color getDayBackgroundColor(int weekDayId, BuildContext context) {
+    switch (weekDayId) {
+      case 6:
+        return Theme.of(context).colorScheme.primary.withOpacity(0.1);
+      case 7:
+        return Theme.of(context).colorScheme.primary.withOpacity(0.1);
+      default:
+        return Colors.transparent;
+    }
+  }
+
+  static Color getDayTextColor(int weekDayId, BuildContext context) {
+    switch (weekDayId) {
+      case 6:
+        return Theme.of(context).colorScheme.primary;
+      case 7:
+        return Theme.of(context).colorScheme.primary;
+      default:
+        return dark.withOpacity(.8);
+    }
+  }
+
+  static List<int> getMonthIndexes(int quarterId) {
+    switch (quarterId) {
+      case 1:
+        return [1, 2, 3];
+      case 2:
+        return [4, 5, 6];
+      case 3:
+        return [7, 8, 9];
+      case 4:
+        return [10, 11, 12];
+      default:
+        return [];
+    }
+  }
+
+  static String getMonthByIndex(int index) {
+    switch (index) {
+      case 1:
+        return 'Yanvar';
+      case 2:
+        return 'Fevral';
+      case 3:
+        return 'Mart';
+      case 4:
+        return 'Aprel';
+      case 5:
+        return 'May';
+      case 6:
+        return 'Iyun';
+      case 7:
+        return 'Iyul';
+      case 8:
+        return 'Avgust';
+      case 9:
+        return 'Sentabr';
+      case 10:
+        return 'Oktabr';
+      case 11:
+        return 'Noyabr';
+      case 12:
+        return 'Dekabr';
+      default:
+        return '';
+    }
   }
 }
