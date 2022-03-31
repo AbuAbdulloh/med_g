@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:med_g/repository/articles_repository.dart';
+import 'package:med_g/repository/save_unsave_repository.dart';
 import 'package:med_g/screens/main/bloc/articles/articles_bloc.dart';
 import 'package:med_g/screens/main/widgets/article_item.dart';
 import 'package:med_g/screens/main/widgets/main_app_bar.dart';
@@ -23,6 +24,7 @@ class _ArtclesScreenState extends State<ArtclesScreen> {
     searchController = TextEditingController();
     articlesBloc = ArticlesBloc(
       repository: RepositoryProvider.of<ArticleRepository>(context),
+      saveUnsaveRepository: RepositoryProvider.of<SaveUnsaveRepository>(context),
     );
     super.initState();
   }

@@ -9,7 +9,7 @@ import 'package:jiffy/jiffy.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/bloc/bloc/authentication_bloc.dart';
+import 'package:med_g/bloc/auth/authentication_bloc.dart';
 import 'package:med_g/repository/authentication.dart';
 import 'package:med_g/screens/account_settings/bloc/profile_bloc.dart';
 import 'package:med_g/widgets/cached_image.dart';

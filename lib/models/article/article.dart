@@ -55,4 +55,26 @@ class Article extends Equatable {
   String toString() {
     return 'Article(id: $id, category: $category, author: $author, title: $title, description: $description, thumbnail: $thumbnail, saved: $saved, createdAt: $createdAt)';
   }
+
+  Article copyWith({
+    String? id,
+    ArticleCategory? category,
+    String? author,
+    String? title,
+    String? description,
+    String? thumbnail,
+    bool? saved,
+    String? createdAt,
+  }) {
+    return Article(
+      id: id ?? this.id,
+      category: category ?? this.category,
+      author: author ?? this.author,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      thumbnail: thumbnail ?? this.thumbnail,
+      saved: saved ?? this.saved,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }

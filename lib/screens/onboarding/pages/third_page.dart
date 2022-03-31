@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/app/theme/theme.dart';
-
+import 'package:med_g/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 class ThirdPage extends StatelessWidget {
   const ThirdPage({Key? key}) : super(key: key);
 
@@ -33,7 +33,7 @@ class ThirdPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Order Medicine Online',
+                    LocaleKeys.order_medicine.tr(),
                     style: Theme.of(context).textTheme.headline5!.copyWith(
                           fontSize: 28,
                           fontWeight: FontWeight.w600,
@@ -43,7 +43,7 @@ class ThirdPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 36),
                     child: Text(
-                      'Order your medicine that your doctor provided you...',
+                      LocaleKeys.order_medicine_desc.tr(),
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,

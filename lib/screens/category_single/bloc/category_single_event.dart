@@ -22,3 +22,9 @@ class GetCategoryArticles extends CategorySingleEvent {
   @override
   String toString() => 'GetCategoryArticles(slug: $slug, onError: $onError)';
 }
+
+class SaveUnsaveArticle extends CategorySingleEvent {
+  final String id;
+
+  const SaveUnsaveArticle(this.id);
+}

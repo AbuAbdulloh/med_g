@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:med_g/models/category/category.dart';
 import 'package:med_g/repository/category_repository.dart';
+import 'package:med_g/repository/save_unsave_repository.dart';
 import 'package:med_g/screens/category_single/bloc/category_single_bloc.dart';
 import 'package:med_g/screens/category_single/widgets/category_app_bar.dart';
 import 'package:med_g/screens/main/widgets/article_item.dart';
@@ -29,6 +30,7 @@ class _CategorySingleScreenState extends State<CategorySingleScreen> {
     searchController = TextEditingController();
     categorySingleBloc = CategorySingleBloc(
       repository: RepositoryProvider.of<CategoryRepository>(context),
+      saveUnsaveRepository: RepositoryProvider.of<SaveUnsaveRepository>(context),
     );
     super.initState();
   }

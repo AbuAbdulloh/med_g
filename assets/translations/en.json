@@ -1,3 +1,13 @@
 {
-    "welcome_main": "Welcome to your health page!"
+    "welcome_main": "Go to main",
+    "continueing": "Continue",
+    "advice": "Advice from experts",
+    "advice_desc": "Find a doctor who will take the best care of your health",
+    "planned_care": "Planned treatment regimen",
+    "planned_care_desc": "Make a note to yourself about taking your medications on time",
+    "order_medicine": "Order Medicine Online",
+    "order_medicine_desc": "Order your medicine that your doctor provided you",
+    "login": "Login",
+    "signup": "Register"
+
 }

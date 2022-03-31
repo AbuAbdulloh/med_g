@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/app/theme/theme.dart';
-
+import 'package:med_g/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 class SecondPage extends StatelessWidget {
   const SecondPage({Key? key}) : super(key: key);
 
@@ -33,7 +33,7 @@ class SecondPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Medicine Reminder',
+                    LocaleKeys.planned_care.tr(),
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                           fontSize: 28,
                           fontWeight: FontWeight.w600,
@@ -43,7 +43,7 @@ class SecondPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 36),
                     child: Text(
-                      'Set up a reminder to take the medicine on time...',
+                      LocaleKeys.planned_care_desc.tr(),
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,

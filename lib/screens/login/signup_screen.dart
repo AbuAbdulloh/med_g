@@ -5,6 +5,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
+import 'package:med_g/generated/locale_keys.g.dart';
 import 'package:med_g/models/register/register.dart';
 import 'package:med_g/models/submission_status/submission_status.dart';
 import 'package:med_g/repository/authentication.dart';
@@ -14,7 +15,7 @@ import 'package:med_g/widgets/w_button.dart';
 import 'package:med_g/widgets/w_error_snack_bar.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 import 'package:med_g/widgets/w_textfield.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class SignupScreen extends StatefulWidget {
   final AuthenticationRepository authenticationRepository;
 
@@ -103,7 +104,7 @@ class _SignupScreenState extends State<SignupScreen> {
               children: [
                 Align(
                   child: Text(
-                    'Ro’yxatdan o’tish',
+                    LocaleKeys.signup.tr(),
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -126,53 +127,56 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 const SizedBox(height: 12),
                 WTextField(
-                    title: 'Telefon raqami',
-                    fillColor: white,
-                    prefixText: '+998',
-                    hintText: '00 000 00 00',
-                    textInputFormatters: [
-                      MaskTextInputFormatter(
-                        mask: '## ### ## ##',
-                        filter: {'#': RegExp(r'[0-9]')},
-                        type: MaskAutoCompletionType.lazy,
-                      ),
-                    ],
-                    contentPadding: const EdgeInsets.fromLTRB(48, 12, 12, 12),
-                    controller: phoneController,
-                    onChanged: (_) {},
-                    onEditCompleted: () {
-                      FocusScope.of(context).nextFocus();
-                    }),
+                  title: 'Telefon raqami',
+                  fillColor: white,
+                  prefixText: '+998',
+                  hintText: '00 000 00 00',
+                  textInputFormatters: [
+                    MaskTextInputFormatter(
+                      mask: '## ### ## ##',
+                      filter: {'#': RegExp(r'[0-9]')},
+                      type: MaskAutoCompletionType.lazy,
+                    ),
+                  ],
+                  contentPadding: const EdgeInsets.fromLTRB(48, 12, 12, 12),
+                  controller: phoneController,
+                  onChanged: (_) {},
+                  onEditCompleted: () {
+                    FocusScope.of(context).nextFocus();
+                  },
+                  keyBoardType: TextInputType.phone,
+                  textInputAction: TextInputAction.next,
+                ),
                 const SizedBox(height: 20),
                 WTextField(
-                    title: 'Maxfiylik kaliti',
-                    fillColor: white,
-                    hintText: 'Maxfiylik kalitini kiriting...',
-                    keyBoardType: TextInputType.visiblePassword,
-                    controller: passwordController,
-                    onChanged: (_) {},
-                    isObscureText: true,
-                    onEditCompleted: () {
-                      FocusScope.of(context).unfocus();
-                      loginBloc.add(
-                        UserSignedUp(
-                            register: Register(
-                              firstName: nameController.text.trim(),
-                              password: passwordController.text.trim(),
-                              phone:
-                                  '998${phoneController.text.replaceAll(' ', '').trim()}',
-                            ),
-                            onSucces: () {
-                              Navigator.of(context)
-                                  .push(VerificationScreen.route(
-                                bloc: loginBloc,
-                              ));
-                            },
-                            onError: (message) {
-                              showErrorSnackBar(context, message);
-                            }),
-                      );
-                    }),
+                  title: 'Maxfiylik kaliti',
+                  fillColor: white,
+                  hintText: 'Maxfiylik kalitini kiriting...',
+                  keyBoardType: TextInputType.visiblePassword,
+                  controller: passwordController,
+                  onChanged: (_) {},
+                  isObscureText: true,
+                  onEditCompleted: () {
+                    FocusScope.of(context).unfocus();
+                    loginBloc.add(
+                      UserSignedUp(
+                          register: Register(
+                            firstName: nameController.text.trim(),
+                            password: passwordController.text.trim(),
+                            phone:
+                                '998${phoneController.text.replaceAll(' ', '').trim()}',
+                          ),
+                          onSucces: () {
+                            Navigator.of(context).push(VerificationScreen.route(
+                                bloc: loginBloc, isSigningUp: true));
+                          },
+                          onError: (message) {
+                            showErrorSnackBar(context, message);
+                          }),
+                    );
+                  },
+                  textInputAction: TextInputAction.done,
+                ),
                 const SizedBox(height: 50),
                 BlocBuilder<LoginBloc, LoginState>(
                   builder: (context, state) => WButton(
@@ -193,6 +197,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   Navigator.of(context)
                                       .push(VerificationScreen.route(
                                     bloc: loginBloc,
+                                    isSigningUp: true,
                                   ));
                                 },
                                 onError: (message) {
@@ -200,7 +205,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 }),
                           );
                     },
-                    text: 'Davom etish',
+                    text: LocaleKeys.continueing,
                     textStyle: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
@@ -221,7 +226,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                text: 'Kirish',
+                text: LocaleKeys.login,
                 textStyle: Theme.of(context).textTheme.headline1!.copyWith(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,

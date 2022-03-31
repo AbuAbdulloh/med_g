@@ -1,26 +1,23 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:formz/formz.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/app_images.dart';
 import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 
-class AboutScreen extends StatefulWidget {
+class SupportScreen extends StatefulWidget {
   static Route route() => MaterialPageRoute(
-        builder: (_) => const AboutScreen(key: Key('about-screen')),
+        builder: (_) => const SupportScreen(key: Key('about-screen')),
       );
-  const AboutScreen({
+  const SupportScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<AboutScreen> createState() => _AboutScreenState();
+  State<SupportScreen> createState() => _SupportScreenState();
 }
 
-class _AboutScreenState extends State<AboutScreen> {
+class _SupportScreenState extends State<SupportScreen> {
   @override
   void initState() {
     super.initState();
@@ -61,7 +58,7 @@ class _AboutScreenState extends State<AboutScreen> {
                 ),
               ),
               background: Image.asset(
-                AppImages.about,
+                AppImages.services,
                 fit: BoxFit.cover,
                 height: double.maxFinite,
                 width: MediaQuery.of(context).size.width,

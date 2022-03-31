@@ -8,38 +8,29 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/generated/locale_keys.g.dart';
-import 'package:med_g/models/register/register.dart';
 import 'package:med_g/models/submission_status/submission_status.dart';
-import 'package:med_g/screens/home/home.dart';
-import 'package:med_g/screens/login/bloc/bloc/login_bloc.dart';
+import 'package:med_g/screens/change_password/change_password_screen.dart';
+import 'package:med_g/screens/reset_password/bloc/reset_password_bloc.dart';
+import 'package:med_g/screens/reset_password/parts/change_password.dart';
 import 'package:med_g/widgets/w_button.dart';
 import 'package:med_g/widgets/w_error_snack_bar.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class VerificationScreen extends StatefulWidget {
-  final bool isSigningUp;
-  final LoginBloc bloc;
+class ResetVerification extends StatefulWidget {
+  final ResetPasswordBloc bloc;
 
-  static Route route({required LoginBloc bloc, required bool isSigningUp}) =>
-      MaterialPageRoute(
-        builder: (_) => VerificationScreen(
-          bloc: bloc,
-          isSigningUp: isSigningUp,
-        ),
+  static Route route({required ResetPasswordBloc bloc}) => MaterialPageRoute(
+        builder: (_) => ResetVerification(bloc: bloc),
       );
 
-  const VerificationScreen({
-    required this.bloc,
-    required this.isSigningUp,
-    Key? key,
-  }) : super(key: key);
+  const ResetVerification({required this.bloc, Key? key}) : super(key: key);
 
   @override
-  _VerificationScreenState createState() => _VerificationScreenState();
+  _ResetVerificationState createState() => _ResetVerificationState();
 }
 
-class _VerificationScreenState extends State<VerificationScreen> {
+class _ResetVerificationState extends State<ResetVerification> {
   late TextEditingController pinCodeController;
   int seconds = 120;
   late Timer timer;
@@ -180,19 +171,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     selectedColor: primary,
                   ),
                   onChanged: (value) {},
-                  onCompleted: (value) {
-                    context.read<LoginBloc>().add(
-                          UserVerified(
-                              pinCode: pinCodeController.text.trim(),
-                              onSucces: () {},
-                              onError: (message) {
-                                showErrorSnackBar(context, message);
-                              }),
-                        );
-                  },
+                  onCompleted: (value) {},
                 ),
                 const SizedBox(height: 12),
-                BlocBuilder<LoginBloc, LoginState>(
+                BlocBuilder<ResetPasswordBloc, ResetPasswordState>(
                   builder: (context, state) {
                     if (state.status == SubmissionStatus.submissionInProgress) {
                       return const Center(child: CupertinoActivityIndicator());
@@ -211,23 +193,13 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       onTap: () {
                         if (seconds == 0) {
                           FocusScope.of(context).unfocus();
-                          widget.bloc.add(
-                            UserSignedUp(
-                                register: Register(
-                                  firstName: state.register.firstName,
-                                  password: state.register.password,
-                                  phone: state.register.phone,
-                                ),
-                                onSucces: () {
-                                  setState(() {
-                                    seconds = 120;
-                                    startCount();
-                                  });
-                                },
-                                onError: (message) {
-                                  showErrorSnackBar(context, message);
-                                }),
-                          );
+                          widget.bloc.add(SendPhone(
+                            phone: pinCodeController.text,
+                            onSucces: () {},
+                            onError: (message) {
+                              showErrorSnackBar(context, message);
+                            },
+                          ));
                         }
                       },
                     );
@@ -236,7 +208,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
               ],
             ),
           ),
-          bottomNavigationBar: BlocBuilder<LoginBloc, LoginState>(
+          bottomNavigationBar:
+              BlocBuilder<ResetPasswordBloc, ResetPasswordState>(
             builder: (context, state) {
               return WButton(
                 height: 42,
@@ -245,21 +218,20 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 loading: state.status == SubmissionStatus.submissionInProgress,
                 disabled: state.status == SubmissionStatus.submissionInProgress,
                 onTap: () {
-                  context.read<LoginBloc>().add(
-                        UserVerified(
-                            pinCode: pinCodeController.text.trim(),
-                            onSucces: () {
-                              Navigator.of(context).pushAndRemoveUntil(
-                                HomeScreen.route(),
-                                (route) => false,
-                              );
-                            },
-                            onError: (message) {
-                              showErrorSnackBar(context, message);
-                            }),
-                      );
+                  FocusScope.of(context).unfocus();
+                  widget.bloc.add(VerifyPhone(
+                    pinCode: pinCodeController.text,
+                    onSucces: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => ChangePasswordScreen(bloc: widget.bloc),
+                      ));
+                    },
+                    onError: (message) {
+                      showErrorSnackBar(context, message);
+                    },
+                  ));
                 },
-                text: LocaleKeys.signup,
+                text: LocaleKeys.continueing,
               );
             },
           ),

@@ -1,4 +1,12 @@
 {
-    "welcome_main": "Salomatlik sahifangizga xush kelibsiz!"
-
+    "welcome_main": "Asosiyga o’tish",
+    "continueing": "Davom etish",
+    "advice": "Ekspertlardan maslahatlar",
+    "advice_desc": "Sizga g'amxo'rlik qila oladigan eng yaxshi doktorni toping",
+    "planned_care": "Rejalashtirilgan davolanish tartibi",
+    "planned_care_desc": "Dori-darmonlarni o'z vaqtida qabul qilish uchun eslatma o'rnating",
+    "order_medicine": "Dorilarni onlayn buyurtma qiling",
+    "order_medicine_desc": "Shifokorlar yozib bergan retsept asosida dorilarni onlayn buyurtma qiling",
+    "login": "Kirish",
+    "signup": "Ro’yxatdan o’tish"
 }

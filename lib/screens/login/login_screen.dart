@@ -5,17 +5,18 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/bloc/bloc/authentication_bloc.dart';
-import 'package:med_g/models/authentication_status/authentication_status.dart';
+import 'package:med_g/generated/locale_keys.g.dart';
 import 'package:med_g/models/submission_status/submission_status.dart';
 import 'package:med_g/repository/authentication.dart';
+import 'package:med_g/screens/home/home.dart';
 import 'package:med_g/screens/login/bloc/bloc/login_bloc.dart';
 import 'package:med_g/screens/login/signup_screen.dart';
+import 'package:med_g/screens/reset_password/reset_password_screen.dart';
 import 'package:med_g/widgets/w_button.dart';
 import 'package:med_g/widgets/w_error_snack_bar.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 import 'package:med_g/widgets/w_textfield.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class LoginScreen extends StatefulWidget {
   final AuthenticationRepository authenticationRepository;
 
@@ -96,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   Text(
-                    'Kirish',
+                   LocaleKeys.login.tr(),
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -104,45 +105,50 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 34),
                   WTextField(
-                      title: 'Telefon raqami',
-                      fillColor: white,
-                      prefixText: '+998',
-                      hintText: '00 000 00 00',
-                      textInputFormatters: [
-                        MaskTextInputFormatter(
-                          mask: '## ### ## ##',
-                          filter: {'#': RegExp(r'[0-9]')},
-                          type: MaskAutoCompletionType.lazy,
-                        ),
-                      ],
-                      contentPadding: const EdgeInsets.fromLTRB(48, 12, 12, 12),
-                      controller: phoneController,
-                      onChanged: (_) {},
-                      onEditCompleted: () {
-                        FocusScope.of(context).nextFocus();
-                      }),
+                    title: 'Telefon raqami',
+                    fillColor: white,
+                    prefixText: '+998',
+                    hintText: '00 000 00 00',
+                    textInputFormatters: [
+                      MaskTextInputFormatter(
+                        mask: '## ### ## ##',
+                        filter: {'#': RegExp(r'[0-9]')},
+                        type: MaskAutoCompletionType.lazy,
+                      ),
+                    ],
+                    contentPadding: const EdgeInsets.fromLTRB(48, 12, 12, 12),
+                    controller: phoneController,
+                    onChanged: (_) {},
+                    onEditCompleted: () {
+                      FocusScope.of(context).nextFocus();
+                    },
+                    keyBoardType: TextInputType.phone,
+                    textInputAction: TextInputAction.next,
+                  ),
                   const SizedBox(height: 16),
                   WTextField(
-                      title: 'Maxfiylik kaliti',
-                      fillColor: white,
-                      hintText: 'Maxfiylik kalitini kiriting...',
-                      keyBoardType: TextInputType.visiblePassword,
-                      controller: passwordController,
-                      onChanged: (_) {},
-                      isObscureText: true,
-                      onEditCompleted: () {
-                        FocusScope.of(context).unfocus();
-                        bloc.add(UserLoggedIn(
-                          phone: phoneController.text.replaceAll(' ', ''),
-                          password: passwordController.text.trim(),
-                          onSucces: () {
-                            Navigator.pop(context);
-                          },
-                          onError: (message) {
-                            showErrorSnackBar(context, message);
-                          },
-                        ));
-                      }),
+                    title: 'Maxfiylik kaliti',
+                    fillColor: white,
+                    hintText: 'Maxfiylik kalitini kiriting...',
+                    keyBoardType: TextInputType.visiblePassword,
+                    controller: passwordController,
+                    onChanged: (_) {},
+                    isObscureText: true,
+                    onEditCompleted: () {
+                      FocusScope.of(context).unfocus();
+                      bloc.add(UserLoggedIn(
+                        phone: phoneController.text.replaceAll(' ', ''),
+                        password: passwordController.text.trim(),
+                        onSucces: () {
+                          Navigator.pop(context);
+                        },
+                        onError: (message) {
+                          showErrorSnackBar(context, message);
+                        },
+                      ));
+                    },
+                    textInputAction: TextInputAction.done,
+                  ),
                   const SizedBox(height: 16),
                   WScaleAnimation(
                     scaleValue: 0.95,
@@ -159,7 +165,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => ResetPasswordScreen(
+                                repository: widget.authenticationRepository,
+                              )));
+                    },
                   ),
                   const SizedBox(height: 20),
                   BlocBuilder<LoginBloc, LoginState>(
@@ -174,14 +185,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               phone: phoneController.text.replaceAll(' ', ''),
                               password: passwordController.text.trim(),
                               onSucces: () {
-                                Navigator.pop(context);
+                                Navigator.of(context).pop();
                               },
                               onError: (message) {
                                 showErrorSnackBar(context, message);
                               },
                             ));
                       },
-                      text: 'Kirish',
+                      text: LocaleKeys.login,
                       textStyle: theme.headline2!.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,

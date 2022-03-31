@@ -126,9 +126,10 @@ class AuthenticationRepository {
           'phone': register.phone,
         },
       );
-      print(response.data);
       print(response.statusCode);
+      print(response.data);
       print(response.realUri);
+      print(response.requestOptions.data);
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return RegisterResponse.fromJson(response.data);
       } else {
@@ -142,6 +143,35 @@ class AuthenticationRepository {
         message: '$e',
         code: '502',
       );
+    }
+  }
+
+  Future<void> verifyUser({
+    required String code,
+    required String signId,
+  }) async {
+    try {
+      final response = await _dio.post(
+        '/confirm',
+        data: {
+          'code': int.parse(code),
+          'sign_id': signId,
+        },
+      );
+      print(response.statusCode);
+      print(response.data);
+      print(response.realUri);
+      print(response.requestOptions.data);
+      if (!(response.statusCode! >= 200 && response.statusCode! < 300)) {
+        throw CustomException(
+          message: '${response.data}',
+          code: '${response.statusCode}',
+        );
+      }
+    } on CustomException {
+      rethrow;
+    } on Exception catch (e) {
+      throw CustomException(message: '$e', code: '141');
     }
   }
 
@@ -276,6 +306,42 @@ class AuthenticationRepository {
       rethrow;
     } catch (e) {
       throw CustomException(message: '$e', code: '141');
+    }
+  }
+
+  Future<void> changePassword({
+    required String code,
+    required String password,
+    required String phone,
+    required signId,
+  }) async {
+    try {
+      final response = await _dio.post(
+        '/reset-password',
+        data: {
+          'code': int.parse(code),
+          'password': password,
+          'phone': phone,
+          'sign_id': signId,
+        },
+      );
+      print(response.statusCode);
+      print(response.data);
+      print(response.realUri);
+      print(response.requestOptions.data);
+      if (!(response.statusCode! >= 200 && response.statusCode! < 300)) {
+        throw CustomException(
+          message: '${response.data}',
+          code: '${response.statusCode}',
+        );
+      }
+    } on CustomException {
+      rethrow;
+    } on Exception catch (e) {
+      throw CustomException(
+        message: '$e',
+        code: '141',
+      );
     }
   }
 

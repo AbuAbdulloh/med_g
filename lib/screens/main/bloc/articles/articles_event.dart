@@ -20,3 +20,9 @@ class GetArticles extends ArticlesEvent {
   @override
   String toString() => 'GetArticles(onSucces: $onSucces, onError: $onError)';
 }
+
+class SaveUnsaveArticle extends ArticlesEvent {
+  final String id;
+
+  const SaveUnsaveArticle(this.id);
+}

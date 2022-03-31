@@ -5,10 +5,11 @@ import 'package:jiffy/jiffy.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/app_images.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/bloc/bloc/authentication_bloc.dart';
+import 'package:med_g/bloc/auth/authentication_bloc.dart';
 import 'package:med_g/models/article/article.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/screens/article_single/article_single_screen.dart';
+import 'package:med_g/widgets/bookmark.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -140,7 +141,7 @@ class ArticleItem extends StatelessWidget {
                 const Spacer(),
                 if (context.read<AuthenticationBloc>().state.status ==
                     AuthenticationStatus.authenticated)
-                  SvgPicture.asset(AppIcons.bookmarkFilled)
+                  BookMark(article: article),
               ],
             )
           ],

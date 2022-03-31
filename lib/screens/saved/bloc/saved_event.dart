@@ -18,3 +18,8 @@ class GetMoreSavedArticles extends SavedEvent {
 
   const GetMoreSavedArticles(this.onError);
 }
+class SaveUnsaveArticle extends SavedEvent {
+  final String id;
+
+  const SaveUnsaveArticle(this.id);
+}

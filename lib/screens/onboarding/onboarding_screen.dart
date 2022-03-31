@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/data/singletons/storage.dart';
+import 'package:med_g/generated/locale_keys.g.dart';
 import 'package:med_g/screens/home/home.dart';
 import 'package:med_g/screens/onboarding/pages/first_page.dart';
 import 'package:med_g/screens/onboarding/pages/second_page.dart';
 import 'package:med_g/screens/onboarding/pages/third_page.dart';
 import 'package:med_g/widgets/w_button.dart';
-import 'package:med_g/widgets/w_scale_animation.dart';
 
 class OnboardingScreen extends StatefulWidget {
   static Route route() => MaterialPageRoute(
@@ -76,9 +73,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 setState(() {
                   currentIndex = pageController.page!.toInt();
                 });
-                print(currentIndex);
               },
-              text: currentIndex == 1 ? 'Asosiyga o`tish' : 'Davom etish',
+              text: currentIndex == 1 ? LocaleKeys.welcome_main : LocaleKeys.continueing,
             ),
           ),
         ],

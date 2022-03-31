@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/bloc/bloc/authentication_bloc.dart';
+import 'package:med_g/bloc/auth/authentication_bloc.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/repository/authentication.dart';
 import 'package:med_g/screens/about/about_screen.dart';
@@ -12,6 +12,7 @@ import 'package:med_g/screens/account_settings/account_settings_screen.dart';
 import 'package:med_g/screens/login/login_screen.dart';
 import 'package:med_g/screens/profile/widgets/profile_item.dart';
 import 'package:med_g/screens/saved/saved_screen.dart';
+import 'package:med_g/screens/support/support_screen.dart';
 import 'package:med_g/widgets/cached_image.dart';
 import 'package:med_g/widgets/language_bottomsheet.dart';
 import 'package:med_g/widgets/w_app_bar.dart';
@@ -138,7 +139,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(SupportScreen.route());
+                        },
                         height: 56,
                       ),
                     ],
@@ -331,9 +334,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute(
                       builder: (_) => LoginScreen(
-                          authenticationRepository:
-                              RepositoryProvider.of<AuthenticationRepository>(
-                                  context)),
+                        authenticationRepository:
+                            RepositoryProvider.of<AuthenticationRepository>(
+                                context),
+                      ),
                     ));
                   },
                 )

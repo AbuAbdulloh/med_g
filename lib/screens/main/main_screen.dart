@@ -6,6 +6,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/repository/articles_repository.dart';
 import 'package:med_g/repository/category_repository.dart';
+import 'package:med_g/repository/save_unsave_repository.dart';
 import 'package:med_g/screens/category_single/category_single_screen.dart';
 import 'package:med_g/screens/home/home.dart';
 import 'package:med_g/screens/main/bloc/articles/articles_bloc.dart';
@@ -36,6 +37,8 @@ class _MainScreenState extends State<MainScreen> {
     searchController = TextEditingController();
     articlesBloc = ArticlesBloc(
       repository: RepositoryProvider.of<ArticleRepository>(context),
+      saveUnsaveRepository:
+          RepositoryProvider.of<SaveUnsaveRepository>(context),
     );
     categoriesBloc = CategoriesBloc(
       repository: RepositoryProvider.of<CategoryRepository>(context),
