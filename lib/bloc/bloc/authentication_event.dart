@@ -62,6 +62,12 @@ class AuthenticationUserSwitched extends AuthenticationEvent {
   List<Object> get props => [user, onSucces, onError];
 }
 
+class AuthenticationUserUpdated extends AuthenticationEvent {
+  final AuthenticatedUser user;
+  final Function() onSucces;
+  const AuthenticationUserUpdated({required this.user, required this.onSucces});
+}
+
 class AuthenticationUserDeleted extends AuthenticationEvent {
   final int id;
   final Function(String message) onError;

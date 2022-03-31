@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/app/theme/theme.dart';
 
 class WTextArea extends StatefulWidget {
   final String? hintText;
   final TextEditingController? controller;
-  final bool borderGreen;
-  final bool borderGrey;
   final ValueChanged<String>? onChanged;
   final int? maxLength;
   final TextStyle? style;
@@ -14,8 +11,6 @@ class WTextArea extends StatefulWidget {
     Key? key,
     this.hintText,
     this.controller,
-    this.borderGreen = false,
-    this.borderGrey = false,
     this.onChanged,
     this.maxLength,
     this.style,
@@ -42,13 +37,13 @@ class _WTextAreaState extends State<WTextArea> {
           contentPadding: const EdgeInsets.all(12),
           hintStyle: Theme.of(context)
               .textTheme
-              .headline2!
+              .headline3!
               .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-          enabledBorder: border(widget.borderGrey ? grey : dark),
+          enabledBorder: border(stroke),
           fillColor: white,
           filled: true,
-          border: border(grey),
-          disabledBorder: border(grey),
+          border: border(stroke),
+          disabledBorder: border(stroke),
           focusedBorder: border(primary),
         ),
       );

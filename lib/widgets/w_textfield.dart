@@ -204,8 +204,8 @@ class _WTextFieldState extends State<WTextField> {
                         borderSide: BorderSide(
                           width: 1,
                           color: widget.hasBorderColor != null &&
-                                  !widget.hasBorderColor!
-                              ? Colors.transparent
+                                  widget.hasBorderColor!
+                              ? stroke
                               : widget.hasError
                                   ? Theme.of(context).colorScheme.error
                                   : background,
@@ -217,8 +217,8 @@ class _WTextFieldState extends State<WTextField> {
                         borderSide: BorderSide(
                           width: 1,
                           color: widget.hasBorderColor != null &&
-                                  !widget.hasBorderColor!
-                              ? Colors.transparent
+                                  widget.hasBorderColor!
+                              ? stroke
                               : widget.hasError
                                   ? Theme.of(context).colorScheme.error
                                   : background,
@@ -230,8 +230,8 @@ class _WTextFieldState extends State<WTextField> {
                         borderSide: BorderSide(
                           width: 1,
                           color: widget.hasBorderColor != null &&
-                                  !widget.hasBorderColor!
-                              ? Colors.transparent
+                                  widget.hasBorderColor!
+                              ? primary
                               : widget.hasError
                                   ? Theme.of(context).colorScheme.error
                                   : primary,

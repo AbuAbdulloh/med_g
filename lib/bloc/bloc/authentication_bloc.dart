@@ -17,8 +17,13 @@ class AuthenticationBloc
   })  : _authenticationRepository = authenticationRepository,
         super(const AuthenticationState.unknown()) {
     on<AuthenticationLogoutRequested>((event, emit) async {
-      await _authenticationRepository.logOut();
-      emit(const AuthenticationState.unauthenticated());
+      try {
+        await _authenticationRepository.logOut();
+        emit(const AuthenticationState.unauthenticated());
+        event.onSucces();
+      } catch (e) {
+        event.onError('$e');
+      }
     });
 
     on<AuthenticationGetRefreshedUserData>((event, emit) async {
@@ -43,7 +48,12 @@ class AuthenticationBloc
           final user = await _tryGetUser();
 
           if (user != null) {
-            emit(AuthenticationState.authenticated(user));
+            emit(
+              AuthenticationState.authenticated(
+                user,
+                dontRebuild: false,
+              ),
+            );
           } else {
             emit(const AuthenticationState.unauthenticated());
           }
@@ -64,11 +74,21 @@ class AuthenticationBloc
       }
     });
     on<AuthenticationUserDeleted>((event, emit) async {
-      await StorageRepository.putString('token', '');
-      await StorageRepository.putString('refresh', '');
-      emit(const AuthenticationState.unknown());
+      try {
+        await StorageRepository.putString('token', '');
+        await StorageRepository.putString('refresh', '');
+        emit(const AuthenticationState.unknown());
+      } catch (e) {
+        event.onError('$e');
+      }
     });
-
+    on<AuthenticationUserUpdated>((event, emit) {
+      print('This is user in event: ${event.user}');
+      emit(AuthenticationState.authenticated(
+        event.user,
+        dontRebuild: true,
+      ));
+    });
     _authenticationStatusSubscription = _authenticationRepository.status
         .listen((status) => add(AuthenticationStatusChanged(status)));
   }

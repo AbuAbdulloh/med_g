@@ -93,4 +93,43 @@ class ArticleRepository {
       );
     }
   }
+
+  Future<List<Article>> getSavedArticles() async {
+    print('in saved');
+    try {
+      final response = await _dio.get('/user/article/list',
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+            },
+          ));
+      print(response.realUri);
+      print(response.data);
+      print(response.statusCode);
+
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        try {
+          return (response.data['data']['articles'] as List)
+              .map((e) => Article.fromJson(e as Map<String, dynamic>))
+              .toList();
+        } catch (e) {
+          throw const CustomException(
+            message: 'Ma`lumot qabul qilishda xatolik yuz berdi',
+            code: '141',
+          );
+        }
+      } else {
+        throw CustomException(
+          message: '${response.data}',
+          code: '${response.statusCode}',
+        );
+      }
+    } on Exception catch (e) {
+      print(e);
+      throw CustomException(
+        message: '$e',
+        code: '141',
+      );
+    }
+  }
 }

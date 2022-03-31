@@ -12,14 +12,14 @@ AuthenticatedUser _$AuthenticatedUserFromJson(Map<String, dynamic> json) =>
       allergy: json['allergy'] as String? ?? '',
       birthDate: json['birth_date'] as String? ?? '',
       firstName: json['first_name'] as String? ?? '',
-      height: json['height'] as int? ?? 0,
+      height: (json['height'] as num?)?.toDouble() ?? 0,
       hobby: json['hobby'] as String? ?? '',
       id: json['id'] as String? ?? '',
       image: json['image'] as String? ?? '',
       patronymic: json['patronymic'] as String? ?? '',
       phone: json['phone'] as String? ?? '',
       status: json['status'] as int? ?? 0,
-      weight: json['weight'] as int? ?? 0,
+      weight: (json['weight'] as num?)?.toDouble() ?? 0,
     );
 
 Map<String, dynamic> _$AuthenticatedUserToJson(AuthenticatedUser instance) =>

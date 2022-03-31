@@ -11,6 +11,7 @@ class AppIcons {
   static const arrowLeft = 'assets/icons/global/arrow_left.svg';
   static const logout = 'assets/icons/global/logout.svg';
   static const calendar = 'assets/icons/global/calendar.svg';
+  static const editPen = 'assets/icons/global/edit.svg';
   // Deletable
   static const home = 'assets/icons/home.svg';
   static const doctor = 'assets/icons/doctor.svg';

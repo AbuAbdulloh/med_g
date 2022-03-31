@@ -7,12 +7,17 @@ import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/bloc/bloc/authentication_bloc.dart';
 import 'package:med_g/models/authentication_status/authentication_status.dart';
 import 'package:med_g/repository/authentication.dart';
+import 'package:med_g/screens/about/about_screen.dart';
 import 'package:med_g/screens/account_settings/account_settings_screen.dart';
 import 'package:med_g/screens/login/login_screen.dart';
 import 'package:med_g/screens/profile/widgets/profile_item.dart';
+import 'package:med_g/screens/saved/saved_screen.dart';
 import 'package:med_g/widgets/cached_image.dart';
+import 'package:med_g/widgets/language_bottomsheet.dart';
 import 'package:med_g/widgets/w_app_bar.dart';
 import 'package:med_g/widgets/w_button.dart';
+import 'package:med_g/widgets/w_error_snack_bar.dart';
+import 'package:med_g/widgets/w_scale_animation.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -105,7 +110,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(AboutScreen.route());
+                        },
                         height: 56,
                       ),
                       ProfileItem(
@@ -163,7 +170,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          showLanguageBottomSheet(context);
+                        },
                         height: 56,
                       ),
                       ProfileItem(
@@ -186,7 +195,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(SavedScreen.route());
+                        },
                         height: 56,
                       ),
                     ],
@@ -210,7 +221,76 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           fontSize: 18,
                         ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Akkountdan chiqish',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1!
+                                  .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                  ),
+                            ),
+                            WScaleAnimation(
+                              onTap: () {
+                                Navigator.pop(_);
+                              },
+                              child: SvgPicture.asset(AppIcons.closeGreen),
+                            ),
+                          ],
+                        ),
+                        content: Text(
+                          'Haqiqatdan ham ilovadan chiqmoqchimisiz?',
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                  ),
+                        ),
+                        actions: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: WButton(
+                                  onTap: () {
+                                    Navigator.pop(_);
+                                  },
+                                  text: 'Bekor qilish',
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: WButton(
+                                  onTap: () {
+                                    context
+                                        .read<AuthenticationBloc>()
+                                        .add(AuthenticationLogoutRequested(
+                                          onSucces: () {
+                                            Navigator.pop(_);
+                                          },
+                                          onError: (message) {
+                                            Navigator.pop(_);
+                                            showErrorSnackBar(context, message);
+                                          },
+                                        ));
+                                  },
+                                  text: 'Chiqish',
+                                  color: red,
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    );
+                  },
                   height: 42,
                 ),
               ],

@@ -22,9 +22,9 @@ class AuthenticatedUser extends Equatable {
   @JsonKey(name: 'address', defaultValue: '')
   final String address;
   @JsonKey(name: 'height', defaultValue: 0)
-  final int height;
+  final double height;
   @JsonKey(name: 'weight', defaultValue: 0)
-  final int weight;
+  final double weight;
   @JsonKey(name: 'status', defaultValue: 0)
   final int status;
   @JsonKey(name: 'birth_date', defaultValue: '')
@@ -54,7 +54,7 @@ class AuthenticatedUser extends Equatable {
     String? allergy,
     String? birthDate,
     String? firstName,
-    int? height,
+    double? height,
     String? hobby,
     String? id,
     String? image,
@@ -63,7 +63,7 @@ class AuthenticatedUser extends Equatable {
     String? phone,
     int? status,
     String? surname,
-    int? weight,
+    double? weight,
   }) =>
       AuthenticatedUser(
         address: address ?? this.address,

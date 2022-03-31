@@ -135,7 +135,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         bloc.add(UserLoggedIn(
                           phone: phoneController.text.replaceAll(' ', ''),
                           password: passwordController.text.trim(),
-                          onSucces: () {},
+                          onSucces: () {
+                            Navigator.pop(context);
+                          },
                           onError: (message) {
                             showErrorSnackBar(context, message);
                           },
@@ -171,7 +173,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         context.read<LoginBloc>().add(UserLoggedIn(
                               phone: phoneController.text.replaceAll(' ', ''),
                               password: passwordController.text.trim(),
-                              onSucces: () {},
+                              onSucces: () {
+                                Navigator.pop(context);
+                              },
                               onError: (message) {
                                 showErrorSnackBar(context, message);
                               },

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:med_g/data/singletons/dio_settings.dart';
 import 'package:med_g/data/singletons/service_locator.dart';
 import 'package:med_g/data/singletons/storage.dart';
@@ -42,7 +43,9 @@ class AuthenticationRepository {
             'token',
             response.data['data']['token']['access'],
           );
-          _controller.add(AuthenticationStatus.authenticated);
+          _controller.add(
+            AuthenticationStatus.authenticated,
+          );
         } catch (e) {
           throw CustomException(message: '$e', code: '502');
         }
@@ -188,6 +191,91 @@ class AuthenticationRepository {
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<AuthenticatedUser> updateProfile({
+    required AuthenticatedUser user,
+  }) async {
+    print('send data: $user');
+    try {
+      final response = await _dio.put(
+        '/user/update',
+        data: {
+          'address': user.address,
+          'allergy': user.allergy,
+          'birth_date': user.birthDate,
+          'first_name': user.firstName,
+          'height': user.height,
+          'hobby': user.hobby,
+          'patronymic': user.patronymic,
+          'weight': user.weight,
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          },
+        ),
+      );
+      print('Updated profile');
+      print('This is body request: ${response.requestOptions.data}');
+      print('This is response body: ${response.data}');
+      print(response.realUri);
+      print(response.statusCode);
+
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        try {
+          print(AuthenticatedUser.fromJson(response.data['data']));
+          return AuthenticatedUser.fromJson(response.data['data']);
+        } on Exception catch (e) {
+          print('Error occured');
+          print(e);
+          throw CustomException(message: '$e', code: '141');
+        }
+      } else {
+        throw CustomException(
+          message: '${response.data}',
+          code: '${response.statusCode}',
+        );
+      }
+    } on CustomException {
+      rethrow;
+    } on Exception catch (e) {
+      throw CustomException(message: '$e', code: '141');
+    }
+  }
+
+  Future<void> uploadImage({required String imageUrl}) async {
+    try {
+      final form = FormData.fromMap(
+        {
+          'image': await MultipartFile.fromFile(imageUrl),
+        },
+      );
+      final response = await _dio.post(
+        '/user/image',
+        data: form,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${StorageRepository.getString('token')}'
+          },
+        ),
+      );
+      print(response.data);
+      print(response.statusCode);
+      print(response.realUri);
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        print('succes image upload');
+      } else {
+        throw CustomException(
+          message: '${response.data}',
+          code: '${response.statusCode}',
+        );
+      }
+    } on CustomException {
+      rethrow;
+    } catch (e) {
+      throw CustomException(message: '$e', code: '141');
     }
   }
 

@@ -22,7 +22,11 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).padding.top,
+        left: 16,
+        right: 16,
+      ),
       height: MediaQuery.of(context).padding.top + height,
       width: double.maxFinite,
       decoration: const BoxDecoration(
@@ -32,7 +36,11 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: isTitleCentered
+            ? hasBackButton == null
+                ? MainAxisAlignment.center
+                : MainAxisAlignment.spaceBetween
+            : MainAxisAlignment.start,
         children: [
           WScaleAnimation(
             onTap: () {
@@ -59,6 +67,8 @@ class WAppBar extends StatelessWidget implements PreferredSizeWidget {
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
           ),
+          if (isTitleCentered && hasBackButton != null)
+            const SizedBox(width: 24)
         ],
       ),
     );
