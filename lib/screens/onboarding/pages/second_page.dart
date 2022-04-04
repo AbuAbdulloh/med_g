@@ -4,6 +4,7 @@ import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
 import 'package:med_g/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class SecondPage extends StatelessWidget {
   const SecondPage({Key? key}) : super(key: key);
 
@@ -24,36 +25,38 @@ class SecondPage extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(AppIcons.onboard2),
-              const SizedBox(height: 20),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    LocaleKeys.planned_care.tr(),
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
-                          fontSize: 28,
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                  const SizedBox(height: 24),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 36),
-                    child: Text(
-                      LocaleKeys.planned_care_desc.tr(),
+          Align(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(AppIcons.onboard2),
+                const SizedBox(height: 20),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      LocaleKeys.planned_care.tr(),
                       style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 28,
+                            fontWeight: FontWeight.w600,
                           ),
-                      textAlign: TextAlign.center,
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    const SizedBox(height: 24),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 36),
+                      child: Text(
+                        LocaleKeys.planned_care_desc.tr(),
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

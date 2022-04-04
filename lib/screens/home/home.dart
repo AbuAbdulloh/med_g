@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:med_g/app/constants/app_icons.dart';
 import 'package:med_g/app/constants/colors.dart';
-import 'package:med_g/app/theme/theme.dart';
 import 'package:med_g/models/navbar/nav_bar.dart';
 import 'package:med_g/models/navbar/nav_item_enum.dart';
 import 'package:med_g/screens/home/navigator.dart';

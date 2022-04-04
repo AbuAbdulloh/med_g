@@ -24,7 +24,8 @@ class CodegenLoader extends AssetLoader{
   "order_medicine": "Order Medicine Online",
   "order_medicine_desc": "Order your medicine that your doctor provided you",
   "login": "Login",
-  "signup": "Register"
+  "signup": "Register",
+  "categories": "Categories"
 };
 static const Map<String,dynamic> ru = {
   "welcome_main": "Перейти к основному",
@@ -36,7 +37,8 @@ static const Map<String,dynamic> ru = {
   "order_medicine": "Заказать лекарства онлайн",
   "order_medicine_desc": "Закажите лекарство, которое выврач дал вам",
   "login": "Логин",
-  "signup": "Зарегистрироваться"
+  "signup": "Зарегистрироваться",
+  "categories": "Turkumlar"
 };
 static const Map<String,dynamic> uz = {
   "welcome_main": "Asosiyga o’tish",
@@ -48,7 +50,8 @@ static const Map<String,dynamic> uz = {
   "order_medicine": "Dorilarni onlayn buyurtma qiling",
   "order_medicine_desc": "Shifokorlar yozib bergan retsept asosida dorilarni onlayn buyurtma qiling",
   "login": "Kirish",
-  "signup": "Ro’yxatdan o’tish"
+  "signup": "Ro’yxatdan o’tish",
+  "categories": "Turkumlar"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ru": ru, "uz": uz};
 }

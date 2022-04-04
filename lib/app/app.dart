@@ -127,7 +127,10 @@ class _AppState extends State<App> {
                     break;
                 }
               },
-              child: child!,
+              child: MediaQuery(
+                data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+                child: child!,
+              ),
             ),
           ),
         ),

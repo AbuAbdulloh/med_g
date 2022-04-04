@@ -11,5 +11,6 @@ abstract class  LocaleKeys {
   static const order_medicine_desc = 'order_medicine_desc';
   static const login = 'login';
   static const signup = 'signup';
+  static const categories = 'categories';
 
 }

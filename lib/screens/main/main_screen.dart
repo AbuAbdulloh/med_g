@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:med_g/app/constants/colors.dart';
+import 'package:med_g/generated/locale_keys.g.dart';
 import 'package:med_g/repository/articles_repository.dart';
 import 'package:med_g/repository/category_repository.dart';
 import 'package:med_g/repository/save_unsave_repository.dart';
@@ -17,7 +18,7 @@ import 'package:med_g/screens/main/widgets/main_app_bar.dart';
 import 'package:med_g/widgets/w_error_snack_bar.dart';
 import 'package:med_g/widgets/w_scale_animation.dart';
 import 'package:shimmer/shimmer.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -77,7 +78,7 @@ class _MainScreenState extends State<MainScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 16),
                   child: Text(
-                    'Turkumlar',
+                    LocaleKeys.categories.tr(),
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,

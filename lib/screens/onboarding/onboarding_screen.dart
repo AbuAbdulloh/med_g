@@ -27,6 +27,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     pageController = PageController();
     pageView = PageView(
       controller: pageController,
+      physics: const NeverScrollableScrollPhysics(),
       children: const [
         FirstPage(),
         SecondPage(),
@@ -74,7 +75,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   currentIndex = pageController.page!.toInt();
                 });
               },
-              text: currentIndex == 1 ? LocaleKeys.welcome_main : LocaleKeys.continueing,
+              text: currentIndex == 1
+                  ? LocaleKeys.welcome_main
+                  : LocaleKeys.continueing,
             ),
           ),
         ],

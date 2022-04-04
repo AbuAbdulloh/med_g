@@ -31,9 +31,10 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
     return WBottomSheet(
       bottomNavigation: WButton(
         margin: const EdgeInsets.symmetric(horizontal: 16),
-        onTap: () {
-          if (language != null && language!.isNotEmpty) {
-            StorageRepository.putString('language', language!);
+        onTap: () async {
+          if (language != null && language!.isNotEmpty)  {
+            print(language);
+            await StorageRepository.putString('language', language!);
             context.setLocale(Locale(language!));
           }
           Navigator.of(context).pop();
